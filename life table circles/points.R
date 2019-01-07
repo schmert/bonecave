@@ -14,31 +14,24 @@ D = fread('USA SWE male 2016 life tables.txt') %>%
 
 D$age   = 0:110    # make ages numeric
 D$radix = 100000   # add radix column
+D$x = D$y = 0
 
 ## reorganize (wide) 
 D = D %>% 
   spread(key=country, value=lx)
 
-G = ggplot( ) +
-        geom_circle(
-            data=D,lwd=1,lty=1,
-            aes(x0=0, y0=0, r=sqrt(D$radix), fill=NULL),color='black'
-            ) +
-        geom_circle(
-          data=D,
-          aes(x0=0, y0=0, r=sqrt(D$SWE), fill='SWE' ), color='gold', alpha=.30
-        ) +  
-        geom_circle(
-          data=D,
-          aes(x0=0, y0=0, r=sqrt(D$USA), fill='USA'), color='red', alpha=.10
-        ) +  
+G = ggplot(data=D,aes(x=x,y=y)) +
+        lims(x=c(-320,320), y=c(-320,320)) +
+        geom_point(size=sqrt(D$radix)/2, shape=1,color='black') +
+        geom_point(size=sqrt(D$SWE)/2, shape=16,color='gold', alpha=.30) +
+        geom_point(size=sqrt(D$USA)/2, shape=16,color='red',  alpha=.10) +
         coord_fixed() +
         labs(title=paste0('Survivors to age ',D$age,'\n[Outer Circle = 100,000 male births]'),
              caption='Source: Human Mortality Database http://mortality.org\n2016 mortality rates',
              fill = 'Country') +
         theme_no_axes() +
         scale_fill_manual(values=c('gold','red' )) +
-        transition_time(age)
+        transition_states(age)
 
 movie = animate(G, fps=4)
 

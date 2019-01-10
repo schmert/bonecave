@@ -2,22 +2,6 @@
 library(tidyverse)
 library(data.table)
 library(gganimate)
-library(grid)
-
-graphics.off()
-windows(record=TRUE)
-
-# D = fread('USA SWE male 2016 life tables.txt') %>%
-#        as.data.frame() %>%
-#        select(country, age, lx) 
-# 
-# D$age   = 0:110    # make ages numeric
-# D$radix = 100000   # add radix column
-# 
-# ## reorganize (wide) 
-# D = D %>% 
-#   spread(key=country, value=lx)
-# 
 
 D = fread('USA SWE male 2016 life tables.txt') %>%
   as.data.frame() %>%

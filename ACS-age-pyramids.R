@@ -1,4 +1,7 @@
 #########################################################################
+# Carl Schmertmann
+# 13 Jan 2019
+#
 # Age/Sex distribution of all counties in a chosen US state
 # ACS 2012-2016 data
 # using 'acs' and 'ggplot' packages
@@ -10,6 +13,10 @@ library(tidyverse)
 my_state     = 'FL'
 acs_end_year = 2017 
 
+# these colors are supposedly colorblind-friendly and printable
+female_color = '#fc8d59'
+male_color   = '#91bfdb'   
+
 ## You must have your own api: get it from
 ## https://api.census.gov/data/key_signup.html 
 ## 
@@ -19,14 +26,11 @@ acs_end_year = 2017
 
 api.key.install( scan('api_key.txt',what='character') )  
 
-# these colors are supposedly colorblind-friendly 
-# and b&w printable
-female_color = '#fc8d59'
-male_color   = '#91bfdb'   
+
 
 ## set up the 'geo.set' object that the ACS package uses to select  
 ## counties in your state as the geography of interest
-## Note that you could change this to other political geographies
+## Note that you could change county= to other political geographies
 
 G = geo.make(state=my_state, county = '*')
 
@@ -62,7 +66,7 @@ age_group_label = c('0-4','5-9','10-14','15-19','20-24','25-29',
 # aggregate populations into sex x five-year age groups for each row of A           
 pop = t( apply(A, 1, function(x) tapply(x,group,sum)) )
 
-# plot the age pyramids for each district
+# plot the age pyramids
 
 # convert the population data from matrix -> (long) data.frame
 

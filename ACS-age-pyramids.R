@@ -17,7 +17,7 @@ acs_end_year = 2017
 female_color = '#fc8d59'
 male_color   = '#91bfdb'   
 
-## You must have your own api: get it from
+## You must have your own api key: get it from
 ## https://api.census.gov/data/key_signup.html 
 ## 
 ## Once you have a key, just change the command below 
@@ -58,7 +58,6 @@ group = c( rep(NA,2), 'M00','M05','M10',rep('M15',2),rep('M20',3),'M25','M30','M
            NA, 'F00','F05','F10',rep('F15',2),rep('F20',3),'F25','F30','F35','F40','F45',
            'F50','F55', rep('F60',2), rep('F65',2), 'F70','F75','F80','F85')
 
-lowest_age      = seq(from=0, to=85, by=5)  # lowest age in each group
 age_group_label = c('0-4','5-9','10-14','15-19','20-24','25-29',
                     '30-34','35-39','40-44','45-49','50-54','55-59',
                     '60-64','65-69','70-74','75-79','80-84','85+')
@@ -82,7 +81,8 @@ state_data$pop = as.vector(pop)
 state_data = mutate(state_data,  pop = pop * ifelse(sex=='Male', -1, +1))
 
 
-## set appropriate axes limits for each county
+
+
 
 locations = unique(state_data$loc)
 
@@ -91,7 +91,8 @@ graphics.off()
 
 pdf(file=paste0('ACS-age-pyramids-', my_state ,'.pdf'))  # open pdf
 
-  ## draw the age pyramid for each location
+  ## draw the age pyramid for each location:
+  ## this is based on Kyle Walker's code
   
   for (i in locations) {
   

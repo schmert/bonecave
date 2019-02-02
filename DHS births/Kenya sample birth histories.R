@@ -65,9 +65,10 @@ for (this_year in first_year:last_year) {
 
 tmp = Kenya_sample %>%
        mutate(year = this_year, 
-              age  = this_year - mombirth) %>%
+              age  = this_year - mombirth,
+              birth = ifelse( is.na(kidbirth), FALSE, this_year == kidbirth)) %>%
        filter(age >= min_age) %>%
-       group_by(woman, year, age) %>%
+       group_by(woman, year, age,  birth) %>%
        summarize(parity = sum(m <= age, na.rm=TRUE)) %>%
        ungroup() 
 
@@ -75,21 +76,32 @@ tmp = Kenya_sample %>%
                  tmp)
 }
 
+history = arrange(history, woman, year)
+
 graphics.off()
 windows(record=TRUE)
 
 for (this_year in first_year:last_year) {
   
+  x = filter(history, year <= this_year)
   G =
-    ggplot( data=filter(history, year==this_year), 
-          aes(x=parity, y=age, group=woman)) +
-       geom_point(alpha=.40) +
-       ylim(min_age,50) +
-       xlim(c(0, max(history$parity))) +
+    ggplot( data=x, 
+          aes(x=parity, y=age, group=as.factor(woman),
+              color=as.factor(woman),
+              shape=!birth)) +
+       geom_point(shape=16, size=1) +
+       geom_path() + 
        scale_y_reverse() +
        labs(title=this_year) +
+       lims(x= c(0,max(history$parity)),
+            y= c(50,min_age)) +
+       guides(color=FALSE, shape=FALSE) +
        theme_bw()
-    
+  
+  G = G + 
+       geom_point( data=filter(x,birth), 
+                   aes(x=parity, y=age), 
+                   size=3, alpha=.50)
   print(G)  
 }
 

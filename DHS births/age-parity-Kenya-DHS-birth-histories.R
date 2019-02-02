@@ -41,7 +41,7 @@ Kenya = rbind(Moms, Childless) %>%
 
 
 # random sample of women
-n    = 1000
+n    = 2000
 W    = max(Kenya$woman)
 
 selected_women = sample(W, n)
@@ -86,34 +86,23 @@ windows(record=TRUE)
 
 for (this_year in first_year:last_year) {
   
-  x = filter(history, year <= this_year)
+  counts = history %>% 
+    filter(year <= this_year) %>% 
+    group_by(age,parity) %>% 
+    summarize(n=n())
+  
   G =
-    ggplot( data=x, 
-          aes(x=parity, y=age, group=as.factor(woman),
-              color=as.factor(woman))) +
-       geom_point(shape=16, size=1) +
-       geom_line() + 
-       scale_y_reverse() +
+    ggplot( data=counts, 
+          aes(x=parity, y=age, size=n)) +
+       geom_point(shape=16, color='royalblue', alpha=.50) +
+       scale_size_continuous(range=c(0,15)) +
+       scale_y_continuous(breaks=seq(min_age,50,2)) +
+       scale_x_continuous(breaks=0:max(history$parity)) +
        labs(title=this_year) +
-       lims(x= c(0,max(history$parity)),
-            y= c(50,min_age)) +
        guides(color=FALSE, shape=FALSE,size=FALSE) +
        theme_bw()
   
-  birth_counts = history %>% 
-                  filter(year <= this_year) %>% 
-                  group_by(age,parity,birth) %>% 
-                  summarize(n=n()) %>% 
-                  filter(birth)
-  
-  if (nrow(birth_counts)>0) {
-    G = G + 
-         geom_point( data=birth_counts, 
-                     aes(x=parity, y=age, size=n), 
-                     inherit.aes=FALSE,
-                     alpha=.20)
-  }
-  
+
   print(G)  
 }
 

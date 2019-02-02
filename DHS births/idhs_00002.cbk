@@ -1,0 +1,585 @@
+Description: Kenya and Malawi births (for Nathan Yau-style animation)
+Samples selected:
+      Kenya 2014 Births                                 regular
+      Senegal 2017 Births                               regular
+File Type:                    rectangular
+Case Selection:               No
+  Variable               Columns        Len    KE14    SN17   
+  SAMPLE             P   1-5            5      X       X 
+  COUNTRY            P   6-8            3      X       X 
+  YEAR               P   9-12           4      X       X 
+  IDHSPID            P  13-35          23      X       X 
+  IDHSHID            P  36-55          20      X       X 
+  DHSID              P  56-69          14      X       X 
+  IDHSPSU            P  70-80          11      X       X 
+  IDHSSTRATA         P  81-90          10      X       X 
+  CASEID             P  91-108         18      X       X 
+  BIDX               P 109-110          2      X       X 
+  PERWEIGHT          P 111-118          8      X       X 
+  AWFACTT            P 119-123          5      X       X 
+  DVWEIGHT           P 124-131          8      X       X 
+  AGE                P 132-133          2      X       X 
+  BIRTHMO            P 134-135          2      X       X 
+  BIRTHYEAR          P 136-139          4      X       X 
+  RESIDENT           P 140              1      X       X 
+  KIDSEX             P 141              1      X       X 
+  KIDALIVE           P 142              1      X       X 
+  KIDBIRTHDAY        P 143-144          2      .       X 
+  KIDBIRTHMO         P 145-146          2      X       X 
+  KIDBIRTHYR         P 147-150          4      X       X 
+  KIDDOBCMC          P 151-154          4      X       X 
+
+Variable Availability Key:
+All Years X - available in this sample
+All Years . - not available in this sample
+
+
+ SAMPLE		IPUMS-DHS sample identifier
+00101		Model 2015
+00401		Afghanistan 2015
+02401		Angola 2015
+05001		Bangladesh 1994
+05002		Bangladesh 1996-97
+05003		Bangladesh 1999-00
+05004		Bangladesh 2004
+05005		Bangladesh 2007
+05006		Bangladesh 2011
+05007		Bangladesh 2014
+10401		Myanmar 2015
+10801		Burundi 1987
+10802		Burundi 2010
+10803		Burundi 2016
+11601		Cambodia 2000
+11602		Cambodia 2005
+11603		Cambodia 2010
+11604		Cambodia 2014
+12001		Cameroon 1991
+12002		Cameroon 1998
+12003		Cameroon 2004
+12004		Cameroon 2011
+14801		Chad 1996-97
+14802		Chad 2004
+14803		Chad 2014
+18001		Congo Democratic Republic 2007
+18002		Congo Democratic Republic 2013-14
+20401		Benin 1996
+20402		Benin 2001
+20403		Benin 2006
+20404		Benin 2011
+23101		Ethiopia 2000
+23102		Ethiopia 2005
+23103		Ethiopia 2011
+23104		Ethiopia 2016
+28801		Ghana 1988
+28802		Ghana 1993
+28803		Ghana 1998
+28804		Ghana 2003
+28805		Ghana 2008
+28806		Ghana 2014
+32001		Guatemala 1987
+32002		Guatemala 1995
+32003		Guatemala 2015
+32401		Guinea 1999
+32402		Guinea 2005
+32403		Guinea 2012
+35601		India 1992-93
+35602		India 1998-99
+35603		India 2005-06
+35604		India 2015-16
+38401		Cote d'Ivoire 1994
+38402		Cote d'Ivoire 1998
+38403		Cote d'Ivoire 2011
+40001		Jordan 1990
+40002		Jordan 1997
+40003		Jordan 2002
+40004		Jordan 2007
+40005		Jordan 2009
+40006		Jordan 2012
+40401		Kenya 1989
+40402		Kenya 1993
+40403		Kenya 1998
+40404		Kenya 2003
+40405		Kenya 2008-9
+40406		Kenya 2014
+42601		Lesotho 2004
+42602		Lesotho 2009
+42603		Lesotho 2014
+45001		Madagascar 1992
+45002		Madagascar 1997
+45003		Madagascar 2003
+45004		Madagascar 2008
+45401		Malawi 1992
+45402		Malawi 2000
+45403		Malawi 2004
+45404		Malawi 2010
+45405		Malawi 2016
+46601		Mali 1987
+46602		Mali 1995-6
+46603		Mali 2001
+46604		Mali 2006
+46605		Mali 2012
+50401		Morocco 1987
+50402		Morocco 1992
+50403		Morocco 2003
+50801		Mozambique 1997
+50802		Mozambique 2003
+50803		Mozambique 2011
+51601		Namibia 1992
+51602		Namibia 2000
+51603		Namibia 2006
+51604		Namibia 2013
+52401		Nepal 1996
+52402		Nepal 2001
+52403		Nepal 2006
+52404		Nepal 2011
+56201		Niger 1992
+56202		Niger 1998
+56203		Niger 2006
+56204		Niger 2012
+56601		Nigeria 1990
+56602		Nigeria 1999
+56603		Nigeria 2003
+56604		Nigeria 2008
+56605		Nigeria 2013
+58601		Pakistan 1990-91
+58602		Pakistan 2006-07
+58603		Pakistan 2012-13
+60401		Peru 1991-92
+60402		Peru 1996
+60403		Peru 2000
+60404		Peru 2004-08
+60405		Peru 2010
+60406		Peru 2011
+60407		Peru 2012
+64601		Rwanda 1992
+64602		Rwanda 2000
+64603		Rwanda 2005
+64604		Rwanda 2010
+64605		Rwanda 2014
+68601		Senegal 1986
+68602		Senegal 1992-93
+68603		Senegal 1997
+68604		Senegal 2005
+68605		Senegal 2010-11
+68606		Senegal 2012-13
+68607		Senegal 2014
+68608		Senegal 2015
+68609		Senegal 2016
+68610		Senegal 2017
+71001		South Africa 1998
+71601		Zimbabwe 1988
+71602		Zimbabwe 1994
+71603		Zimbabwe 1999
+71604		Zimbabwe 2005-6
+71605		Zimbabwe 2010-11
+71606		Zimbabwe 2015
+72901		Sudan 1989-90
+78801		Tunisia 1988
+79201		Turkey 1993
+79202		Turkey 1998
+79203		Turkey 2003
+80001		Uganda 1988
+80002		Uganda 1995
+80003		Uganda 2001
+80004		Uganda 2006
+80005		Uganda 2011
+80006		Uganda 2016
+81801		Egypt 1988
+81802		Egypt 1992
+81803		Egypt 1995
+81804		Egypt 2000
+81805		Egypt 2005
+81806		Egypt 2008
+81807		Egypt 2014
+83401		Tanzania 1991
+83402		Tanzania 1996
+83403		Tanzania 1999
+83404		Tanzania 2004
+83405		Tanzania 2010
+83406		Tanzania 2015
+85401		Burkina Faso 1993
+85402		Burkina Faso 1998
+85403		Burkina Faso 2003
+85404		Burkina Faso 2010
+88701		Yemen 1991-92
+88702		Yemen 2013
+89401		Zambia 1992
+89402		Zambia 1996
+89403		Zambia 2001
+89404		Zambia 2007
+89405		Zambia 2013
+
+ COUNTRY		Country
+004		Afghanistan
+024		Angola
+050		Bangladesh
+104		Myanmar
+108		Burundi
+116		Cambodia
+120		Cameroon
+148		Chad
+180		Congo Democratic Republic
+204		Benin
+231		Ethiopia
+288		Ghana
+320		Guatemala
+324		Guinea
+356		India
+384		Cote d'Ivoire
+400		Jordan
+404		Kenya
+426		Lesotho
+450		Madagascar
+454		Malawi
+466		Mali
+504		Morocco
+508		Mozambique
+516		Namibia
+524		Nepal
+562		Niger
+586		Pakistan
+566		Nigeria
+604		Peru
+646		Rwanda
+686		Senegal
+710		South Africa
+716		Zimbabwe
+729		Sudan
+788		Tunisia
+792		Turkey
+800		Uganda
+818		Egypt
+834		Tanzania
+854		Burkina Faso
+887		Yemen
+894		Zambia
+001		Model
+
+ YEAR		Year of sample
+1986		1986
+1987		1987
+1988		1988
+1989		1989
+1990		1990
+1991		1991
+1992		1992
+1993		1993
+1994		1994
+1995		1995
+1996		1996
+1997		1997
+1998		1998
+1999		1999
+2000		2000
+2001		2001
+2002		2002
+2003		2003
+2004		2004
+2005		2005
+2006		2006
+2007		2007
+2008		2008
+2009		2009
+2010		2010
+2011		2011
+2012		2012
+2013		2013
+2014		2014
+2015		2015
+2016		2016
+2017		2017
+
+ BIDX		Birth history index number
+01		1
+02		2
+03		3
+04		4
+05		5
+06		6
+07		7
+08		8
+09		9
+10		10
+11		11
+12		12
+13		13
+14		14
+15		15
+16		16
+17		17
+18		18
+19		19
+20		20
+
+ AGE		Age
+10		10
+11		11
+12		12
+13		13
+14		14
+15		15
+16		16
+17		17
+18		18
+19		19
+20		20
+21		21
+22		22
+23		23
+24		24
+25		25
+26		26
+27		27
+28		28
+29		29
+30		30
+31		31
+32		32
+33		33
+34		34
+35		35
+36		36
+37		37
+38		38
+39		39
+40		40
+41		41
+42		42
+43		43
+44		44
+45		45
+46		46
+47		47
+48		48
+49		49
+50		50
+51		51
+52		52
+53		53
+54		54
+55		55
+56		56
+57		57
+58		58
+59		59
+60		60
+61		61
+62		62
+63		63
+64		64
+
+ BIRTHMO		Woman's month of birth
+01		January
+02		February
+03		March
+04		April
+05		May
+06		June
+07		July
+08		August
+09		September
+10		October
+11		November
+12		December
+
+ BIRTHYEAR		Woman's year of birth
+1936		1936
+1937		1937
+1938		1938
+1939		1939
+1940		1940
+1941		1941
+1942		1942
+1943		1943
+1944		1944
+1945		1945
+1946		1946
+1947		1947
+1948		1948
+1949		1949
+1950		1950
+1951		1951
+1952		1952
+1953		1953
+1954		1954
+1955		1955
+1956		1956
+1957		1957
+1958		1958
+1959		1959
+1960		1960
+1961		1961
+1962		1962
+1963		1963
+1964		1964
+1965		1965
+1966		1966
+1967		1967
+1968		1968
+1969		1969
+1970		1970
+1971		1971
+1972		1972
+1973		1973
+1974		1974
+1975		1975
+1976		1976
+1977		1977
+1978		1978
+1979		1979
+1980		1980
+1981		1981
+1982		1982
+1983		1983
+1984		1984
+1985		1985
+1986		1986
+1987		1987
+1988		1988
+1989		1989
+1990		1990
+1991		1991
+1992		1992
+1993		1993
+1994		1994
+1995		1995
+1996		1996
+1997		1997
+1998		1998
+1999		1999
+2000		2000
+2001		2001
+2002		2002
+
+ RESIDENT		Usual resident or visitor
+1		Usual resident
+2		Visitor
+8		Missing
+
+ KIDSEX		Sex of child
+1		Male
+2		Female
+
+ KIDALIVE		Child is alive
+0		No
+1		Yes
+
+ KIDBIRTHDAY		Child's day of birth
+01		1
+02		2
+03		3
+04		4
+05		5
+06		6
+07		7
+08		8
+09		9
+10		10
+11		11
+12		12
+13		13
+14		14
+15		15
+16		16
+17		17
+18		18
+19		19
+20		20
+21		21
+22		22
+23		23
+24		24
+25		25
+26		26
+27		27
+28		28
+29		29
+30		30
+31		31
+
+ KIDBIRTHMO		Child's month of birth
+01		January
+02		February
+03		March
+04		April
+05		May
+06		June
+07		July
+08		August
+09		September
+10		October
+11		November
+12		December
+
+ KIDBIRTHYR		Child's year of birth
+1948		1948
+1949		1949
+1950		1950
+1951		1951
+1952		1952
+1953		1953
+1954		1954
+1955		1955
+1956		1956
+1957		1957
+1958		1958
+1959		1959
+1960		1960
+1961		1961
+1962		1962
+1963		1963
+1964		1964
+1965		1965
+1966		1966
+1967		1967
+1968		1968
+1969		1969
+1970		1970
+1971		1971
+1972		1972
+1973		1973
+1974		1974
+1975		1975
+1976		1976
+1977		1977
+1978		1978
+1979		1979
+1980		1980
+1981		1981
+1982		1982
+1983		1983
+1984		1984
+1985		1985
+1986		1986
+1987		1987
+1988		1988
+1989		1989
+1990		1990
+1991		1991
+1992		1992
+1993		1993
+1994		1994
+1995		1995
+1996		1996
+1997		1997
+1998		1998
+1999		1999
+2000		2000
+2001		2001
+2002		2002
+2003		2003
+2004		2004
+2005		2005
+2006		2006
+2007		2007
+2008		2008
+2009		2009
+2010		2010
+2011		2011
+2012		2012
+2013		2013
+2014		2014
+2015		2015
+2016		2016
+2017		2017
+2018		2018

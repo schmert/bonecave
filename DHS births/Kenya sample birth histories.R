@@ -76,7 +76,7 @@ tmp = Kenya_sample %>%
                  tmp)
 }
 
-history = arrange(history, woman, year)
+history = arrange(history, year, woman)
 
 graphics.off()
 windows(record=TRUE)
@@ -91,7 +91,7 @@ for (this_year in first_year:last_year) {
               shape=!birth)) +
        geom_point(shape=16, size=1) +
        geom_path() + 
-       scale_y_reverse() +
+       scale_y_reverse(breaks=12:50) +
        labs(title=this_year) +
        lims(x= c(0,max(history$parity)),
             y= c(50,min_age)) +

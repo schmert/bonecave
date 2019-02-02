@@ -41,7 +41,7 @@ Kenya = rbind(Moms, Childless) %>%
 
 
 # random sample of women
-n    = 250
+n    = 100
 W    = max(Kenya$woman)
 
 selected_women = sample(W, n)
@@ -64,13 +64,16 @@ for (this_year in first_year:last_year) {
 # figure out eacn mom's status in this year
 
 tmp = Kenya_sample %>%
-       mutate(year = this_year, 
-              age  = this_year - mombirth,
-              birth = ifelse( is.na(kidbirth), FALSE, this_year == kidbirth)) %>%
-       filter(age >= min_age) %>%
-       group_by(woman, year, age,  birth) %>%
-       summarize(parity = sum(m <= age, na.rm=TRUE)) %>%
+       mutate(year = this_year,
+              age  = (this_year-mombirth),
+              birth = (age==m)) %>%
+       filter( age >= min_age) %>%
+       group_by(woman, year) %>%
+       summarize(age    = age[1],
+                 birth  = (sum(birth)>0),
+                 parity = sum(m <= age, na.rm=TRUE)) %>%
        ungroup() 
+
 
  history = rbind(history, 
                  tmp)
@@ -87,11 +90,10 @@ for (this_year in first_year:last_year) {
   G =
     ggplot( data=x, 
           aes(x=parity, y=age, group=as.factor(woman),
-              color=as.factor(woman),
-              shape=!birth)) +
+              color=as.factor(woman))) +
        geom_point(shape=16, size=1) +
-       geom_path() + 
-       scale_y_reverse(breaks=12:50) +
+       geom_line() + 
+       scale_y_reverse() +
        labs(title=this_year) +
        lims(x= c(0,max(history$parity)),
             y= c(50,min_age)) +

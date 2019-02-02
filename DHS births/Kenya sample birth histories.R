@@ -12,28 +12,48 @@ set.seed(6447100)
 if (!require("ipumsr")) stop("Reading IPUMS data into R requires the ipumsr package. It can be installed using the following command: install.packages('ipumsr')")
 library(tidyverse)
 
-ddi   = read_ipums_ddi("idhs_00002.xml")
-D     = read_ipums_micro(ddi)
-  
-Kenya <- D %>%
+# read basic files
+ddi    = read_ipums_ddi("idhs_00002.xml")
+Births = read_ipums_micro(ddi)
+
+ddi    = read_ipums_ddi("idhs_00003.xml")
+Women  = read_ipums_micro(ddi)
+
+# Keep only Kenya 2014
+Moms <- Births %>%
           filter(COUNTRY==404, YEAR==2014) %>%
-          mutate(mom = as.numeric(as.factor(CASEID))) %>%
-          select(CASEID, mom, mombirth=BIRTHYEAR, kid=BIDX,kidbirth=KIDBIRTHYR)
+          select(CASEID, 
+                 mombirth = BIRTHYEAR,
+                 kid      = BIDX,
+                 kidbirth = KIDBIRTHYR)
 
-# random sample of moms
-n    = 100
-nmom = max(Kenya$mom)
+# identify parity-zero women who are not represented
+# in the births file
 
-selected_moms = sample(nmom, n)
+Childless = Women %>% 
+             filter(CHEB==0) %>%
+             select(CASEID, mombirth = BIRTHYEAR) %>%
+             mutate(kid      = NA,
+                    kidbirth = NA)
+
+Kenya = rbind(Moms, Childless) %>%
+         mutate(woman = as.numeric( as.factor( CASEID)))
+
+
+# random sample of women
+n    = 250
+W    = max(Kenya$woman)
+
+selected_women = sample(W, n)
 
 Kenya_sample = Kenya %>%
-                 filter(mom %in% selected_moms) %>%
+                 filter(woman %in% selected_women) %>%
                  mutate(m=kidbirth - mombirth)
 
 # lowest year at which any selected mom turned 12
 min_age    = 12
 first_year = min_age + min(Kenya_sample$mombirth)   # something like 1978
-last_year  = max(Kenya_sample$kidbirth)        # almost surely 2014
+last_year  = max(Kenya_sample$kidbirth, na.rm=TRUE) # almost surely 2014
 
 first_year:last_year
 
@@ -47,8 +67,8 @@ tmp = Kenya_sample %>%
        mutate(year = this_year, 
               age  = this_year - mombirth) %>%
        filter(age >= min_age) %>%
-       group_by(mom, year, age) %>%
-       summarize(parity = sum(m <= age)) %>%
+       group_by(woman, year, age) %>%
+       summarize(parity = sum(m <= age, na.rm=TRUE)) %>%
        ungroup() 
 
  history = rbind(history, 
@@ -62,7 +82,7 @@ for (this_year in first_year:last_year) {
   
   G =
     ggplot( data=filter(history, year==this_year), 
-          aes(x=parity, y=age, group=mom)) +
+          aes(x=parity, y=age, group=woman)) +
        geom_point(alpha=.40) +
        ylim(min_age,50) +
        xlim(c(0, max(history$parity))) +

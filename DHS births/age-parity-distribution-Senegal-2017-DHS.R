@@ -6,6 +6,8 @@
 
 rm(list=ls())
 set.seed(6447100)
+graphics.off()
+windows(record=TRUE)
 
 if (!require("ipumsr")) stop("Reading IPUMS data into R requires the ipumsr package. It can be installed using the following command: install.packages('ipumsr')")
 library(tidyverse)
@@ -52,7 +54,7 @@ counts = Women %>%
 
 # identify CASEIDs for some women at specific ages and parities
   sel = data.frame(
-    age   = c( 40, 40, 35, 46),
+    age   = c( 43, 40, 35, 46),
     parity= c(  1,  6,  3, 14 )
   )
   selected_women = NULL
@@ -74,15 +76,17 @@ counts = Women %>%
             left_join(Women, by='CASEID') %>%
             mutate( m = KIDBIRTHYR - BIRTHYEAR,
                     woman_id = as.numeric(as.factor(CASEID))) %>%
-            select(woman_id, agenow=AGE, m, cheb=CHEB, kidbirth=KIDBIRTHYR)
+            select(CASEID,woman_id, agenow=AGE, m, cheb=CHEB, kidbirth=KIDBIRTHYR)
   
 # figure out age, parity for each selected woman, from age=15 to current age  
   
   history = data.frame()
   
   for (this_id in unique(Small$woman_id)) {
-    for (this_age in 15:Small$agenow[this_id]) {
-      mvec = Small$m[Small$woman_id == this_id]
+    ix = which(Small$woman_id == this_id)   # obs for this id
+    agenow = Small$agenow[ix[1]]
+    for (this_age in 15:agenow) {
+      mvec = Small$m[ix]
       tmp = data.frame( woman_id = this_id,
                         age      = this_age,
                         parity   = sum( mvec <= this_age))
@@ -95,17 +99,27 @@ counts = Women %>%
       
 # add the paths to the diagram
   
-  G + geom_point(data=history,
-                 aes(x=parity, y=age, group=woman_id), size=2,
+ G =  G + geom_point(data=history,
+                 aes(x=parity, y=age, group=woman_id,
+                     color=as.factor(woman_id)), size=3,
                  inherit.aes = FALSE) +
       geom_line(data=history,aes(x=parity, y=age, group=woman_id,
-                color=woman_id),
-                inherit.aes = FALSE)
+                 color=as.factor(woman_id)),
+                lwd=2, alpha=.50,
+                inherit.aes = FALSE) +
+      geom_text(x=7, y=16, label='+4 example fertility histories',
+                size=5) +
+      geom_text(data=history,x=12, y=31, aes(color=woman_id),
+                label='Woman born in Dec 1970\nTwins at age 28 & 35\n1st twins did not survive\n14 births\n11 living children',
+                color='black',size=3, alpha=.80) +
+      geom_segment(x=11.6, y=35, xend=11.6, yend=37.2,
+                   color='black', lwd=0.5)
     
 
 ## save the plot    
-# png(file='age-parity-distribution-Senegal-2017-DHS.png')
-#   
-# dev.off()
+png(file='age-parity-distribution-Senegal-2017-DHS.png',
+      width=480, height=480)
+   print(G)   
+dev.off()
 
 

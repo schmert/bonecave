@@ -12,10 +12,13 @@ windows(record=TRUE)
 if (!require("ipumsr")) stop("Reading IPUMS data into R requires the ipumsr package. It can be installed using the following command: install.packages('ipumsr')")
 library(tidyverse)
 
+max_parity = 12
+
 ddi    = read_ipums_ddi("idhs_00003.xml")
 Women  = read_ipums_micro(ddi) %>%
            filter(COUNTRY==686,
                   YEAR==2017) %>%
+           mutate( CHEB = pmin(CHEB, max_parity)) %>%
            select(CASEID, BIRTHYEAR, AGE, CHEB, PERWEIGHT)
 
 counts = Women %>% 
@@ -35,7 +38,8 @@ counts = Women %>%
        geom_point(shape=16, color='orangered', alpha=.50) +
        scale_size_continuous(range=c(0,15)) +
        scale_y_continuous(breaks=seq(15,49,2)) +
-       scale_x_continuous(breaks=0:max(counts$parity)) +
+       scale_x_continuous(breaks=0:max(counts$parity),
+                          labels=c(0:11,'12+')) +
        labs(title='Distribution of Women by Age and Parity',
             subtitle='Senegal 2017 DHS',
             x='# children ever born',
@@ -54,8 +58,8 @@ counts = Women %>%
 
 # identify CASEIDs for some women at specific ages and parities
   sel = data.frame(
-    age   = c( 43, 40, 35, 46),
-    parity= c(  1,  6,  3, 14 )
+    age   = c( 43, 40, 35, 46, 37),
+    parity= c(  1,  6,  3, 12,  7 )
   )
   selected_women = NULL
   
@@ -89,7 +93,7 @@ counts = Women %>%
       mvec = Small$m[ix]
       tmp = data.frame( woman_id = this_id,
                         age      = this_age,
-                        parity   = sum( mvec <= this_age))
+                        parity   = min( sum( mvec <= this_age), max_parity))
       
       history = rbind(history,
                       tmp)
@@ -107,15 +111,18 @@ counts = Women %>%
                  color=as.factor(woman_id)),
                 lwd=2, alpha=.50,
                 inherit.aes = FALSE) +
-      geom_text(x=7, y=16, label='+4 example fertility histories',
+      geom_text(x=7, y=16, label='+5 example fertility histories',
                 size=5) +
-      geom_text(data=history,x=12, y=31, aes(color=woman_id),
-                label='Woman born in Dec 1970\nTwins at age 28 & 35\n1st twins did not survive\n14 births\n11 living children',
+      geom_text(data=history,x=9, y=27, aes(color=woman_id),
+                label='Woman born in 1970\n2 pairs of twins',
                 color='black',size=3, alpha=.80) +
-      geom_segment(x=11.6, y=35, xend=11.6, yend=37.2,
-                   color='black', lwd=0.5)
+      geom_segment(x=9, y=29, xend=8.5, yend=31.5,
+                   color='black', lwd=0.5) +
+      geom_point(data=Small, aes(x=cheb, y=agenow, color=as.factor(woman_id)),
+                   size=5)
     
-
+print(G)
+ 
 ## save the plot    
 png(file='age-parity-distribution-Senegal-2017-DHS.png',
       width=480, height=480)

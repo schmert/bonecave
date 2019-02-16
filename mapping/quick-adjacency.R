@@ -1,6 +1,7 @@
-library(rgdal)
-library(spdep)
-library(tidyverse)
+library(rgdal, quietly=TRUE)
+library(spdep, quietly=TRUE)
+library(tidyverse, quietly=TRUE)
+library(mapproj, quietly=TRUE)
 
 #---------------------------------------------
 # download and process shapefile data
@@ -68,8 +69,10 @@ ggplot( data=map_df, aes(x=long,y=lat, group=group)) +
                    color='red', inherit.aes = FALSE) +
       labs(title=paste(country_code,'Admin Level',admin_level,
                        '-', nrow(adjacency),'Units')) +
-      theme_minimal()
+      theme_minimal() +
+      coord_map()
 
 
-ggsave(file='quick-adjacency.png')
+ggsave(file='quick-adjacency.png',
+       width=8, height=8, units='in', dpi=300)
 

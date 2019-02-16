@@ -1,0 +1,254 @@
+"Notes"	"Month"	"Month Code"	Deaths	Population	Crude Rate	% of Total Deaths
+	"Jan., 1999"	"1999/01"	227604	Not Applicable	Not Applicable	0.5%
+	"Feb., 1999"	"1999/02"	208174	Not Applicable	Not Applicable	0.4%
+	"Mar., 1999"	"1999/03"	226765	Not Applicable	Not Applicable	0.5%
+	"Apr., 1999"	"1999/04"	196544	Not Applicable	Not Applicable	0.4%
+	"May, 1999"	"1999/05"	191982	Not Applicable	Not Applicable	0.4%
+	"Jun., 1999"	"1999/06"	180153	Not Applicable	Not Applicable	0.4%
+	"Jul., 1999"	"1999/07"	186866	Not Applicable	Not Applicable	0.4%
+	"Aug., 1999"	"1999/08"	182496	Not Applicable	Not Applicable	0.4%
+	"Sep., 1999"	"1999/09"	180310	Not Applicable	Not Applicable	0.4%
+	"Oct., 1999"	"1999/10"	195639	Not Applicable	Not Applicable	0.4%
+	"Nov., 1999"	"1999/11"	192085	Not Applicable	Not Applicable	0.4%
+	"Dec., 1999"	"1999/12"	222781	Not Applicable	Not Applicable	0.5%
+	"Jan., 2000"	"2000/01"	247828	Not Applicable	Not Applicable	0.5%
+	"Feb., 2000"	"2000/02"	203318	Not Applicable	Not Applicable	0.4%
+	"Mar., 2000"	"2000/03"	201836	Not Applicable	Not Applicable	0.4%
+	"Apr., 2000"	"2000/04"	190426	Not Applicable	Not Applicable	0.4%
+	"May, 2000"	"2000/05"	193111	Not Applicable	Not Applicable	0.4%
+	"Jun., 2000"	"2000/06"	183122	Not Applicable	Not Applicable	0.4%
+	"Jul., 2000"	"2000/07"	188570	Not Applicable	Not Applicable	0.4%
+	"Aug., 2000"	"2000/08"	188688	Not Applicable	Not Applicable	0.4%
+	"Sep., 2000"	"2000/09"	186962	Not Applicable	Not Applicable	0.4%
+	"Oct., 2000"	"2000/10"	199825	Not Applicable	Not Applicable	0.4%
+	"Nov., 2000"	"2000/11"	199294	Not Applicable	Not Applicable	0.4%
+	"Dec., 2000"	"2000/12"	220371	Not Applicable	Not Applicable	0.5%
+	"Jan., 2001"	"2001/01"	226637	Not Applicable	Not Applicable	0.5%
+	"Feb., 2001"	"2001/02"	198684	Not Applicable	Not Applicable	0.4%
+	"Mar., 2001"	"2001/03"	215524	Not Applicable	Not Applicable	0.5%
+	"Apr., 2001"	"2001/04"	202723	Not Applicable	Not Applicable	0.4%
+	"May, 2001"	"2001/05"	200634	Not Applicable	Not Applicable	0.4%
+	"Jun., 2001"	"2001/06"	191219	Not Applicable	Not Applicable	0.4%
+	"Jul., 2001"	"2001/07"	191263	Not Applicable	Not Applicable	0.4%
+	"Aug., 2001"	"2001/08"	190960	Not Applicable	Not Applicable	0.4%
+	"Sep., 2001"	"2001/09"	188834	Not Applicable	Not Applicable	0.4%
+	"Oct., 2001"	"2001/10"	202447	Not Applicable	Not Applicable	0.4%
+	"Nov., 2001"	"2001/11"	197164	Not Applicable	Not Applicable	0.4%
+	"Dec., 2001"	"2001/12"	210336	Not Applicable	Not Applicable	0.4%
+	"Jan., 2002"	"2002/01"	225981	Not Applicable	Not Applicable	0.5%
+	"Feb., 2002"	"2002/02"	209433	Not Applicable	Not Applicable	0.4%
+	"Mar., 2002"	"2002/03"	226471	Not Applicable	Not Applicable	0.5%
+	"Apr., 2002"	"2002/04"	199782	Not Applicable	Not Applicable	0.4%
+	"May, 2002"	"2002/05"	199866	Not Applicable	Not Applicable	0.4%
+	"Jun., 2002"	"2002/06"	187688	Not Applicable	Not Applicable	0.4%
+	"Jul., 2002"	"2002/07"	193274	Not Applicable	Not Applicable	0.4%
+	"Aug., 2002"	"2002/08"	191023	Not Applicable	Not Applicable	0.4%
+	"Sep., 2002"	"2002/09"	187561	Not Applicable	Not Applicable	0.4%
+	"Oct., 2002"	"2002/10"	199975	Not Applicable	Not Applicable	0.4%
+	"Nov., 2002"	"2002/11"	202310	Not Applicable	Not Applicable	0.4%
+	"Dec., 2002"	"2002/12"	220023	Not Applicable	Not Applicable	0.5%
+	"Jan., 2003"	"2003/01"	224122	Not Applicable	Not Applicable	0.5%
+	"Feb., 2003"	"2003/02"	200529	Not Applicable	Not Applicable	0.4%
+	"Mar., 2003"	"2003/03"	213548	Not Applicable	Not Applicable	0.4%
+	"Apr., 2003"	"2003/04"	199379	Not Applicable	Not Applicable	0.4%
+	"May, 2003"	"2003/05"	199161	Not Applicable	Not Applicable	0.4%
+	"Jun., 2003"	"2003/06"	191526	Not Applicable	Not Applicable	0.4%
+	"Jul., 2003"	"2003/07"	193630	Not Applicable	Not Applicable	0.4%
+	"Aug., 2003"	"2003/08"	192520	Not Applicable	Not Applicable	0.4%
+	"Sep., 2003"	"2003/09"	188503	Not Applicable	Not Applicable	0.4%
+	"Oct., 2003"	"2003/10"	202794	Not Applicable	Not Applicable	0.4%
+	"Nov., 2003"	"2003/11"	201078	Not Applicable	Not Applicable	0.4%
+	"Dec., 2003"	"2003/12"	241498	Not Applicable	Not Applicable	0.5%
+	"Jan., 2004"	"2004/01"	237760	Not Applicable	Not Applicable	0.5%
+	"Feb., 2004"	"2004/02"	204182	Not Applicable	Not Applicable	0.4%
+	"Mar., 2004"	"2004/03"	209995	Not Applicable	Not Applicable	0.4%
+	"Apr., 2004"	"2004/04"	196362	Not Applicable	Not Applicable	0.4%
+	"May, 2004"	"2004/05"	194476	Not Applicable	Not Applicable	0.4%
+	"Jun., 2004"	"2004/06"	186273	Not Applicable	Not Applicable	0.4%
+	"Jul., 2004"	"2004/07"	190732	Not Applicable	Not Applicable	0.4%
+	"Aug., 2004"	"2004/08"	189386	Not Applicable	Not Applicable	0.4%
+	"Sep., 2004"	"2004/09"	184417	Not Applicable	Not Applicable	0.4%
+	"Oct., 2004"	"2004/10"	198213	Not Applicable	Not Applicable	0.4%
+	"Nov., 2004"	"2004/11"	193805	Not Applicable	Not Applicable	0.4%
+	"Dec., 2004"	"2004/12"	212014	Not Applicable	Not Applicable	0.4%
+	"Jan., 2005"	"2005/01"	226433	Not Applicable	Not Applicable	0.5%
+	"Feb., 2005"	"2005/02"	213336	Not Applicable	Not Applicable	0.4%
+	"Mar., 2005"	"2005/03"	231095	Not Applicable	Not Applicable	0.5%
+	"Apr., 2005"	"2005/04"	204835	Not Applicable	Not Applicable	0.4%
+	"May, 2005"	"2005/05"	200826	Not Applicable	Not Applicable	0.4%
+	"Jun., 2005"	"2005/06"	187375	Not Applicable	Not Applicable	0.4%
+	"Jul., 2005"	"2005/07"	191366	Not Applicable	Not Applicable	0.4%
+	"Aug., 2005"	"2005/08"	190791	Not Applicable	Not Applicable	0.4%
+	"Sep., 2005"	"2005/09"	185480	Not Applicable	Not Applicable	0.4%
+	"Oct., 2005"	"2005/10"	198014	Not Applicable	Not Applicable	0.4%
+	"Nov., 2005"	"2005/11"	198613	Not Applicable	Not Applicable	0.4%
+	"Dec., 2005"	"2005/12"	219853	Not Applicable	Not Applicable	0.5%
+	"Jan., 2006"	"2006/01"	220085	Not Applicable	Not Applicable	0.5%
+	"Feb., 2006"	"2006/02"	201034	Not Applicable	Not Applicable	0.4%
+	"Mar., 2006"	"2006/03"	222198	Not Applicable	Not Applicable	0.5%
+	"Apr., 2006"	"2006/04"	202085	Not Applicable	Not Applicable	0.4%
+	"May, 2006"	"2006/05"	200628	Not Applicable	Not Applicable	0.4%
+	"Jun., 2006"	"2006/06"	188402	Not Applicable	Not Applicable	0.4%
+	"Jul., 2006"	"2006/07"	194576	Not Applicable	Not Applicable	0.4%
+	"Aug., 2006"	"2006/08"	190968	Not Applicable	Not Applicable	0.4%
+	"Sep., 2006"	"2006/09"	188178	Not Applicable	Not Applicable	0.4%
+	"Oct., 2006"	"2006/10"	202201	Not Applicable	Not Applicable	0.4%
+	"Nov., 2006"	"2006/11"	200453	Not Applicable	Not Applicable	0.4%
+	"Dec., 2006"	"2006/12"	215456	Not Applicable	Not Applicable	0.5%
+	"Jan., 2007"	"2007/01"	222105	Not Applicable	Not Applicable	0.5%
+	"Feb., 2007"	"2007/02"	204717	Not Applicable	Not Applicable	0.4%
+	"Mar., 2007"	"2007/03"	218120	Not Applicable	Not Applicable	0.5%
+	"Apr., 2007"	"2007/04"	202921	Not Applicable	Not Applicable	0.4%
+	"May, 2007"	"2007/05"	199703	Not Applicable	Not Applicable	0.4%
+	"Jun., 2007"	"2007/06"	188207	Not Applicable	Not Applicable	0.4%
+	"Jul., 2007"	"2007/07"	192327	Not Applicable	Not Applicable	0.4%
+	"Aug., 2007"	"2007/08"	191759	Not Applicable	Not Applicable	0.4%
+	"Sep., 2007"	"2007/09"	188466	Not Applicable	Not Applicable	0.4%
+	"Oct., 2007"	"2007/10"	198633	Not Applicable	Not Applicable	0.4%
+	"Nov., 2007"	"2007/11"	200136	Not Applicable	Not Applicable	0.4%
+	"Dec., 2007"	"2007/12"	216618	Not Applicable	Not Applicable	0.5%
+	"Jan., 2008"	"2008/01"	223909	Not Applicable	Not Applicable	0.5%
+	"Feb., 2008"	"2008/02"	223441	Not Applicable	Not Applicable	0.5%
+	"Mar., 2008"	"2008/03"	232715	Not Applicable	Not Applicable	0.5%
+	"Apr., 2008"	"2008/04"	206801	Not Applicable	Not Applicable	0.4%
+	"May, 2008"	"2008/05"	202428	Not Applicable	Not Applicable	0.4%
+	"Jun., 2008"	"2008/06"	190594	Not Applicable	Not Applicable	0.4%
+	"Jul., 2008"	"2008/07"	191990	Not Applicable	Not Applicable	0.4%
+	"Aug., 2008"	"2008/08"	191929	Not Applicable	Not Applicable	0.4%
+	"Sep., 2008"	"2008/09"	187781	Not Applicable	Not Applicable	0.4%
+	"Oct., 2008"	"2008/10"	200535	Not Applicable	Not Applicable	0.4%
+	"Nov., 2008"	"2008/11"	201557	Not Applicable	Not Applicable	0.4%
+	"Dec., 2008"	"2008/12"	218304	Not Applicable	Not Applicable	0.5%
+	"Jan., 2009"	"2009/01"	222962	Not Applicable	Not Applicable	0.5%
+	"Feb., 2009"	"2009/02"	200429	Not Applicable	Not Applicable	0.4%
+	"Mar., 2009"	"2009/03"	216167	Not Applicable	Not Applicable	0.5%
+	"Apr., 2009"	"2009/04"	202955	Not Applicable	Not Applicable	0.4%
+	"May, 2009"	"2009/05"	200461	Not Applicable	Not Applicable	0.4%
+	"Jun., 2009"	"2009/06"	190946	Not Applicable	Not Applicable	0.4%
+	"Jul., 2009"	"2009/07"	194584	Not Applicable	Not Applicable	0.4%
+	"Aug., 2009"	"2009/08"	192483	Not Applicable	Not Applicable	0.4%
+	"Sep., 2009"	"2009/09"	189714	Not Applicable	Not Applicable	0.4%
+	"Oct., 2009"	"2009/10"	207291	Not Applicable	Not Applicable	0.4%
+	"Nov., 2009"	"2009/11"	201347	Not Applicable	Not Applicable	0.4%
+	"Dec., 2009"	"2009/12"	217824	Not Applicable	Not Applicable	0.5%
+	"Jan., 2010"	"2010/01"	222783	Not Applicable	Not Applicable	0.5%
+	"Feb., 2010"	"2010/02"	200226	Not Applicable	Not Applicable	0.4%
+	"Mar., 2010"	"2010/03"	218934	Not Applicable	Not Applicable	0.5%
+	"Apr., 2010"	"2010/04"	202287	Not Applicable	Not Applicable	0.4%
+	"May, 2010"	"2010/05"	203927	Not Applicable	Not Applicable	0.4%
+	"Jun., 2010"	"2010/06"	192477	Not Applicable	Not Applicable	0.4%
+	"Jul., 2010"	"2010/07"	198971	Not Applicable	Not Applicable	0.4%
+	"Aug., 2010"	"2010/08"	196906	Not Applicable	Not Applicable	0.4%
+	"Sep., 2010"	"2010/09"	193129	Not Applicable	Not Applicable	0.4%
+	"Oct., 2010"	"2010/10"	206851	Not Applicable	Not Applicable	0.4%
+	"Nov., 2010"	"2010/11"	206128	Not Applicable	Not Applicable	0.4%
+	"Dec., 2010"	"2010/12"	225816	Not Applicable	Not Applicable	0.5%
+	"Jan., 2011"	"2011/01"	233690	Not Applicable	Not Applicable	0.5%
+	"Feb., 2011"	"2011/02"	211783	Not Applicable	Not Applicable	0.4%
+	"Mar., 2011"	"2011/03"	225194	Not Applicable	Not Applicable	0.5%
+	"Apr., 2011"	"2011/04"	208288	Not Applicable	Not Applicable	0.4%
+	"May, 2011"	"2011/05"	208356	Not Applicable	Not Applicable	0.4%
+	"Jun., 2011"	"2011/06"	197330	Not Applicable	Not Applicable	0.4%
+	"Jul., 2011"	"2011/07"	202091	Not Applicable	Not Applicable	0.4%
+	"Aug., 2011"	"2011/08"	200504	Not Applicable	Not Applicable	0.4%
+	"Sep., 2011"	"2011/09"	195381	Not Applicable	Not Applicable	0.4%
+	"Oct., 2011"	"2011/10"	207974	Not Applicable	Not Applicable	0.4%
+	"Nov., 2011"	"2011/11"	206139	Not Applicable	Not Applicable	0.4%
+	"Dec., 2011"	"2011/12"	218728	Not Applicable	Not Applicable	0.5%
+	"Jan., 2012"	"2012/01"	225368	Not Applicable	Not Applicable	0.5%
+	"Feb., 2012"	"2012/02"	208962	Not Applicable	Not Applicable	0.4%
+	"Mar., 2012"	"2012/03"	221438	Not Applicable	Not Applicable	0.5%
+	"Apr., 2012"	"2012/04"	208145	Not Applicable	Not Applicable	0.4%
+	"May, 2012"	"2012/05"	207931	Not Applicable	Not Applicable	0.4%
+	"Jun., 2012"	"2012/06"	198869	Not Applicable	Not Applicable	0.4%
+	"Jul., 2012"	"2012/07"	203929	Not Applicable	Not Applicable	0.4%
+	"Aug., 2012"	"2012/08"	204648	Not Applicable	Not Applicable	0.4%
+	"Sep., 2012"	"2012/09"	200852	Not Applicable	Not Applicable	0.4%
+	"Oct., 2012"	"2012/10"	213558	Not Applicable	Not Applicable	0.4%
+	"Nov., 2012"	"2012/11"	214201	Not Applicable	Not Applicable	0.4%
+	"Dec., 2012"	"2012/12"	235378	Not Applicable	Not Applicable	0.5%
+	"Jan., 2013"	"2013/01"	261089	Not Applicable	Not Applicable	0.5%
+	"Feb., 2013"	"2013/02"	217614	Not Applicable	Not Applicable	0.5%
+	"Mar., 2013"	"2013/03"	232871	Not Applicable	Not Applicable	0.5%
+	"Apr., 2013"	"2013/04"	213789	Not Applicable	Not Applicable	0.4%
+	"May, 2013"	"2013/05"	210076	Not Applicable	Not Applicable	0.4%
+	"Jun., 2013"	"2013/06"	200010	Not Applicable	Not Applicable	0.4%
+	"Jul., 2013"	"2013/07"	204505	Not Applicable	Not Applicable	0.4%
+	"Aug., 2013"	"2013/08"	204585	Not Applicable	Not Applicable	0.4%
+	"Sep., 2013"	"2013/09"	198780	Not Applicable	Not Applicable	0.4%
+	"Oct., 2013"	"2013/10"	211702	Not Applicable	Not Applicable	0.4%
+	"Nov., 2013"	"2013/11"	211850	Not Applicable	Not Applicable	0.4%
+	"Dec., 2013"	"2013/12"	230122	Not Applicable	Not Applicable	0.5%
+	"Jan., 2014"	"2014/01"	243298	Not Applicable	Not Applicable	0.5%
+	"Feb., 2014"	"2014/02"	211980	Not Applicable	Not Applicable	0.4%
+	"Mar., 2014"	"2014/03"	228477	Not Applicable	Not Applicable	0.5%
+	"Apr., 2014"	"2014/04"	215600	Not Applicable	Not Applicable	0.5%
+	"May, 2014"	"2014/05"	216862	Not Applicable	Not Applicable	0.5%
+	"Jun., 2014"	"2014/06"	204687	Not Applicable	Not Applicable	0.4%
+	"Jul., 2014"	"2014/07"	209373	Not Applicable	Not Applicable	0.4%
+	"Aug., 2014"	"2014/08"	208013	Not Applicable	Not Applicable	0.4%
+	"Sep., 2014"	"2014/09"	205274	Not Applicable	Not Applicable	0.4%
+	"Oct., 2014"	"2014/10"	218147	Not Applicable	Not Applicable	0.5%
+	"Nov., 2014"	"2014/11"	221317	Not Applicable	Not Applicable	0.5%
+	"Dec., 2014"	"2014/12"	243390	Not Applicable	Not Applicable	0.5%
+	"Jan., 2015"	"2015/01"	265355	Not Applicable	Not Applicable	0.6%
+	"Feb., 2015"	"2015/02"	227047	Not Applicable	Not Applicable	0.5%
+	"Mar., 2015"	"2015/03"	242712	Not Applicable	Not Applicable	0.5%
+	"Apr., 2015"	"2015/04"	224423	Not Applicable	Not Applicable	0.5%
+	"May, 2015"	"2015/05"	223600	Not Applicable	Not Applicable	0.5%
+	"Jun., 2015"	"2015/06"	211175	Not Applicable	Not Applicable	0.4%
+	"Jul., 2015"	"2015/07"	216951	Not Applicable	Not Applicable	0.5%
+	"Aug., 2015"	"2015/08"	214404	Not Applicable	Not Applicable	0.4%
+	"Sep., 2015"	"2015/09"	209905	Not Applicable	Not Applicable	0.4%
+	"Oct., 2015"	"2015/10"	223535	Not Applicable	Not Applicable	0.5%
+	"Nov., 2015"	"2015/11"	219788	Not Applicable	Not Applicable	0.5%
+	"Dec., 2015"	"2015/12"	233735	Not Applicable	Not Applicable	0.5%
+	"Jan., 2016"	"2016/01"	245823	Not Applicable	Not Applicable	0.5%
+	"Feb., 2016"	"2016/02"	230021	Not Applicable	Not Applicable	0.5%
+	"Mar., 2016"	"2016/03"	244283	Not Applicable	Not Applicable	0.5%
+	"Apr., 2016"	"2016/04"	227191	Not Applicable	Not Applicable	0.5%
+	"May, 2016"	"2016/05"	224528	Not Applicable	Not Applicable	0.5%
+	"Jun., 2016"	"2016/06"	213051	Not Applicable	Not Applicable	0.4%
+	"Jul., 2016"	"2016/07"	219691	Not Applicable	Not Applicable	0.5%
+	"Aug., 2016"	"2016/08"	219911	Not Applicable	Not Applicable	0.5%
+	"Sep., 2016"	"2016/09"	214310	Not Applicable	Not Applicable	0.4%
+	"Oct., 2016"	"2016/10"	228919	Not Applicable	Not Applicable	0.5%
+	"Nov., 2016"	"2016/11"	227313	Not Applicable	Not Applicable	0.5%
+	"Dec., 2016"	"2016/12"	249207	Not Applicable	Not Applicable	0.5%
+	"Jan., 2017"	"2017/01"	262832	Not Applicable	Not Applicable	0.6%
+	"Feb., 2017"	"2017/02"	233819	Not Applicable	Not Applicable	0.5%
+	"Mar., 2017"	"2017/03"	251732	Not Applicable	Not Applicable	0.5%
+	"Apr., 2017"	"2017/04"	231830	Not Applicable	Not Applicable	0.5%
+	"May, 2017"	"2017/05"	229670	Not Applicable	Not Applicable	0.5%
+	"Jun., 2017"	"2017/06"	218929	Not Applicable	Not Applicable	0.5%
+	"Jul., 2017"	"2017/07"	221869	Not Applicable	Not Applicable	0.5%
+	"Aug., 2017"	"2017/08"	221887	Not Applicable	Not Applicable	0.5%
+	"Sep., 2017"	"2017/09"	220262	Not Applicable	Not Applicable	0.5%
+	"Oct., 2017"	"2017/10"	231125	Not Applicable	Not Applicable	0.5%
+	"Nov., 2017"	"2017/11"	230891	Not Applicable	Not Applicable	0.5%
+	"Dec., 2017"	"2017/12"	258657	Not Applicable	Not Applicable	0.5%
+"Total"			47728569	Not Applicable	Not Applicable	100.0%
+"---"
+"Dataset: Underlying Cause of Death, 1999-2017"
+"Query Parameters:"
+"Group By: Month"
+"Show Totals: True"
+"Show Zero Values: False"
+"Show Suppressed: False"
+"Calculate Rates Per: 100,000"
+"Rate Options: Default intercensal populations for years 2001-2009 (except Infant Age Groups)"
+"---"
+"Help: See http://wonder.cdc.gov/wonder/help/ucd.html for more information."
+"---"
+"Query Date: Feb 15, 2019 5:27:26 PM"
+"---"
+"Suggested Citation: Centers for Disease Control and Prevention, National Center for Health Statistics. Underlying Cause of Death"
+"1999-2017 on CDC WONDER Online Database, released December, 2018. Data are from the Multiple Cause of Death Files, 1999-2017, as"
+"compiled from data provided by the 57 vital statistics jurisdictions through the Vital Statistics Cooperative Program. Accessed"
+"at http://wonder.cdc.gov/ucd-icd10.html on Feb 15, 2019 5:27:26 PM"
+"---"
+Caveats:
+"1. Population and rates are labeled 'Not Applicable' when Autopsy, Place of Death, Weekday or Month are grouped by or limited,"
+"due to lack of a valid population. More information: http://wonder.cdc.gov/wonder/help/ucd.html#NotApplicableRates."
+"2. As of April 3, 2017, the underlying cause of death has been revised for 125 deaths in 2014. More information:"
+"http://wonder.cdc.gov/wonder/help/ucd.html#2014-Revision."

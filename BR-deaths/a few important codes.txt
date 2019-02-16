@@ -1,0 +1,35 @@
+TIPOBITO  1=fetal 2=nonfetal
+DTOBITO ddmmaaaa
+HORAOBITO hhmm
+
+IDADE 
+Idade, composto de dois subcampos. O primeiro, de 1
+dígito, indica a unidade da idade, conforme a tabela a
+seguir. O segundo, de dois dígitos, indica a quantidade de
+unidades:
+0: Idade ignorada, o segundo subcampo e
+1: Horas, o segundo subcampo varia de 01 a 23
+2: Dias, o segundo subcampo varia de 01 a 29
+3: Meses, o segundo subcampo varia de 01 a 11
+4: Anos, o segundo subcampo varia de 00 a 99
+5: Anos (mais de 100 anos), o segundo subcampo varia de
+0 a 99, exemplos:
+000: Idade ignorada
+020: 20 minutos
+103: 3 horas
+204: 4 dias
+305: 5 meses
+400: menor de 1 ano, mas não se sabe o numero de horas,
+dias ou meses
+410: 10 anos
+505: 105 anos
+
+SEXO 1=masc 2=fem
+
+CODMUNRES C(07)
+Município de residência, em codificação idêntica a de
+CODMUNOCOR, conforme tabela TABMUN.
+
+CAUSABAS C(04)
+Causa básica, conforme a Classificação Internacional de
+Doença (CID), 10a. Revisão.

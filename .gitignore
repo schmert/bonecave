@@ -1,4 +1,10 @@
-.Rproj.user
+.Rproj
+.user
+
 .Rhistory
+
 .RData
+
 .Ruserdata
+
+**/BR-deaths/SIM-raw-data/*.zip

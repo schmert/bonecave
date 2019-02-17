@@ -47,12 +47,15 @@ day_of_week = function(x) {
 
 D = data.frame()  # summary
 
-for (this_year in 1997) {
+years = 1997:2016
+nyrs  = length(years)
+
+for (this_year in years) {
   for (i in seq(state)) {
 
     this_state  = state[i]
     this_region = region[i]
-    print(this_state)
+    print(paste(this_year,this_state))
     fname = paste0('./SIM-raw-data/DO',this_state,this_year,'.dbc')
     tmp   = read.dbc(fname) %>%
                filter(TIPOBITO == 2,
@@ -63,49 +66,91 @@ for (this_year in 1997) {
                       month  = as.numeric(substr(DTOBITO,3,4)),
                       dom    = as.numeric(substr(DTOBITO,1,2)),
                       doy    = day_number(DTOBITO),
-                      dow    = day_of_week(DTOBITO)
+                      dow    = day_of_week(DTOBITO),
+                      circumstance = factor(CIRCOBITO,
+                                      levels=c(1:4,9),
+                                      ordered=FALSE,
+                                      labels=c('Accident',
+                                               'Suicide','Homicide',
+                                               'Other','Unknown'))
                       ) %>%
-               select(state:dow,
-                      date=DTOBITO,
-                      agecode = IDADE,
-                      sex=SEXO,
+               select(state:circumstance,
+                      date         = DTOBITO,
+                      agecode      = IDADE,
+                      sex          = SEXO,
                       res_municode = CODMUNRES,
                       occ_municode = CODMUNOCOR,
-                      cause = CAUSABAS,
-                      circumstance = CIRCOBITO)
-  
-    D = rbind(D, tmp)
+                      cause        = CAUSABAS)
+
+    keep = tmp %>%
+              filter(circumstance %in% c('Accident','Suicide','Homicide')) %>%
+              mutate(Southern = (region %in% c('S','SE'))) %>%
+              group_by(year,month, dom, doy, dow, Southern, circumstance) %>%
+              summarize(deaths=n()) %>%
+              ungroup()
+    
+     D = rbind(D, keep)
   
   } # this_state
 } # this_year
 
+write.csv(D, file='ASH-death-summary.csv')
+
+# sum over states and years
+df = D %>%
+     filter( !(month==2 & dom==29)) %>%
+     group_by(doy, dow, circumstance) %>%
+     summarize( deaths=sum(deaths))
+
+write.csv(df, file='suicide-accident-homicide.csv')     
+
+df = df %>%
+       group_by(doy, circumstance) %>%
+       summarize(deaths_per_day = sum(deaths)/nyrs)
+
+ggplot( data=df, aes(x=doy, y=deaths_per_day, color=circumstance)) +
+    geom_line() +
+    geom_smooth() +
+    theme_bw() +
+     labs(title='Registered Deaths, Brazil 1997-2016',
+       caption='Source: SIM/Datasus http://www.datasus.gov.br',
+       x='Day of Year',
+       y='Avg Daily Deaths (all years)') +
+  scale_x_continuous(breaks=c(1,91,182,274),
+                     minor_breaks =c(32,60,121,152,213,244,305,335),
+                     labels=c('1 Jan','1 Apr',
+                              '1 Jul','1 Oct'))
 
 
-# BR = B %>%
-#         group_by(doy) %>%
-#         summarize(births = sum(births)) %>% 
-#         ungroup() %>%
-#         mutate(country='Brazil',
-#                prop_births = births/sum(births)) %>%
-#         select(country, doy, prop_births)
-# 
-# df = rbind( BR, 
-#             US)
-# 
-# ggplot(data=df, aes(x=doy, y=prop_births, 
-#                     color=country, group=country,
-#                     fill=country)) +
-#        geom_point(alpha=.30)  +
-#        lims(y=c(.0015,.0035)) +
-#        geom_smooth(alpha=.20, span=.60) +
-#        theme_bw() +
-#        labs(title='Seasonal Pattern of Births, Brazil and USA 2015',
-#             x='Day of Year',y='Proportion of Annual Births') +
-#        scale_x_continuous(breaks=c(1,91,182,274),
-#                           minor_breaks = NULL,
-#                           labels=c('1 Jan','1 Apr',
-#                                    '1 Jul','1 Oct'))
-# 
-# ggsave(file='seasonality comparison.png', 
-#        width=11, height=8.5)
-# 
+ggsave(file='ASH-deaths-Brazil-1997-2016.png',
+       width=11, height=8.5)
+
+
+
+for (k in c('Suicide','Homicide','Accident')) {
+
+  tmp = df %>%
+         filter(circumstance== k)
+  
+  G = ggplot( data=tmp, aes(x=doy, y=deaths_per_day)) +
+    geom_line(color='red') +
+    geom_smooth(color='red', fill='orangered', alpha=.20) +
+    theme_bw() +
+    labs(title=paste('Registered Deaths by',k,' - Brazil 1997-2016'),
+         caption='Source: SIM/Datasus http://www.datasus.gov.br',
+         x='Day of Year',
+         y='Avg Daily Deaths (all years)') +
+         scale_x_continuous(breaks=c(1,91,182,274),
+                             minor_breaks = c(32,60,121,152,213,244,305,335),
+                             labels=c('1 Jan','1 Apr',
+                                      '1 Jul','1 Oct'))
+
+  print(G)
+  
+  ggsave(file=paste0(k,'-deaths-Brazil-1997-2016.png'),
+         width=11, height=8.5)
+  
+}
+
+
+

@@ -125,13 +125,13 @@ write.csv(df, file='reveillon-hours.csv')
 
 
 #########################################
-# first ALL deaths
+# first ALL deaths -- in 6 hour blocks
 
 tmp = df %>%
         group_by(H) %>%
         summarize(deaths = sum(deaths))
 
-ggplot( data=tmp, aes(x=H+.5, y=deaths)) +
+ggplot( data=tmp, aes(x=H+3, y=deaths)) +
     geom_point(size=3, color='royalblue') +
     geom_line(color='royalblue') +
     theme_bw() +
@@ -140,10 +140,12 @@ ggplot( data=tmp, aes(x=H+.5, y=deaths)) +
        caption='Source: SIM/Datasus http://www.datasus.gov.br',
        x='Hour',
        y='Total Deaths (all years)') +
-  scale_x_continuous(breaks=seq(0,72,24),
-                     minor_breaks =seq(0,96,6),
-                     labels=c('30 Dec','31 Dec',
-                              '1 Jan','2 Jan')) +
+  scale_x_continuous(breaks=seq(0,90,6),
+                     minor_breaks =NULL,
+                     labels=c('\n30 Dec','6','12','18',
+                              '\n31 Dec','6','12','18',
+                              '\n1 Jan', '6','12','18',
+                              '\n2 Jan', '6','12','18')) +
   geom_vline(xintercept=seq(0,96,24)) +
   geom_vline(xintercept=48, lwd=2, color='orange',alpha=.50) +
   geom_vline(xintercept=12+seq(0,72,24),lty=2,col='grey') 
@@ -168,10 +170,12 @@ ggplot( data=tmp, aes(x=H+.5, y=deaths, color=circumstance)) +
        caption='Source: SIM/Datasus http://www.datasus.gov.br',
        x='Hour',
        y='Total Deaths (all years)') +
-  scale_x_continuous(breaks=seq(0,72,24),
-                     minor_breaks =seq(0,96,6),
-                     labels=c('30 Dec','31 Dec',
-                              '1 Jan','2 Jan')) +
+  scale_x_continuous(breaks=seq(0,90,6),
+                     minor_breaks =NULL,
+                     labels=c('\n30 Dec','6','12','18',
+                              '\n31 Dec','6','12','18',
+                              '\n1 Jan', '6','12','18',
+                              '\n2 Jan', '6','12','18')) +
   geom_vline(xintercept=seq(0,96,24)) +
   geom_vline(xintercept=48, lwd=2, color='orange',alpha=.50) +
   geom_vline(xintercept=12+seq(0,72,24),lty=2,col='grey') 
@@ -200,11 +204,12 @@ for (k in c('Suicide','Homicide','Accident')) {
                 caption='Source: SIM/Datasus http://www.datasus.gov.br',
                 x='Hour',
                 y='Total Deaths (all years)') +
-           scale_x_continuous(breaks=seq(0,72,24),
-                              minor_breaks =seq(0,96,6),
-                              labels=c('30 Dec','31 Dec',
-                                       '1 Jan','2 Jan')) +
-           geom_vline(xintercept=seq(0,96,24)) +
+    scale_x_continuous(breaks=seq(0,90,6),
+                       minor_breaks =NULL,
+                       labels=c('\n30 Dec','6','12','18',
+                                '\n31 Dec','6','12','18',
+                                '\n1 Jan', '6','12','18',
+                                '\n2 Jan', '6','12','18')) +           geom_vline(xintercept=seq(0,96,24)) +
            geom_vline(xintercept=48, lwd=2, color='orange',alpha=.50) +
            geom_vline(xintercept=12+seq(0,72,24),lty=2,col='grey') 
          

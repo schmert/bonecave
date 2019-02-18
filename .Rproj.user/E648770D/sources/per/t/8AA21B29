@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1550270299406.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "594075837",
+    "id" : "8AA21B29",
+    "lastKnownWriteTime" : 1550160544,
+    "last_content_update" : 1550160544,
+    "path" : "~/GitHub/bonecave/US monthly births/USA monthly births.R",
+    "project_path" : "US monthly births/USA monthly births.R",
+    "properties" : {
+        "cursorPosition" : "57,0",
+        "scrollLine" : "47"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,9 @@
+{
+    "path" : "~/GitHub/bonecave/US-deaths",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

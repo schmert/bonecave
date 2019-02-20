@@ -131,7 +131,7 @@ tmp = df %>%
         group_by(H) %>%
         summarize(deaths = sum(deaths))
 
-ggplot( data=tmp, aes(x=H+3, y=deaths)) +
+ggplot( data=tmp, aes(x=H+.5, y=deaths)) +
     geom_point(size=3, color='royalblue') +
     geom_line(color='royalblue') +
     theme_bw() +

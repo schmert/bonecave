@@ -1,0 +1,45 @@
+name,birthdate,deathdate,bm,bd,by,dm,dd,dy
+Washington,"Feb 22, 1732","Dec 14, 1799",Feb,22,1732,Dec,14,1799
+JAdams,"Oct 30, 1735","July 4, 1826",Oct,30,1735,Jul,4,1826
+Jefferson,"Apr 13, 1743","July 4, 1826",Apr,13,1743,Jul,4,1826
+Madison,"Mar 16, 1751","June 28, 1836",Mar,16,1751,Jun,28,1836
+Monroe,"Apr 28, 1758","July 4, 1831",Apr,28,1758,Jul,4,1831
+JQAdams,"July 11, 1767","Feb 23, 1848",Jul,11,1767,Feb,23,1848
+Jackson,"Mar 15, 1767","June 8, 1845",Mar,15,1767,Jun,8,1845
+Van Buren,"Dec 5, 1782","July 24, 1862",Dec,5,1782,Jul,24,1862
+WHarrison,"Feb 9, 1773","Apr 4, 1841",Feb,9,1773,Apr,4,1841
+Tyler,"Mar 29, 1790","Jan 18, 1862",Mar,29,1790,Jan,18,1862
+Polk,"Nov 2, 1795","June 15, 1849",Nov,2,1795,Jun,15,1849
+Taylor,"Nov 24, 1784","July 9, 1850",Nov,24,1784,Jul,9,1850
+Fillmore,"Jan 7, 1800","Mar 8, 1874",Jan,7,1800,Mar,8,1874
+Pierce,"Nov 23, 1804","Oct 8, 1869",Nov,23,1804,Oct,8,1869
+Buchanan,"Apr 23, 1791","June 1, 1868",Apr,23,1791,Jun,1,1868
+Lincoln,"Feb 12, 1809","Apr 15, 1865",Feb,12,1809,Apr,15,1865
+AJohnson,"Dec 29, 1808","July 31, 1875",Dec,29,1808,Jul,31,1875
+Grant,"Apr 27, 1822","July 23, 1885",Apr,27,1822,Jul,23,1885
+Hayes,"Oct 4, 1822","Jan 17, 1893",Oct,4,1822,Jan,17,1893
+Garfield,"Nov 19, 1831","Sep 19, 1881",Nov,19,1831,Sep,19,1881
+Arthur,"Oct 5, 1829","Nov 18, 1886",Oct,5,1829,Nov,18,1886
+Cleveland,"Mar 18, 1837","June 24, 1908",Mar,18,1837,Jun,24,1908
+BHarrison,"Aug 20, 1833","Mar 13, 1901",Aug,20,1833,Mar,13,1901
+McKinley,"Jan 29, 1843","Sep 14, 1901",Jan,29,1843,Sep,14,1901
+TRoosevelt,"Oct 27, 1858","Jan 6, 1919",Oct,27,1858,Jan,6,1919
+Taft,"Sep 15, 1857","Mar 8, 1930",Sep,15,1857,Mar,8,1930
+Wilson,"Dec 28, 1856","Feb 3, 1924",Dec,28,1856,Feb,3,1924
+Harding,"Nov 2, 1865","Aug 2, 1923",Nov,2,1865,Aug,2,1923
+Coolidge,"July 4, 1872","Jan 5, 1933",Jul,4,1872,Jan,5,1933
+Hoover,"Aug 10, 1874","Oct 20, 1964",Aug,10,1874,Oct,20,1964
+FDRoosevelt,"Jan 30, 1882","Apr 12, 1945",Jan,30,1882,Apr,12,1945
+Truman,"May 8, 1884","Dec 26, 1972",May,8,1884,Dec,26,1972
+Eisenhower,"Oct 14, 1890","Mar 28, 1969",Oct,14,1890,Mar,28,1969
+Kennedy,"May 29, 1917","Nov 22, 1963",May,29,1917,Nov,22,1963
+LBJohnson,"Aug 27, 1908","Jan 22, 1973",Aug,27,1908,Jan,22,1973
+Nixon,"Jan 9, 1913","Apr 22, 1994",Jan,9,1913,Apr,22,1994
+Ford,"July 14, 1913","Dec 26, 2006",Jul,14,1913,Dec,26,2006
+Carter,"Oct 1, 1924",NA,Oct,1,1924,NA,NA,NA
+Reagan,"Feb 6, 1911","June 5, 2004",Feb,6,1911,Jun,5,2004
+GBush,"June 12, 1924","Nov 30, 2018",Jun,12,1924,Nov,30,2018
+Clinton,"Aug 19, 1946",NA,Aug,19,1946,NA,NA,NA
+GWBush,"July 6, 1946",NA,Jul,6,1946,NA,NA,NA
+Obama,"Aug 4, 1961",NA,Aug,4,1961,NA,NA,NA
+Trump,"June 14, 1946",NA,Jun,14,1946,NA,NA,NA

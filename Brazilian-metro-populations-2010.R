@@ -24,7 +24,7 @@ ggplot(data=df, aes(x=pop2010, y=reorder(metro_area,pop2010),
            geom_vline(xintercept=1e6) +
            scale_color_discrete(guide=FALSE) +
            labs(title='Population of Brazilian Metropolitan Regions, 2010',
-                subtitle = '(21 regions have more than 1 million residents)',
+                subtitle = paste0('(',sum(df$Mil),' regions have more than 1 million residents)'),
                 caption = 'Source: Instituto Brasileiro de Geografia e Estatística (IBGE), 2010 Census',
                 x = 'Resident Population 2010',
                 y = '') +

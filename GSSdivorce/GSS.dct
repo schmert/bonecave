@@ -1,0 +1,5 @@
+infile dictionary {
+    _column(1)    numeric                               YEAR   %20f  "Gss year for this respondent                       "
+   _column(21)    numeric                             DIVLAW   %20f  "Divorce laws"
+   _column(41)    numeric                             COHORT   %20f  "Year of birth"
+}

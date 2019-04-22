@@ -145,14 +145,13 @@ vhex = X %*% gamma + Z %*% eps
 
 hexagons$e0 = vhex
 
-for (k in LETTERS[1:4]) {
-  print(
-    ggplot( data=hexagons, aes(fill=e0)) +
-    geom_sf(color=NA) +
-    scale_fill_viridis_c(option=k) +
-    labs(title=k)
-  )  
-}
+ggplot( data=hexagons, aes(fill=e0)) +
+  geom_sf(color=NA) +
+  scale_fill_viridis_c(option='C') +
+  labs(title=this_state_long)  +
+  theme_minimal()
+
+
 
 
 

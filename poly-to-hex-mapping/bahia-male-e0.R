@@ -1,6 +1,8 @@
 library(tidyverse)
 library(rgdal)
 library(sf)
+library(sp)
+library(spdep)
 
 rm(list=ls())
 graphics.off()
@@ -11,8 +13,8 @@ windows(record=TRUE)
 # make a df with microregion numbers and names
 file_url = 'http://topals-mortality.schmert.net/data/muni.df.csv'
 
-this_state_abb  = 'MG'
-this_state_long = 'MINAS GERAIS'
+this_state_abb  = 'PA'
+this_state_long = 'PARA'
 
 geo = read.csv(file_url) %>% 
         filter(ufabb==this_state_abb)  %>%
@@ -128,7 +130,7 @@ gamma = Dinv %*% t(X) %*% t(W) %*% v  # fixed part of hex values
 
 adj     = poly2nb(hexagons)
 K       = matrix(0, H, H)
-diag(K) = sapply(adj, function(x) length(x))
+diag(K) = sapply(adj, length)
 
 for (i in seq(adj)) { K[i, adj[[i]]] = -1 }
 

@@ -10,8 +10,10 @@ graphics.off()
 
 windows(record=TRUE)
 
-this_state_abb  = c('AL','SE','BA','PI','MA','CE','RN','PB','PE')
-this_state_long = c('ALAGOAS','SERGIPE','BAHIA','PIAUI','MARANHAO','CEARA','RIO GRANDE DO NORTE','PARAIBA','PERNAMBUCO')
+# this_state_abb  = c('AL','SE','BA','PI','MA','CE','RN','PB','PE')
+# this_state_long = c('ALAGOAS','SERGIPE','BAHIA','PIAUI','MARANHAO','CEARA','RIO GRANDE DO NORTE','PARAIBA','PERNAMBUCO')
+this_state_abb  = c('MG')
+this_state_long = c('MINAS GERAIS')
 
 nhex = 2000
   
@@ -155,12 +157,14 @@ hexagons$e0 = optimal_hex_values
 
 ## plot the smoothest hex map
 
-ggplot( data=hexagons, aes(fill=e0)) +
+G = ggplot( data=hexagons, aes(fill=e0)) +
   geom_sf(color=NA) +
   scale_fill_viridis_c(option='C') +
   labs(title=this_state_long)  +
   theme_minimal()
 
+print(G)
 
+G + geom_sf(data=microregion_map, color='white',fill=NA)
 
 

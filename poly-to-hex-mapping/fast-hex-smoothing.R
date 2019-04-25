@@ -12,10 +12,10 @@ windows(record=TRUE)
 
 # this_state_abb  = c('AL','SE','BA','PI','MA','CE','RN','PB','PE')
 # this_state_long = c('ALAGOAS','SERGIPE','BAHIA','PIAUI','MARANHAO','CEARA','RIO GRANDE DO NORTE','PARAIBA','PERNAMBUCO')
-this_state_abb  = c('MG')
-this_state_long = c('MINAS GERAIS')
+this_state_abb  = c('RN')
+this_state_long = c('RIO GRANDE DO NORTE')
 
-nhex = 2000
+nhex = 1200
   
 ########################################################
 # get the geographical information and e0 estimates if necessary
@@ -77,6 +77,11 @@ microregion_map = municipality_map %>%
 P = nrow(microregion_map)
 
 plot(microregion_map['e0'])
+
+ggplot(data=microregion_map, aes(fill=e0)) +
+  geom_sf(color=NA) +
+  scale_fill_viridis_c(option='C') 
+  
 
 ########################################################
 
@@ -165,6 +170,18 @@ G = ggplot( data=hexagons, aes(fill=e0)) +
 
 print(G)
 
+ggsave(file=paste0(this_state_abb,'2.png'), dpi=300)
+
+ggplot(data=microregion_map, aes(fill=e0)) +
+  geom_sf(color=NA) +
+  scale_fill_viridis_c(option='C') +
+  labs(title=this_state_long)  +
+  theme_minimal()
+
+ggsave(file=paste0(this_state_abb,'1.png'), dpi=300)
+
 G + geom_sf(data=microregion_map, color='white',fill=NA)
+
+ggsave(file=paste0(this_state_abb,'3.png'), dpi=300)
 
 

@@ -12,10 +12,13 @@ windows(record=TRUE)
 
 # this_state_abb  = c('AL','SE','BA','PI','MA','CE','RN','PB','PE')
 # this_state_long = c('ALAGOAS','SERGIPE','BAHIA','PIAUI','MARANHAO','CEARA','RIO GRANDE DO NORTE','PARAIBA','PERNAMBUCO')
-this_state_abb  = c('RN')
-this_state_long = c('RIO GRANDE DO NORTE')
+this_state_abb   = c('RS','SC','PR','SP')
+this_state_long  = c('RIO GRANDE DO SUL','SANTA CATARINA','PARANA','SAO PAULO')
+this_admin_name  = c('Rio Grande do Sul','Santa Catarina','Paraná','São Paulo')
 
-nhex = 1200
+filestub = paste(this_state_abb, collapse='-')
+
+nhex = 4000
   
 ########################################################
 # get the geographical information and e0 estimates if necessary
@@ -112,6 +115,10 @@ A = st_area(overlap_map)  # areas of overlapping (polygon,hexagon) pairs
 
 plot(overlap_map['e0'], border='white')
 
+## remove hexagons without neighbors (islands, etc.)
+
+
+
 #-- speedup experiment here
 
 ## find the overlaps between microregion polygons and
@@ -162,26 +169,44 @@ hexagons$e0 = optimal_hex_values
 
 ## plot the smoothest hex map
 
-G = ggplot( data=hexagons, aes(fill=e0)) +
+polymap = 
+  ggplot(data=microregion_map, aes(fill=e0)) +
   geom_sf(color=NA) +
-  scale_fill_viridis_c(option='C') +
+  scale_fill_viridis_c(limits=range(optimal_hex_values)) +
   labs(title=this_state_long)  +
   theme_minimal()
 
-print(G)
+print(polymap)
 
-ggsave(file=paste0(this_state_abb,'2.png'), dpi=300)
+ggsave(file=paste0(filestub,'1.png'), dpi=300)
 
-ggplot(data=microregion_map, aes(fill=e0)) +
+hexmap = 
+  ggplot( data=hexagons, aes(fill=e0)) +
   geom_sf(color=NA) +
-  scale_fill_viridis_c(option='C') +
+  scale_fill_viridis_c(limits=range(optimal_hex_values)) +
   labs(title=this_state_long)  +
   theme_minimal()
 
-ggsave(file=paste0(this_state_abb,'1.png'), dpi=300)
+print(hexmap)
 
-G + geom_sf(data=microregion_map, color='white',fill=NA)
+ggsave(file=paste0(filestub,'2.png'), dpi=300)
 
-ggsave(file=paste0(this_state_abb,'3.png'), dpi=300)
+hexmap + geom_sf(data=microregion_map, color='grey',fill=NA)
+
+ggsave(file=paste0(filestub,'3.png'), dpi=300)
+
+## add cities?
+
+cities = read.csv('worldcities.csv', encoding='UTF-8', stringsAsFactors = FALSE) %>%
+            filter(iso2=='BR', admin_name %in% this_admin_name,
+                   population > 100000) %>%
+            st_as_sf( coords=c('lng','lat'))
+
+hexmap + geom_sf(data=cities,inherit.aes = FALSE, shape=1, 
+                 color='red', size=2.5)
+
+ggsave(file=paste0(filestub,'4.png'), dpi=300)
+
+
 
 

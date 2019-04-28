@@ -13,13 +13,13 @@ windows(record=TRUE)
 
 # this_state_abb  = c('AL','SE','BA','PI','MA','CE','RN','PB','PE')
 # this_state_long = c('ALAGOAS','SERGIPE','BAHIA','PIAUI','MARANHAO','CEARA','RIO GRANDE DO NORTE','PARAIBA','PERNAMBUCO')
-this_state_abb   = c('RJ','MG','RS','SC','PR','SP')
-this_state_long  = c('RIO DE JANEIRO','MINAS GERAIS','RIO GRANDE DO SUL','SANTA CATARINA','PARANA','SAO PAULO')
+this_state_abb   = c('BA','ES','RJ','MG','RS','SC','PR','SP')
+this_state_long  = c('BAHIA','ESPIRITO SANTO','RIO DE JANEIRO','MINAS GERAIS','RIO GRANDE DO SUL','SANTA CATARINA','PARANA','SAO PAULO')
 
 
 filestub = paste(this_state_abb, collapse='-')
 
-nhex = 6000
+nhex = 5000
   
 ########################################################
 # get the geographical information and e0 estimates if necessary
@@ -159,6 +159,8 @@ if (disjoint) {
   # for each pair of subgraphs, find the pair of member hexagons
   # that are closest and add an artificial adjacency (think of this
   # as adding a ferry between islands)
+  print(paste('-----',ncl,'disjoint subgraphs of hexagons'))
+  print(table( icl ))
   
   for (i in 1:(ncl-1)) {
     for (j in (i+1):ncl) {
@@ -170,6 +172,7 @@ if (disjoint) {
       ii   = g1$hexnum[ix[1]]
       jj   = g2$hexnum[ix[2]] 
       # (ii,jj) are the closest pair: add an adjacency
+      print(paste('-- adding adjacency',ii,'<>',jj))
       tmp = c(adj[[ii]], jj)
       adj[[ii]] = tmp[tmp!=0]  # remove any "0"s from poly2nb
       tmp = c(adj[[jj]], ii)
@@ -236,16 +239,17 @@ ggsave(file=paste0(filestub,'3.png'), dpi=300)
 this_bbox = st_bbox(hexagons)  # bounding box for the hexagons
 
 # select any world cities that are in the bounding box and have
-# at least 250,000 residents
+# at least 500,000 residents
 
 cities = read.csv('worldcities.csv', encoding='UTF-8', stringsAsFactors = FALSE) %>%
-            filter(population > 250000) %>%
+            filter(population > 500000) %>%
             st_as_sf( coords=c('lng','lat')) %>%
             st_crop(this_bbox)
 
 # add the cities to the map as circles
 hexmap + geom_sf(data=cities,inherit.aes = FALSE, shape=1, 
-                 color='red', size=2.5)
+                 color='red', size=2.5) +
+         geom_sf(data=state_boundary, lwd=0.5, fill=NA,color='grey', inherit.aes = FALSE)
 
 ggsave(file=paste0(filestub,'4.png'), dpi=300)
 

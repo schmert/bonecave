@@ -11,14 +11,15 @@ graphics.off()
 
 windows(record=TRUE)
 
- this_state_abb  = c('AL','SE','BA','PI','MA','CE','RN','PB','PE')
- this_state_long = c('ALAGOAS','SERGIPE','BAHIA','PIAUI','MARANHAO','CEARA','RIO GRANDE DO NORTE','PARAIBA','PERNAMBUCO')
-#this_state_abb   = c('RS','SC','PR','SP')
-#this_state_long  = c('RIO GRANDE DO SUL','SANTA CATARINA','PARANA','SAO PAULO')
+# this_state_abb  = c('AL','SE','BA','PI','MA','CE','RN','PB','PE')
+# this_state_long = c('ALAGOAS','SERGIPE','BAHIA','PIAUI','MARANHAO','CEARA','RIO GRANDE DO NORTE','PARAIBA','PERNAMBUCO')
+this_state_abb   = c('RJ','MG','RS','SC','PR','SP')
+this_state_long  = c('RIO DE JANEIRO','MINAS GERAIS','RIO GRANDE DO SUL','SANTA CATARINA','PARANA','SAO PAULO')
+
 
 filestub = paste(this_state_abb, collapse='-')
 
-nhex = 5000
+nhex = 6000
   
 ########################################################
 # get the geographical information and e0 estimates if necessary
@@ -161,12 +162,18 @@ if (disjoint) {
   
   for (i in 1:(ncl-1)) {
     for (j in (i+1):ncl) {
-      g1 = hexagons[icl==i,]
-      g2 = hexagons[icl==j,]
+      g1 = hexagons[icl==i,] %>% mutate(hexnum=which(icl==i))
+      g2 = hexagons[icl==j,] %>% mutate(hexnum=which(icl==j))
+
       dist = st_distance(g1,g2)
       ix   = as.numeric( which( dist==min(dist), arr.ind=TRUE) )
-      adj[ix[1]] = c(adj[ix[1]], ix[2])
-      adj[ix[2]] = c(adj[ix[2]], ix[1])
+      ii   = g1$hexnum[ix[1]]
+      jj   = g2$hexnum[ix[2]] 
+      # (ii,jj) are the closest pair: add an adjacency
+      tmp = c(adj[[ii]], jj)
+      adj[[ii]] = tmp[tmp!=0]  # remove any "0"s from poly2nb
+      tmp = c(adj[[jj]], ii)
+      adj[[jj]] = tmp[tmp!=0]  # remove any "0"s from poly2nb
     }
   }
 } # if disjoint

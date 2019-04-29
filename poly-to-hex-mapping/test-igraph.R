@@ -13,13 +13,19 @@ windows(record=TRUE)
 
 # this_state_abb  = c('AL','SE','BA','PI','MA','CE','RN','PB','PE')
 # this_state_long = c('ALAGOAS','SERGIPE','BAHIA','PIAUI','MARANHAO','CEARA','RIO GRANDE DO NORTE','PARAIBA','PERNAMBUCO')
-this_state_abb   = c('BA','ES','RJ','MG','RS','SC','PR','SP')
-this_state_long  = c('BAHIA','ESPIRITO SANTO','RIO DE JANEIRO','MINAS GERAIS','RIO GRANDE DO SUL','SANTA CATARINA','PARANA','SAO PAULO')
+#this_state_abb   = c('BA','ES','RJ','MG','RS','SC','PR','SP')
+#this_state_long  = c('BAHIA','ESPIRITO SANTO','RIO DE JANEIRO','MINAS GERAIS','RIO GRANDE DO SUL','SANTA CATARINA','PARANA','SAO PAULO')
 
+this_state_abb  = c('MT','MS','TO','GO','DF','MA','PA','AM',
+                    'AC','RO','RR','AP')
+this_state_long = c('MATO GROSSO','MATO GROSSO DO SUL',
+                    'TOCANTINS','GOIAS','DISTRITO FEDERAL',
+                    'MARANHAO','PARA','AMAZONAS',
+                    'ACRE','RONDONIA','RORAIMA','AMAPA') 
 
 filestub = paste(this_state_abb, collapse='-')
 
-nhex = 5000
+nhex = 10000
   
 ########################################################
 # get the geographical information and e0 estimates if necessary
@@ -211,7 +217,7 @@ hexagons$e0 = optimal_hex_values
 polymap = 
   ggplot(data=microregion_map, aes(fill=e0)) +
   geom_sf(color=NA) +
-  scale_fill_viridis_c(limits=range(optimal_hex_values)) +
+  scale_fill_viridis_c(limits=range(optimal_hex_values, option='C')) +
   labs(title=filestub)  +
   theme_minimal()
 
@@ -222,7 +228,7 @@ ggsave(file=paste0(filestub,'1.png'), dpi=300)
 hexmap = 
   ggplot( data=hexagons, aes(fill=e0)) +
   geom_sf(color=NA) +
-  scale_fill_viridis_c(limits=range(optimal_hex_values)) +
+  scale_fill_viridis_c(limits=range(optimal_hex_values), option='C') +
   labs(title=filestub)  +
   theme_minimal()
 
@@ -247,8 +253,8 @@ cities = read.csv('worldcities.csv', encoding='UTF-8', stringsAsFactors = FALSE)
             st_crop(this_bbox)
 
 # add the cities to the map as circles
-hexmap + geom_sf(data=cities,inherit.aes = FALSE, shape=1, 
-                 color='red', size=2.5) +
+hexmap + geom_sf(data=cities,inherit.aes = FALSE, shape='X', 
+                 color='white', size=4) +
          geom_sf(data=state_boundary, lwd=0.5, fill=NA,color='grey', inherit.aes = FALSE)
 
 ggsave(file=paste0(filestub,'4.png'), dpi=300)

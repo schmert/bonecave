@@ -16,12 +16,21 @@ windows(record=TRUE)
 #this_state_abb   = c('BA','ES','RJ','MG','RS','SC','PR','SP')
 #this_state_long  = c('BAHIA','ESPIRITO SANTO','RIO DE JANEIRO','MINAS GERAIS','RIO GRANDE DO SUL','SANTA CATARINA','PARANA','SAO PAULO')
 
-this_state_abb  = c('MT','MS','TO','GO','DF','MA','PA','AM',
-                    'AC','RO','RR','AP')
+this_state_abb  = c('MT','MS','TO','GO','DF',
+                    'MA','PA','AM','AC','RO',
+                    'RR','AP','CE','PI','RN',
+                    'PE','PB','BA','SE','AL',
+                    'MG','ES','SP','RJ','PR',
+                    'SC','RS')
 this_state_long = c('MATO GROSSO','MATO GROSSO DO SUL',
                     'TOCANTINS','GOIAS','DISTRITO FEDERAL',
                     'MARANHAO','PARA','AMAZONAS',
-                    'ACRE','RONDONIA','RORAIMA','AMAPA') 
+                    'ACRE','RONDONIA','RORAIMA','AMAPA',
+                    'CEARA','PIAUI','RIO GRANDE DO NORTE',
+                    'PERNAMBUCO','PARAIBA','BAHIA','SERGIPE',
+                    'ALAGOAS','MINAS GERAIS',
+                    'ESPIRITO SANTO','SAO PAULO','RIO DE JANEIRO',
+                    'PARANA','SANTA CATARINA','RIO GRANDE DO SUL') 
 
 filestub = paste(this_state_abb, collapse='-')
 

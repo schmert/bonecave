@@ -34,7 +34,7 @@ this_state_long = c('MATO GROSSO','MATO GROSSO DO SUL',
 
 filestub = paste(this_state_abb, collapse='-')
 
-nhex = 10000
+nhex = 12000
   
 ########################################################
 # get the geographical information and e0 estimates if necessary
@@ -217,7 +217,11 @@ A = Matrix( rbind( cbind( 2*K, -t(W)),
                    cbind(   W, diag(0,P)) ) )
 b = Matrix( c(rep(0,H), polygon_values), ncol=1)
 
-optimal_hex_values = (solve(A,b))[1:H]
+
+## experiment: trim the smoothest map slightly
+tmp = (solve(A,b))[1:H]   
+q   = quantile(tmp,c(.01,.99))
+optimal_hex_values = pmin( pmax(tmp,q[1]), q[2])
 
 hexagons$e0 = optimal_hex_values
 
@@ -227,7 +231,7 @@ polymap =
   ggplot(data=microregion_map, aes(fill=e0)) +
   geom_sf(color=NA) +
   scale_fill_viridis_c(limits=range(optimal_hex_values, option='C')) +
-  labs(title=filestub)  +
+    labs(title=filestub)  +
   theme_minimal()
 
 print(polymap)
@@ -238,7 +242,7 @@ hexmap =
   ggplot( data=hexagons, aes(fill=e0)) +
   geom_sf(color=NA) +
   scale_fill_viridis_c(limits=range(optimal_hex_values), option='C') +
-  labs(title=filestub)  +
+    labs(title=filestub)  +
   theme_minimal()
 
 print(hexmap)

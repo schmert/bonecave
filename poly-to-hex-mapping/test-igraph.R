@@ -37,7 +37,7 @@ this_state_long = 'RIO GRANDE DO SUL'
 
 filestub = paste(this_state_abb, collapse='-')
 
-nhex = 8000
+nhex = 5000
   
 ########################################################
 # get the geographical information and e0 estimates if necessary
@@ -180,23 +180,26 @@ if (disjoint) {
   print(paste('-----',ncl,'disjoint subgraphs of hexagons'))
   print(table( icl ))
   
-  for (i in 1:(ncl-1)) {
-    for (j in (i+1):ncl) {
-      g1 = hexagons[icl==i,] %>% mutate(hexnum=which(icl==i))
-      g2 = hexagons[icl==j,] %>% mutate(hexnum=which(icl==j))
+  for (i in 1:ncl) {
+      g1 = hexagons %>% 
+              mutate(hexnum=seq(icl)) %>%
+              filter(icl == i)
+      g2 = hexagons %>% 
+              mutate(hexnum=seq(icl)) %>%
+              filter(icl != i)
 
       dist = st_distance(g1,g2)
       ix   = as.numeric( which( dist==min(dist), arr.ind=TRUE) )
       ii   = g1$hexnum[ix[1]]
       jj   = g2$hexnum[ix[2]] 
       # (ii,jj) are the closest pair: add an adjacency
+      
       print(paste('-- adding adjacency',ii,'<>',jj))
-      tmp = c(adj[[ii]], jj)
+      tmp = union(adj[[ii]], jj)
       adj[[ii]] = tmp[tmp!=0]  # remove any "0"s from poly2nb
-      tmp = c(adj[[jj]], ii)
+      tmp = union(adj[[jj]], ii)
       adj[[jj]] = tmp[tmp!=0]  # remove any "0"s from poly2nb
     }
-  }
 } # if disjoint
 
 
@@ -233,7 +236,7 @@ hexagons$e0 = optimal_hex_values
 polymap = 
   ggplot(data=microregion_map, aes(fill=e0)) +
   geom_sf(color=NA) +
-  scale_fill_viridis_c(limits=range(optimal_hex_values, option='C')) +
+  scale_fill_viridis_c(limits=range(optimal_hex_values), option='C') +
     labs(title=filestub)  +
   theme_minimal()
 

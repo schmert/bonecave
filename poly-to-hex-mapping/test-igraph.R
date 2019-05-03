@@ -16,28 +16,28 @@ windows(record=TRUE)
 #this_state_abb   = c('BA','ES','RJ','MG','RS','SC','PR','SP')
 #this_state_long  = c('BAHIA','ESPIRITO SANTO','RIO DE JANEIRO','MINAS GERAIS','RIO GRANDE DO SUL','SANTA CATARINA','PARANA','SAO PAULO')
 
-this_state_abb  = 'RS'
-this_state_long = 'RIO GRANDE DO SUL'
+#this_state_abb  = 'RS'
+#this_state_long = 'RIO GRANDE DO SUL'
 
-# this_state_abb  = c('MT','MS','TO','GO','DF',
-#                     'MA','PA','AM','AC','RO',
-#                     'RR','AP','CE','PI','RN',
-#                     'PE','PB','BA','SE','AL',
-#                     'MG','ES','SP','RJ','PR',
-#                     'SC','RS')
-# this_state_long = c('MATO GROSSO','MATO GROSSO DO SUL',
-#                     'TOCANTINS','GOIAS','DISTRITO FEDERAL',
-#                     'MARANHAO','PARA','AMAZONAS',
-#                     'ACRE','RONDONIA','RORAIMA','AMAPA',
-#                     'CEARA','PIAUI','RIO GRANDE DO NORTE',
-#                     'PERNAMBUCO','PARAIBA','BAHIA','SERGIPE',
-#                     'ALAGOAS','MINAS GERAIS',
-#                     'ESPIRITO SANTO','SAO PAULO','RIO DE JANEIRO',
-#                     'PARANA','SANTA CATARINA','RIO GRANDE DO SUL') 
+this_state_abb  = c('MT','MS','TO','GO','DF',
+                    'MA','PA','AM','AC','RO',
+                    'RR','AP','CE','PI','RN',
+                    'PE','PB','BA','SE','AL',
+                    'MG','ES','SP','RJ','PR',
+                    'SC','RS')
+this_state_long = c('MATO GROSSO','MATO GROSSO DO SUL',
+                    'TOCANTINS','GOIAS','DISTRITO FEDERAL',
+                    'MARANHAO','PARA','AMAZONAS',
+                    'ACRE','RONDONIA','RORAIMA','AMAPA',
+                    'CEARA','PIAUI','RIO GRANDE DO NORTE',
+                    'PERNAMBUCO','PARAIBA','BAHIA','SERGIPE',
+                    'ALAGOAS','MINAS GERAIS',
+                    'ESPIRITO SANTO','SAO PAULO','RIO DE JANEIRO',
+                    'PARANA','SANTA CATARINA','RIO GRANDE DO SUL')
 
 filestub = paste(this_state_abb, collapse='-')
 
-nhex = 5000
+nhex = 10000
   
 ########################################################
 # get the geographical information and e0 estimates if necessary
@@ -165,7 +165,7 @@ polygon_values = microregion_map$e0
 ## SUCH THAT THERE ARE NO DISJOINT SUBGRAPHS (=unconnected 
 ##   hexagons or sets of hexagons)
 adj     = poly2nb(hexagons)
-
+orig_adj = adj
 agraph = graph_from_adj_list(adj, mode='total')   # an igraph
 
 disjoint = !is_connected(agraph)
@@ -275,7 +275,7 @@ cities = read.csv('worldcities.csv', encoding='UTF-8', stringsAsFactors = FALSE)
 # add the cities to the map as circles
 hexmap + geom_sf(data=cities,inherit.aes = FALSE, shape='+', 
                  color='black', size=7) +
-         geom_sf(data=state_boundary, lwd=0.5, 
+         geom_sf(data=state_boundary, lwd=0.25, 
                  fill=NA,color='grey', alpha=.40, 
                  inherit.aes = FALSE)
 

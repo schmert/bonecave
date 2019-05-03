@@ -37,7 +37,7 @@ this_state_long = 'RIO GRANDE DO SUL'
 
 filestub = paste(this_state_abb, collapse='-')
 
-nhex = 5000
+nhex = 8000
   
 ########################################################
 # get the geographical information and e0 estimates if necessary
@@ -264,14 +264,17 @@ this_bbox = st_bbox(hexagons)  # bounding box for the hexagons
 # at least 500,000 residents
 
 cities = read.csv('worldcities.csv', encoding='UTF-8', stringsAsFactors = FALSE) %>%
-            filter(population > 500000) %>%
+            filter(country=='Brazil',
+                   population > 500000) %>%
             st_as_sf( coords=c('lng','lat')) %>%
             st_crop(this_bbox)
 
 # add the cities to the map as circles
-hexmap + geom_sf(data=cities,inherit.aes = FALSE, shape='X', 
-                 color='white', size=4) +
-         geom_sf(data=state_boundary, lwd=0.5, fill=NA,color='grey', inherit.aes = FALSE)
+hexmap + geom_sf(data=cities,inherit.aes = FALSE, shape='+', 
+                 color='black', size=7) +
+         geom_sf(data=state_boundary, lwd=0.5, 
+                 fill=NA,color='grey', alpha=.40, 
+                 inherit.aes = FALSE)
 
 ggsave(file=paste0(filestub,'4.png'), dpi=300)
 

@@ -198,7 +198,7 @@ ggplot(data=microregion_map[1,]) +
 
 To describe the *smoothness* of a set of hexagon values $\theta \in \mathbb{R}^H$ we take the sum of the squares of differences between pairs of adjacent hexagons. 
 $$
-  Q(\theta) = \sum_i \sum_j A_{ij} (\theta_i-\theta_j)^2
+  Q(\theta) = \sum_i \sum_{j>i} A_{ij} (\theta_i-\theta_j)^2
 $$
 where $A_{ij}$ is a (0,1) dummy equal to 1 if hexagons $i$ and $j$ are adjacent to one another on the map. The closer $Q(\theta)$ is to zero, the smoother the map. 
 

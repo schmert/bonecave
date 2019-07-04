@@ -15,4 +15,7 @@ ggplot(data=subdistrict_map, aes(fill=NM_SUBDIST)) +
   guides(fill=FALSE) +
   theme_minimal()
 
+ggsave(filename='RJ-subdistricts.png', 
+       width=11, height=8, units='in', dpi=400)
+
 

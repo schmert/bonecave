@@ -1,0 +1,50 @@
+1 	Delaware 	1787-12-7 	1790 	1664-English Capture Dutch Territory; 1631-Lewes (Du)
+2 	Pennsylvania 	1787-12-12 	1790 	1682-William Penn Settles Philadelphia; 1643-Swedes
+3 	New Jersey 	1787-12-18 	1790 	1664-English Capture Dutch Territory; 1660-Bergen (Du)
+4 	Georgia 	1788-1-2 	1790 	1733-Oglethorpe Settles Savannah; ~1600-Spanish Settle
+5 	Connecticut 	1788-1-9 	1790 	1639-English Settle Wethersfield, Hartford, Windsor
+6 	Massachusetts 	1788-2-6 	1790 	1620-Plymouth; 1630-Boston
+7 	Maryland 	1788-4-28 	1790 	1634-St. Mary's River; 1649-Annapolis (from Virginia)
+8 	South Carolina 	1788-5-23 	1790 	1670-Albemarle Point; 1680-Charles Towne; 1730s-Others
+9 	New Hampshire 	1788-6-21 	1790 	1623-English Settle Portsmouth and Dover
+10 	Virginia 	1788-6-25 	1790 	1607-English Settle Jamestown
+11 	New York 	1788-7-26 	1790 	1664-English Capture Dutch Territory; 1614-Albany (Du)
+12 	North Carolina 	1789-11-21 	1790 	1585-Roanoke (Vanishes in 1587); 1663-Settlement Begins
+13 	Rhode Island 	1790-5-29 	1790 	1636-English Settle Providence
+14 	Vermont 	1791-3-4 	1790 	1724-English Capture French Territory (Ft. Dummer)
+15 	Kentucky 	1792-6-1 	1790 	1774-Harrodstown Settled (US)
+16 	Tennessee 	1796-6-1 	1790 	1769-Watauga Valley Settled (NC & VA)
+17 	Ohio 		1803-3-1 	1790 	1747-Virginians are Granted Charter in Ohio Valley
+18 	Louisiana 	1812-4-30 	1790 	1714-Natchitoches (Fr); 1718-New Orleans (Fr); 1803 (US)
+19 	Indiana 	1816-12-11 	1790 	1732-Vincennes (Fr); 1763-English Gain Control
+20 	Mississippi 	1817-12-10 	1790 	1699-Ft. Mauripas (Fr); 1763-English Gain Control
+21 	Illinois 	1818-12-3 	1790 	1680-Ft. Creve Coeur (Fr); 1763-English Gain Control
+22 	Alabama 	1819-12-19 	1790 	1702-Mobile (Fr); 1763-English Gain Control
+23 	Maine 		1820-3-15 	1790 	1607-Popham (1 Year); 1691-Part of Massachusetts
+24 	Missouri 	1821-8-10 	1790 	1735-Ste. Genevieve (Fr); 1764-St. Louis (Fr); 1803
+25 	Arkansas 	1836-6-15 	1810 	1686-Arkansas Post (Fr); 1803-US Purchases
+26 	Michigan 	1837-1-26 	1790 	1668-Saule Ste. Marie (Fr); 1701-Detroit (Fr); 1763-Engl
+27 	Florida 	1845-3-3 	1820 	1565-St. Augustine (Sp); 1763-English Gain Control
+28 	Texas 		1845-12-29 	1820 	1682-El Paso (Sp); 1718-San Antonio (Sp); 1821-Rep
+29 	Iowa 		1846-12-28 	1830 	1803-US Purchases; 1833-First Settlement by US
+30 	Wisconsin 	1848-5-29 	1820 	1701-Green Bay (Fr); 1763-English Gain Control
+31 	California 	1850-9-9 	1830 	1776-SF (Sp); 1781-LA (Sp); 1826-US Migration
+32 	Minnesota 	1858-5-11 	1830 	1650-1680-French Exploration; 1784-US Gains Control
+33 	Oregon 		1859-2-14 	1850 	1805-Lewis & Clark Explore; 1811-Astoria (US)
+34 	Kansas 		1861-1-29 	1850 	1804-Lewis & Clark Explore; 1827-Ft. Leavenworth (US)
+35 	West Virginia 	1863-6-20 	1860 	1726-Bunker Hill (Br); 1861-Secedes from Virginia
+36 	Nevada 		1864-10-31 	1860 	1849-Mormon Station (US); 1859-Virginia City (US)
+37 	Nebraska 	1867-3-1 	1850 	1804-Lewis & Clark Explore; 1819-Ft. Atkinson (US)
+38 	Colorado 	1876-8-1 	1860 	1806-Zebulon Pike Explores; 1833-Bent's Old Fort (US)
+39 	North Dakota 	1889-11-2 	1870 	1797-Pembina (Fr); 1812-Pembina (Br); 1818-US Control
+40 	South Dakota 	1889-11-2 	1870 	1804-Lewis & Clark Explore; 1817-Ft. Pierre (US)
+41 	Montana 	1889-11-8 	1860 	1806-Lewis & Clark Explore; 1841-Bitteroot Valley (US)
+42 	Washington 	1889-11-11 	1860 	1805-Lewis & Clark Explore; 1811-Ft. Okanogan (US)
+43 	Idaho 		1890-7-3 	1860 	1805-Lewis & Clark Explore; 1809-Pend Oreille Post (US)
+44 	Wyoming 	1890-7-10 	1870 	1807-John Colter Explores; 1834-Ft. William (US)
+45 	Utah 		1896-1-4 	1850 	1776-Franciscan Friars Explore; 1847-Salt Lake City (US)
+46 	Oklahoma 	1907-11-16 	1860 	1803-US Acquires; 1811-Cherokee Reservations Established
+47 	New Mexico 	1912-1-26 	1840 	1610-Santa Fe (Sp); 1848-US Gains Control
+48 	Arizona 	1912-2-14 	1830 	1776-Ft. Tucson (Sp); 1848-US Gains Control
+49 	Alaska 		1959-1-3 	1800 	1784-Kodiak (Ru); 1867-US Gains Control; 1896-Gold
+50 	Hawaii 		1959-8-21 	1840 	1820-Missionaries (Br); 1898-US Annexes

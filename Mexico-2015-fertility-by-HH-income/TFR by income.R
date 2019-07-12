@@ -12,7 +12,21 @@ if (!data.already.processed) {
   if (!require("ipumsr")) stop("Reading IPUMS data into R requires the ipumsr package. It can be installed using the following command: install.packages('ipumsr')")
   
   ddi  <- read_ipums_ddi("ipumsi_00015.xml")
-  data <- read_ipums_micro(ddi) 
+  data <- read_ipums_micro(ddi) %>%
+            filter(AGE %in% 0:99, 
+                   INCEARN < 99999998)
+  
+  DT = as.data.table(data)
+  
+  HHsummary = function(INCEARN,AGE,SEX) {
+    list(
+      inc = sum(INCEARN),
+      C   = sum(AGE %in% 0:4)
+    )
+  }
+  
+  HHINC = DT[,c('inc','C') := HHsummary(INCEARN,AGE,SEX), by=SERIAL]
+  
   
   # ## Household-level data with total earned income and C,W counts
   # MX = data %>%

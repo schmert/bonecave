@@ -49,7 +49,7 @@ df = data.frame(
         W35    = W35$V1,
         W40    = W40$V1,
         W45    = W45$V1,
-        wt     = HHWT$V1
+        wt     = HHWT$V1 / mean(HHWT$V1)
 ) %>%
   group_by(income) %>% 
   summarize( C = sum(wt*C),
@@ -69,14 +69,44 @@ df = data.frame(
 levels(df$income) = c('0-5K','5-10K','10-15K','15-20K',
                       '20-25K','25-30K','30-35K','35-40K','> 40K')
 
+#------------------------
+# superfast bTFR
+#------------------------
+
+source('superfast_bTFR function.R')
+
+C      = round(df$C)
+W      = as.matrix( select(df, paste0('W',seq(15,45,5) ) ))
+q5_est = rep(.020, nrow(df))
+
+result        = superfast_bTFR(C,W,q5_est, delta_TFR=.01,
+                               rownames=levels(df$income))
+
+
+for (k in names(result)) {
+  plot( result[[k]]$dens, xlim=c(1,3), main=k)
+  abline(v=result[[k]][c('Q10','Q50','Q90')])
+}
+
+result_df = data.frame(
+              income = df$income,
+              Q10   = unlist( sapply(result,'[','Q10') ),
+              Q50   = unlist( sapply(result,'[','Q50') ),
+              Q90   = unlist( sapply(result,'[','Q90') )
+            )
+              
+#------------------------
+
 ## plot TFR by HH income  
-ggplot(data=df, aes(x=income, y=xTFR, group=NA)) +
+ggplot(data=result_df, aes(x=income, y=Q50, group=NA)) +
   geom_point(color='darkgreen', size=3) +
   geom_line(color='darkgreen', lwd=1.5) +
   geom_hline(yintercept=2, lwd=0.5) +
+  geom_ribbon(aes(x=income,ymin=Q10,ymax=Q90), fill='darkgreen', alpha=.20) +
   labs(title='Total Fertility by Household Income, Mexico 2011-2015',
+       subtitle='posterior median and 80% interval',
        x='Earned Income (pesos/month)',
-       y='Total Fertility (lifetime children/woman',
+       y='Total Fertility (lifetime children/woman)',
        caption='Source: 2015 Mexican Intercensal Survey, http://international.ipums.org') +
   theme_bw() +
   theme(axis.text  = element_text(face='bold', size=11),

@@ -1,0 +1,51 @@
+GENESIS-Tabelle: 12613-03-01-4-B,
+Gestorbene nach Monat des Sterbefalles - Jahr - regionale;;;;;;;;;;;;;;;,
+Ebenen;;;;;;;;;;;;;;;,
+Statistik der Sterbefälle;;;;;;;;;;;;;;;,
+;;;Gestorbene;Gestorbene;Gestorbene;Gestorbene;Gestorbene;Gestorbene;Gestorbene;Gestorbene;Gestorbene;Gestorbene;Gestorbene;Gestorbene;Gestorbene,
+;;;Monat des Sterbefalles;Monat des Sterbefalles;Monat des Sterbefalles;Monat des Sterbefalles;Monat des Sterbefalles;Monat des Sterbefalles;Monat des Sterbefalles;Monat des Sterbefalles;Monat des Sterbefalles;Monat des Sterbefalles;Monat des Sterbefalles;Monat des Sterbefalles;Monat des Sterbefalles,
+;;;Insgesamt;Januar;Februar;März;April;Mai;Juni;Juli;August;September;Oktober;November;Dezember,
+;;;Anzahl;Anzahl;Anzahl;Anzahl;Anzahl;Anzahl;Anzahl;Anzahl;Anzahl;Anzahl;Anzahl;Anzahl;Anzahl,
+2017;01;Schleswig-Holstein;34455;3164;3438;3148;2799;2816;2605;2613;2734;2544;2828;2741;3025,
+2017;02;Hamburg;17640;1805;1634;1588;1411;1426;1288;1389;1447;1299;1388;1451;1514,
+2017;03;Niedersachsen;93713;9364;9174;8529;7362;7654;6854;7095;7322;6988;7507;7553;8311,
+2017;04;Bremen;7905;779;765;679;640;660;604;621;568;613;657;650;669,
+2017;05;Nordrhein-Westfalen;204842;20841;19633;18370;16148;16728;15402;15773;15483;15090;16451;16673;18250,
+2017;06;Hessen;66337;6804;6566;5872;5095;5349;4982;5027;5227;5104;5334;5242;5735,
+2017;07;Rheinland-Pfalz;47385;4778;4673;4176;3792;3916;3553;3772;3522;3494;3761;3805;4143,
+2017;08;Baden-Württemberg, Land;109120;11715;10637;9442;8402;8714;8075;8469;8351;8127;8780;8858;9550
+2017;09;Bayern;133902;14739;12598;11848;10472;10595;10246;10094;10200;9885;10916;10806;11503,
+2017;10;Saarland;13275;1351;1231;1207;1037;1064;1036;1030;1018;1020;1063;1086;1132,
+2017;11;Berlin;34339;3548;3394;3056;2740;2803;2531;2537;2582;2625;2871;2681;2971,
+2017;12;Brandenburg;31778;3203;3244;2784;2512;2592;2382;2378;2484;2302;2602;2529;2766,
+2017;13;Mecklenburg-Vorpommern;20736;2009;1958;1827;1697;1758;1499;1619;1608;1540;1669;1700;1852,
+2017;14;Sachsen;54689;5583;5559;4885;4219;4477;4010;4147;4274;4079;4345;4326;4785,
+2017;15;Sachsen-Anhalt;32795;3258;3231;2912;2576;2724;2377;2573;2480;2487;2722;2541;2914,
+2017;16;Thüringen;29361;3092;2916;2611;2302;2407;2200;2274;2189;2196;2335;2347;2492,
+__________,
+"zu ""gesamte Tabelle"":
+Baden-Württemberg (2016): Abweichungen gegenüber anderen
+Veröffentlichungen ergeben sich durch nachträgliche Korrek-
+turen.
+Berlin (ab 2016): ohne Gestorbene mit unbestimmten Ge-
+schlecht
+
+
+ab 2016:
+Baden-Württemberg, Bayern, Berlin, Brandenburg, Bremen,
+Hamburg, Hessen, Mecklenburg-Vorpommern, Niedersachsen,
+Nordrhein-Westfalen, Rheinland-Pfalz, Saarland, Sachsen,
+Sachsen-Anhalt, Schleswig-Holstein: Die Ergebnisse können
+Fälle mit unbestimmtem Geschlecht enthalten, die durch ein
+definiertes Umschlüsselungsverfahren auf männlich und weib-
+lich verteilt wurden.
+
+zu ""Insgesamt"":
+Deutschland (2016): nachrichtlich: einschließlich der Fälle
+mit unbestimmten Geschlecht 910.902
+Deutschland (2017): nachrichtlich: einschließlich der Fälle
+mit unbestimmten Geschlecht 932.272",
+"© Statistische Ämter des Bundes und der Länder, Deutschland, 2019.
+Dieses Werk ist lizenziert unter der Datenlizenz Deutschland
+- Namensnennung - Version 2.0.",
+Stand: 24.08.2019 / 14:06:05,

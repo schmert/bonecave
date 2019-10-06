@@ -139,7 +139,7 @@ library(cowplot)
 
 plot_grid(G, G_std, nrow=1)
 
-ggsave(file='sex-ratio.png', width=11, height=8.5, units='in', dpi=300)
+ggsave(file='sex-ratio.png', width=8, height=5, units='in', dpi=300)
 
   
 

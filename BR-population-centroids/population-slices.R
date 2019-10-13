@@ -69,6 +69,7 @@ pop_quantile = function(vname, this_prob) {
 
 
 ## construct the main map
+nslice     = 2
 
 main_map = ggplot(data=BR) +
             geom_sf(fill='ivory', color='darkgreen', lwd=0.30) +
@@ -85,9 +86,6 @@ main_map = ggplot(data=BR) +
       
 
 for (this_vname in c('X','Y')) {
-  
-
-  nslice     = 10
   
   divisor     = rep(NA,nslice-1)
   

@@ -133,7 +133,7 @@ for (this_vname in c('X','Y')) {
     this_slice = st_intersection(tmp,state_map)
 
     G = G + geom_sf(data=this_slice, color=NA,
-                    fill=c('black','red','gold')[1+ i %% 3],
+                    fill=c('gold','red','black')[1+ (i-1) %% 3],
                     alpha=.40)
   }
 

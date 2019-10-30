@@ -14,7 +14,7 @@ z = get_acs(geography='state', variables='B05006_151', year=2017) %>%
       filter(is.finite(estimate)) %>%
       left_join( states, by='NAME')
 
-corBR = 'royalblue'
+corBR = 'royalblue' 
 
 ggplot(data=z) + 
   aes(x=estimate,y=reorder(NAME,estimate), label=reorder(abb,estimate)) + 

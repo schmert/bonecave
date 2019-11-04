@@ -11,7 +11,7 @@ D = read_dta('couple-height.dta') %>%
 
 this_caption = 'Source: PSID 2017 data provided by Philip Cohen at https://osf.io/w72pc/\n(all couples in this dataset are opposite sex)'
 
-G =
+G1 =
   ggplot( data=D, 
           aes(x=rinch, y=sinch, size=n)) +
   geom_point(shape=16, color='orangered', alpha=1) +
@@ -26,9 +26,9 @@ G =
   theme_bw()
 
 
-print(G)  
+print(G1)  
 
-ggsave(plot=G, filename='couple-height.png',
+ggsave(plot=G1, filename='couple-height.png',
          height=8,width=8,units='in',dpi=300)
 
 
@@ -39,7 +39,7 @@ df = D %>%
          group_by(ht_diff) %>%
          summarize(n=sum(n))
 
-G = ggplot(df) +
+G2 = ggplot(df) +
       aes(x=ht_diff, y=n) +
       geom_bar(stat='identity', fill='orangered', color=NA) +
       scale_x_continuous(breaks=seq(-10, 19,1), limits = c(-10,19)) +
@@ -68,8 +68,8 @@ expected_count = tapply(Pstar, outer(hm,hf,'-'), sum) * sum(D$n)
 tmp = data.frame(ht_diff = as.numeric(names(expected_count)),
                  n = expected_count)
 
-G + geom_point(data=tmp) +
-    geom_line(data=tmp)
+G2 = G2 + geom_point(data=tmp) +
+        geom_line(data=tmp)
 
-ggsave(plot=G, filename='couple-height-diffs.png',
+ggsave(plot=G2, filename='couple-height-diffs.png',
        height=8,width=8,units='in',dpi=300)

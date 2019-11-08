@@ -7,128 +7,108 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
 ```
 
 ## Notation
 
 Suppose that there are $A$ reproductive ages $a=1\ldots A$ in which either men or women may have children. At some of these ages, notably 50+, male fertility may be possible even though female fertility is not. 
 
-Call $\theta \in \mathbb{R}^A$ the vector of age-specific fertility rates for _women_. Define $\mathbf{W} = diag(W_1\ldots W_A)$ as a diagonal matrix with population counts of _women_, and $\mathbf{M} = diag(M_1\ldots M_A)$ as a diagonal matrix with population counts of _men_. 
+Suppose also that there are a total of $B$ births in a given year, and that $p_{xy}$ is the fraction of those births for which the mother is $x$ years old and the father is $y$ years old.  
 
-Define an $A \times A$ matrix $\mathbf{P}$ in which 
-$$
-P_{ij} = \text{fraction of births to mothers aged $j$ that have fathers aged $i$}
-$$
-Notice that the column sums of $\mathbf{P}$ equal one by definition: $\mathbf{1}^\prime \mathbf{P}  = \mathbf{1}^\prime$, where $\mathbf{1}$ is an $A \times 1$ vector of ones. 
+Call the $\mathbf{P}$ the $A \times A$ matrix of $p_{xy}$ values, with mother's age corresponding to rows and father's age to columns. The marginal distribution of mothers' ages for this year's births is $\mathbf{P}\mathbf{1} \in \mathbb{R}^A$, and the marginal distribution of fathers' ages is $\mathbf{P}^\prime\mathbf{1} \in \mathbb{R}^A$, where $\mathbf{1}$ is an $A \times 1$ vector of ones. 
 
-## Age-Specific Births
+The vector of births by mother's age is thus
+$$
+\mathbf{b}_{female} = B \cdot \mathbf{P}\,\mathbf{1} \in \mathbb{R}^A
+$$
+and the vector of births by father's age is
+$$
+\mathbf{b}_{male} = B \cdot \mathbf{P}^\prime \,\mathbf{1} \in \mathbb{R}^A
+$$
+Define $\mathbf{W} = diag(W_1\ldots W_A)$ as a diagonal matrix with population counts of _women_, and $\mathbf{M} = diag(M_1\ldots M_A)$ as a diagonal matrix with population counts of _men_. 
 
-The vector of births arranged by age of _mothers_ is
+Age-specific birth rates and $TFR$ for women are therefore
 $$
-b_{female} = \mathbf{W}\,\theta
+\mathbf{f}_{female} = \mathbf{W}^{-1} \mathbf{b}_{female} = B \cdot  \mathbf{W}^{-1} \mathbf{P} \,\mathbf{1}
 $$
-and the vector of births arranged by age of _fathers_ is
+and 
 $$
-b_{male} = \mathbf{P}\,\mathbf{W}\,\theta
+TFR_{female} = \mathbf{1}^\prime \mathbf{f}_{female} =  B \cdot \mathbf{1}^\prime \mathbf{W}^{-1} \mathbf{P} \,\mathbf{1}
 $$
+Because $\mathbf{P}\mathbf{1} \in \mathbb{R}^A$ is the marginal distributions of mother's ages for this year's births, we can interpret this as 
+$$
+TFR_{female} = B\, \cdot \, E_{x} \left( \frac{1}{W_x}\right)
+$$
+where the expectation is weighted by mothers' ages of this year's births. 
 
-## Age- and Sex-Specific Birth Rates
+An analogous derivation for men produces age-specific rates
+$$
+\mathbf{f}_{male} = \mathbf{M}^{-1} \mathbf{b}_{male} = B \cdot  \mathbf{M}^{-1} \mathbf{P}^\prime \,\mathbf{1}
+$$
+and 
+$$
+TFR_{male} = \mathbf{1}^\prime \mathbf{f}_{male} =  B \cdot \mathbf{1}^\prime \mathbf{M}^{-1} \mathbf{P}^\prime \,\mathbf{1}
+$$
+We can interpret this as 
+$$
+TFR_{male} = B\, \cdot \, E_{y} \left( \frac{1}{M_y}\right)
+$$
+where the expectation is weighted by fathers' ages of this year's births. 
 
-Birth rates for women are age-specific birth/women ratios:
-$$
-f_{female} = \mathbf{W}^{-1}\,b_{female} = \mathbf{W}^{-1}\,\mathbf{W}\,\theta = \theta
-$$
-Birth rates for men are age-specific birth/men ratios:
-$$
-f_{male} = \mathbf{M}^{-1}\,b_{male} = \mathbf{M}^{-1}\,\mathbf{P}\,\mathbf{W}\,\theta 
-$$
 
-## Age-Specific Birth Rates and TFRs
-
-With single-year ages, TFR is simply the sum of age-specific rates, so
-$$
-TFR_{female} = \mathbf{1}^\prime \, \theta
-$$
-and
-$$
-TFR_{male} = \mathbf{1}^\prime \mathbf{M}^{-1} \mathbf{P} \mathbf{W}\,\theta
-$$
 The difference of the sex-specific $TFR$s is
 $$
-TFR_{male} - TFR_{female} = \mathbf{1}^\prime \left[\, \mathbf{M}^{-1} \mathbf{P} \mathbf{W}\,- \mathbf{I}_A\,\right]\theta
+TFR_{male} - TFR_{female} = B \cdot \left[  E_{y} \left( \frac{1}{M_y}\right) - E_{x} \left( \frac{1}{W_x}\right)\right]
 $$
-In very broad terms, we can see that this difference is more likely to be positive (higher male TFR) if there are more women and fewer men in the reproductive-age population -- i.e. if the diagonal elements of $\mathbf{W}$ tend to be larger than the diagonal elements of $\mathbf{M}$. In that case the general fertility rate for males (total period births divided by total number of reproductive-age males) would be higher than the general fertility rate for females, and the $TFR$s would tend to have the same difference in favor of males. 
+In very broad terms, we can see that this difference is more likely to be positive (higher male TFR) if there are more women and fewer men in the reproductive-age population. More subtly, the age distributions of males and females also affect the difference in sex-specific $TFR$s. 
 
-More subtly, the age distributions of males and females also affect the difference in sex-specific $TFR$s. 
-
+# Example: US TFRs in 1975
 
 ```{r}
 # USA male fertility
 # from Dudel, C. and S. Klüsener. Male fertility data for high-income 
-# countries [unpublished data]. Submitted to the HFC by C. Dudel 
-# on 15.05.2019.
+# countries [unpublished data]. Submitted to the HFC by C. Dudel # on 15.05.2019.
 # 
 # downloaded from Human Fertility Collection 2 Nov 2019
 # https://www.fertilitydata.org/data/RAW_DATA/m_USA_51.zip
 
 
+# Male 1975 rates from HFC, as described above
+asfr_male = read.table(file='m_ASFR_USA.txt', header=TRUE) %>%
+              filter(Year=='1975') %>%
+              pull(ASFR)
 
+# male data pulled is for ages 15-59. Add zero rates for 12-14
+asfr_male = c( rep(0,3), asfr_male)
 
-library(tidyverse)
-
-# Male data from HFC, as described above
-MM = read.table(file='m_ASFR_USA.txt', header=TRUE) %>%
-      mutate(Y = factor(Year)) 
-
-# Female data from HFD
-FF = read.table(file='USAasfrTR.txt', skip=2, header=TRUE) %>%
-       filter(Year %in% unique(MM$Year)) %>%
+# Female 1975 rates from HFD
+asfr_female = read.table(file='USAasfrTR.txt', skip=2, header=TRUE) %>%
        mutate(Age = 11 + as.numeric(Age)) %>%
        group_by(Year,Age) %>%
        summarize(ASFR = mean(ASFR)) %>%
-       mutate(Y=factor(Year))
+       filter(Year=='1975') %>%
+       pull(ASFR)
 
-big = bind_rows(
-         mutate(MM,Sex='Male'),
-         mutate(FF,Sex='Female')
-       )
-       
-tmp = big %>%
-           group_by(Sex,Year) %>%
-           summarize(TFR=sum(ASFR))
+# female data pulled is for ages 12-54. Add zero rates for 56-59
+asfr_female = c( asfr_female, rep(0,4))
 
-theme_carl <- function () { 
-  theme_bw(base_size=13) %+replace% 
-    theme(
-      title      = element_text(size=20, face='bold'),
-      plot.caption  = element_text(size=10, face='italic',hjust=0),
-      axis.text  = element_text(size=15, face='bold'),
-      axis.title = element_text(size=15, face='bold')
-    )
-}
+# 1975 US populations
 
-tmp = big %>%
-  filter(Year > 1974) %>%
-  group_by(Sex,Year) %>%
-  summarize(TFR=sum(ASFR))
+pop = read.table('Population.txt',skip=2, header=TRUE) %>%
+        filter(Year=='1975', Age %in% 12:59) %>%
+        select(Age,Female,Male)
 
-G = ggplot(data=tmp) +
-      aes(x=Year, y=TFR, group=Sex, color=Sex) +
-      geom_line(lwd=1) +
-      geom_point() +
-      geom_point(x=1988, y=1.925, shape=1, size=9, color='purple') +
-      geom_hline(yintercept = 2, lty='dotted') +
-      scale_color_manual(values=c('red','blue')) +
-      scale_x_continuous(breaks=seq(1975,2015,5)) +
-      labs(x='Year',
-           y='Total Fertility Rate',
-           title='Period Total Fertility 1975-2015\nUSA Males and Females',
-           caption='Sources\nMALES: C Dudel and S Klüsener, Human Fertilty Collection https://www.fertilitydata.org/data/RAW_DATA/m_USA_51.zip\nFEMALES: Human Fertility Database') +
-      theme_carl()
+Bx = pop$Female * asfr_female
+By = pop$Male   * asfr_male
+
+px = prop.table(Bx)
+py = prop.table(By)
+
+female_factor = weighted.mean( 1/pop$Female, w=px)
+male_factor   = weighted.mean( 1/pop$Male  , w=py)
 
 
-print(G)
-
-#ggsave(G, file='USA-TFR-by-sex.png', height=8, width=11, units='in', dpi=300)
 
 ```

@@ -148,14 +148,7 @@ ggplot(data=df) +
 
 # Example: US TFRs in `r detail_year`
 
-Start by loading ASFR and population data for `r detail_year`. Calculate male and female $TFR$s.
-
-USA male fertility
-from Dudel, C. and S. Klüsener. Male fertility data for high-income 
-countries [unpublished data]. Submitted to the HFC by C. Dudel # on 15.05.2019.
- 
-downloaded from Human Fertility Collection 2 Nov 2019
-https://www.fertilitydata.org/data/RAW_DATA/m_USA_51.zip
+Select `r detail_year` data and analyze in more detail. 
 
 ```{r}
 tmp.big = filter(big, Year == detail_year)

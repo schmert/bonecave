@@ -1,7 +1,7 @@
 ---
 title: "Comparing Period TFR for 2 groups"
 author: "Carl Schmertmann"
-date: 9 Nov 2019"
+date: 10 Nov 2019
 output: pdf_document
 ---
 
@@ -9,6 +9,8 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
+
+this_year = 1970  # year for US comparisons
 ```
 
 ## TFR for one group
@@ -31,63 +33,61 @@ where the expectation in (\ref{eq:mainTFR}) is taken over the observed distribut
 
 ## Comparing TFR for 2 groups
 
-If there are two groups then the difference between their period $TFR$s is
+If there are two groups then the ratio of their period $TFR$s is
 
 \begin{equation}
-\label{eq:TFRdiff}
-TFR_1 - TFR_2 = B_1 E_{\pi_1} \left( N^{-1}_{1x}\right) 
-                - 
-                B_2 E_{\pi_2} \left(  N^{-1}_{2x} \right)
+\label{eq:TFRratio}
+\frac{TFR_1}{TFR_2} = 
+\frac{B_1 \: \cdot \: E_{\pi_1} \left(  N^{-1}_{1x}\right)} 
+     {B_2 \: \cdot \: E_{\pi_2} \left(  N^{-1}_{2x} \right)}
 \end{equation}
 
 In some cases (for example when the groups are "women" and "men") the total births are the same for both groups. For those cases:
 \begin{equation}
-\label{eq:TFRdiffsameB}
-TFR_1 - TFR_2 = B \left[ E_{\pi_1} \left( N^{-1}_{1x}\right) 
-                - 
-                E_{\pi_2} \left(  N^{-1}_{2x} \right) \right]
+\label{eq:TFRratiosameB}
+\frac{TFR_1}{TFR_2} = \frac{E_{\pi_1} \left( N^{-1}_{1x}\right)} 
+                           {E_{\pi_2} \left(  N^{-1}_{2x} \right)}
 \end{equation}
 
-Using the very simple-but-useful results derived in the Appendix below, the difference can be approximated well by
+Using the results derived in the Appendix below, the ratio in (\ref{eq:TFRratiosameB}) can be approximated well by
 
 $$
-TFR_1 - TFR_2 \approx B 
-               \left[ \frac{1}{N_{1,m_1}} 
-                - 
-                \frac{1}{N_{2,{m_2}}}  
-                \right]
+\frac{TFR_1}{TFR_2} \approx  
+               \frac{N_{2,{m_2}}} 
+                    {N_{1,{m_1}}}  
 $$
 where $m_1$ and $m_2$ are the mean ages of parents in the two groups for this year's observed births. 
 
 
-# Example: US TFRs in 1975
+# Example: US TFRs in `r this_year`
 
-Start by loading ASFR and population data for 1975. Calculate male and female $TFR$s.
+Start by loading ASFR and population data for `r this_year`. Calculate male and female $TFR$s.
+
+USA male fertility
+from Dudel, C. and S. Klüsener. Male fertility data for high-income 
+countries [unpublished data]. Submitted to the HFC by C. Dudel # on 15.05.2019.
+ 
+downloaded from Human Fertility Collection 2 Nov 2019
+https://www.fertilitydata.org/data/RAW_DATA/m_USA_51.zip
+
 
 ```{r}
-# USA male fertility
-# from Dudel, C. and S. Klüsener. Male fertility data for high-income 
-# countries [unpublished data]. Submitted to the HFC by C. Dudel # on 15.05.2019.
-# 
-# downloaded from Human Fertility Collection 2 Nov 2019
-# https://www.fertilitydata.org/data/RAW_DATA/m_USA_51.zip
 
-
-# Male 1975 rates from HFC, as described above
+# Male rates from HFC, as described above
 asfr_male = read.table(file='m_ASFR_USA.txt', header=TRUE) %>%
-              filter(Year=='1975') %>%
+              filter(Year== as.character(this_year)) %>%
               pull(ASFR)
 
 # male data pulled is for ages 15-59. Add zero rates for 12-14
 asfr_male = c( rep(0,3), asfr_male)
 TFR_male  = sum(asfr_male)
 
-# Female 1975 rates from HFD
+# Female rates from HFD
 asfr_female = read.table(file='USAasfrTR.txt', skip=2, header=TRUE) %>%
        mutate(Age = 11 + as.numeric(Age)) %>%
        group_by(Year,Age) %>%
        summarize(ASFR = mean(ASFR)) %>%
-       filter(Year=='1975') %>%
+       filter(Year==as.character(this_year)) %>%
        pull(ASFR)
 
 # female data pulled is for ages 12-54. Add zero rates for 56-59
@@ -95,9 +95,9 @@ asfr_female = c( asfr_female, rep(0,4))
 TFR_female  = sum(asfr_female)
 ```
 
-For the US in 1975, female TFR was **`r round(TFR_female,2)`** and male TFR was  **`r round(TFR_male,2)`**.
+For the US in `r this_year`, female TFR was **`r round(TFR_female,2)`** and male TFR was  **`r round(TFR_male,2)`**.
 
-Now illustrate 1975 fertility rates, births, and populations, by age and sex. 
+Now illustrate `r this_year` fertility rates, births, and populations, by age and sex. 
 
 ```{r}
 tmp = expand.grid(age=12:59, sex=c('male','female')) %>%
@@ -107,7 +107,7 @@ ggplot(data=tmp) +
   aes(x=age, y=asfr, color=sex) +
   geom_line(lwd=1.5) +
   scale_color_manual(values=c('blue','red')) +
-  labs(title='US Age-Specific Fertility Rates 1975',
+  labs(title=paste('US Age-Specific Fertility Rates',this_year),
        subtitle=paste('Female TFR=',round(TFR_female,2),
                       '  Male TFR=',  round(TFR_male,2))) +
   theme_bw()
@@ -115,16 +115,16 @@ ggplot(data=tmp) +
    
 
 
-# 1975 US populations
+# US populations
 
 pop = read.table('Population.txt',skip=2, header=TRUE) %>%
-        filter(Year=='1975', Age %in% 12:59) %>%
+        filter(Year==as.character(this_year), Age %in% 12:59) %>%
         select(Age,Female,Male)
 
 B_male     = pop$Male   * asfr_male
 B_female   = pop$Female * asfr_female
 
-# these are slightly different. Use the avg to calculate the 1975 total
+# these are slightly different. Use the avg to calculate the period total
 B = mean(sum(B_male), sum(B_female))
 
 m_male   = weighted.mean( 12:59+.50, B_male)
@@ -136,14 +136,10 @@ msq_female = weighted.mean( (12:59+.50)^2, B_female)
 v_male   = msq_male   - m_male^2
 v_female = msq_female - m_female^2
 
+## function to approximate the pop at the mean age of births
 Nm_male   = approx(x=12:59+.50, y=pop$Male,   xout= m_male)$y
 Nm_female = approx(x=12:59+.50, y=pop$Female, xout= m_female)$y
 
-bump_y   = approx(x=12:59+.50, y=pop$Male,   xout= m_male + c(-0.5,+0.5))$y
-Nm_prime_male = diff(bump_y)
-
-bump_y   = approx(x=12:59+.50, y=pop$Female,   xout= m_female + c(-0.5,+0.5))$y
-Nm_prime_female = diff(bump_y)
 
 tmp = expand.grid(age=12:59, sex=c('male','female')) %>%
         add_column( births=c(B_male,B_female))
@@ -154,9 +150,9 @@ ggplot(data=tmp) +
   geom_vline(xintercept = c(m_female,m_male), color=c('red','blue'),
              lwd=1.5,lty='dotted') +
   scale_color_manual(values=c('blue','red')) +
-  labs(title='US Age-Specific Births 1975',
-       subtitle=paste('Female Mean Age =',round(m_female,2),
-                      '  Male Mean Age =',round(m_male,2))) +
+  labs(title=paste('US Age-Specific Births',this_year),
+       subtitle=paste('Mother\'s Mean Age =',round(m_female,2),
+                      'Father\'s Mean Age =',round(m_male,2))) +
   theme_bw()
 
 ## population
@@ -169,31 +165,28 @@ ggplot(data=tmp) +
   geom_vline(xintercept = c(m_female,m_male), color=c('red','blue'),
              lwd=1.5,lty='dotted') +
   scale_color_manual(values=c('blue','red')) +
-  labs(title='US Age-Specific Populations 1975',
-       subtitle=paste('Female Mean Age =',round(m_female,2),
-                      '  Male Mean Age =',round(m_male,2))) +
+  labs(title=paste('US Age-Specific Populations',this_year)) +
   theme_bw()
 
 ```
 
 Now we will check the approximations based on
 
-* mean parental ages for 1975 births:  **`r round(m_female,2)` ** for females and **`r round(m_male,2)` ** for males 
-* variance of parental ages for 1975 births:  **`r round(v_female,2)` ** for females and **`r round(v_male,2)` ** for males 
-* 1975 populations at mean ages: **`r round(Nm_female)` ** for females and **`r round(Nm_male)` ** for males 
+* mean parental ages for `r this_year` births:  **`r round(m_female,2)` ** for females and **`r round(m_male,2)` ** for males 
+* variance of parental ages for `r this_year` births:  **`r round(v_female,2)` ** for females and **`r round(v_male,2)` ** for males 
+* `r this_year` populations at mean ages: **`r round(Nm_female)` ** for females and **`r round(Nm_male)` ** for males 
 
 ```{r}
 
 TFR_female
 B/Nm_female
-B * (1/Nm_female) * (1 + v_female/Nm_female * Nm_prime_female/Nm_female)
 
 TFR_male
 B/Nm_male
-B * (1/Nm_male) * (1 + v_male/Nm_male * Nm_prime_male/Nm_male)
 
 ```
 
+Thus WORKING HERE...
 
 ## Appendix: Approximation
 
@@ -209,22 +202,9 @@ $$
 E(N^{-1}_x) \approx N^{-1}_m  
 + \tfrac{\sigma^2_x}{2} \left[ 2N^{-3}_m N'_m - N^{-2}_m N''_m\right]
 $$
-where $\sigma^2_x$ is the observed variance of parental ages. Factoring out common multipliers and rearranging yields
-$$
-E(N^{-1}_x) \approx N^{-1}_m \left[ 
-1 + \tfrac{\sigma^2_x}{2N_m} \left( 2 \tfrac{N'_m}{N_m} - N''_m\right)
-\right]  
-$$
+where $\sigma^2_x$ is the observed variance of parental ages. Typical values for the variance term are in $[25,50]$, so when exposure $N$ is measured in thousands or millions, the second-order term is extremely small relative to the first-order term. 
 
-We can further simplify the approximation by noting that in most real populations the second derivative of exposure with age is likely very close to zero (very little local curvature in exposure by age). Thus $N''_m\approx 0$ and 
+This leads to a very simple approximation for $TFR$ that is fairly robust:
 $$
-E(N^{-1}_x) \approx N^{-1}_m \left[ 
-1 + \tfrac{\sigma^2_x}{N_m} \left(  \tfrac{N'_m}{N_m} \right)
-\right]  
+TFR \; \approx \; \frac{B}{N_m} = \frac{\text{total annual births}}{\text{mid-year population at mean parental age}}
 $$
-Further, variance in parental ages at childbearing is typically in the 25-50 range $\sigma^2_x \in [25,50]$, and the derivative of log exposure by age would typically be close to zero -- perhaps $\tfrac{N'_m}{N_m}\in [-.05,+.05]$. Thus with a large population (high $N_m$) the second term in square brackets would likely be small, so that a simple approximation
-$$
-E(N^{-1}_x) \approx N^{-1}_m 
-$$
-
-will often be quite useful. 

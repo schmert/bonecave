@@ -16,7 +16,7 @@ detail_year = 1995  # year for detailed US comparisons
 
 ## TFR for one group
 
-Suppose that there are $A$ possible single-year reproductive ages $a=1\ldots A$ in which individuals may have children. At some of these ages fertility rates may be zero for some groups (for example, for women at $a > 50$).
+Suppose that there are $A$ possible single-year reproductive ages $x=1\ldots A$ in which individuals may have children. At some of these ages fertility rates may be zero for some groups (for example, for women at $x > 50$).
 
 Suppose also that there are a total of $B$ births in a given year to some group of interest (such as "all women", "all men", "Asian-American men", "residents of Montana" ...).  Call $\pi_x$ the fraction of the $B$ births that happened to group members who were age $x$. That is, births disaggregated by age are 
 $$

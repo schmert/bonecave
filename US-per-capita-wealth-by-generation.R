@@ -83,10 +83,22 @@ for (v in vname) {
 big = W %>%
         mutate(Year = floor(date)) %>%
         left_join(P, by=c('Year','Category'='gen')) %>%
+        filter(Category != 'Silent') %>%
         mutate(Assets_per_capita      = 1e6 * Assets/genpop,
                Liabilities_per_capita = 1e6* Liabilities/genpop,
                Net_worth_per_capita   = Assets_per_capita-Liabilities_per_capita) %>% 
         select(date,Category, contains('_per_capita'), genpop, med_gen_age)
+
+
+theme_carl <- function () { 
+  theme_bw(base_size=13) %+replace% 
+    theme(
+      title      = element_text(size=20, face='bold'),
+      plot.caption  = element_text(size=10, face='italic',hjust=0),
+      axis.text  = element_text(size=15, face='bold'),
+      axis.title = element_text(size=15, face='bold')
+    )
+}
 
 pdf(file='US-wealth-by-generation.pdf',
     width=11, height=8.5)
@@ -94,21 +106,21 @@ pdf(file='US-wealth-by-generation.pdf',
   G = ggplot(data=big) +
      aes(x=date, y=Assets_per_capita, color=Category, group=Category) +
      geom_point(lwd=1.5) +
-     theme_bw() 
+     theme_carl() 
   
   print(G)
   
   G = ggplot(data=big) +
     aes(x=date, y=Liabilities_per_capita, group=Category,color=Category) +
     geom_line(lwd=1.5) +
-    theme_bw()
+    theme_carl()
   
   print(G)
   
   G = ggplot(data=big) +
     aes(x=date, y=Net_worth_per_capita, group=Category,color=Category) +
     geom_line(lwd=1.5) +
-    theme_bw()
+    theme_carl()
   
   print(G)
   
@@ -117,7 +129,7 @@ pdf(file='US-wealth-by-generation.pdf',
     scale_x_continuous(limits=c(20,70)) +
     geom_smooth(lwd=1.5,se=FALSE) +
     labs(x='Median Age of Cohort') +
-    theme_bw()
+    theme_carl()
   
   print(G)
   
@@ -126,7 +138,7 @@ pdf(file='US-wealth-by-generation.pdf',
     scale_x_continuous(limits=c(20,70)) +
     geom_smooth(lwd=1.5,se=FALSE) +
     labs(x='Median Age') +
-    theme_bw()
+    theme_carl()
   
   print(G)
   
@@ -135,7 +147,7 @@ pdf(file='US-wealth-by-generation.pdf',
     scale_x_continuous(limits=c(20,70)) +
     geom_smooth(lwd=1.5, se=FALSE) +
     labs(x='Median Age') +
-    theme_bw()
+    theme_carl()
   
   print(G)
   
@@ -148,7 +160,7 @@ pdf(file='US-wealth-by-generation.pdf',
     aes(x=med_gen_age, y=amt, group=Category,color=Category) +
     scale_x_continuous(limits=c(20,70)) +
     geom_smooth(lwd=1.5, se=FALSE) +
-    theme_bw() +
+    theme_carl() +
     labs(x='Median Age') +
     facet_grid(. ~ measure)
   
@@ -159,26 +171,51 @@ dev.off()
 
 # main plot
 
-theme_carl <- function () { 
-  theme_bw(base_size=13) %+replace% 
-    theme(
-      title      = element_text(size=20, face='bold'),
-      plot.caption  = element_text(size=10, face='italic',hjust=0),
-      axis.text  = element_text(size=15, face='bold'),
-      axis.title = element_text(size=15, face='bold')
-    )
-}
+hues = c('red', 'blue', 'darkgreen')
+bigsize   = 6
+smallsize = 4 
+
+text_stuff = tribble(
+  ~x, ~y, ~label, ~color, ~size,
+  60, 450000, 'Baby Boom\n(1946-1964)', hues[1], bigsize,
+  45,  90000, 'Gen X\n(1965-1980)', hues[2], bigsize,
+  35,  10000, 'Millennial\n(1981-1996)', hues[3], bigsize,
+  33, 120000, '1990', hues[1], smallsize,
+  65, 820000, '2019', hues[1], smallsize,
+  20,  40000, '1990', hues[2], smallsize,
+  47, 260000, '2019', hues[2], smallsize,
+  20, -20000, '2009', hues[3], smallsize,
+  30,  20000, '2019', hues[3], smallsize
+)
 
 G = ggplot(data=big) +
   aes(x=med_gen_age, y=Net_worth_per_capita, group=Category,color=Category) +
   scale_x_continuous(limits=c(20,70)) +
   scale_y_continuous(breaks=seq(0,800000,200000), minor_breaks = NULL) +
   geom_smooth(lwd=3, se=FALSE, alpha=.90) +
+  scale_color_viridis_d() +
   guides(color=FALSE) +
-  labs(x='Median Age') +
+  scale_color_manual(values=hues) +
   theme_carl() +
-  labs(title='Per Capita Net Worth in 2019 dollars',
-       caption='Sources:\nFederal Reserve Board of Governors (wealth distribution)\nSt. Louis Federal Reserve (price index)\nHuman Mortality Database (annual populations by age and generation)')
+  labs(x      = 'Median Age of Generation',
+       y      = 'Per Capita Net Worth (2019 dollars)',
+       title  = 'Per Capita Net Worth in 2019 dollars',
+       caption= 'Sources:\nFederal Reserve Board of Governors (wealth by year and generation)\nSt. Louis Federal Reserve (annual price index)\nHuman Mortality Database (annual populations by age and generation)')
+
+for (i in 1:nrow(text_stuff)) {
+  this_text = annotate('text', 
+                       x=text_stuff$x[i], 
+                       y=text_stuff$y[i],
+                       label=text_stuff$label[i],
+                       color=text_stuff$color[i],
+                       size=text_stuff$size[i])
+  G = G + this_text
+}
 
 print(G)
+
+ggsave(filename='US-per-capita-wealth-by-generation.png',
+       height=8.5, width=11, units='in', dpi=300)
+
+
 

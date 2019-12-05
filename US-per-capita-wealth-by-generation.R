@@ -182,9 +182,9 @@ text_stuff = tribble(
   35,  10000, 'Millennial\n(1981-1996)', hues[3], bigsize,
   33, 120000, '1990', hues[1], smallsize,
   65, 820000, '2019', hues[1], smallsize,
-  20,  40000, '1990', hues[2], smallsize,
+  20,  40000, '1992', hues[2], smallsize,
   47, 260000, '2019', hues[2], smallsize,
-  20, -20000, '2009', hues[3], smallsize,
+  20, -20000, '2008', hues[3], smallsize,
   30,  20000, '2019', hues[3], smallsize
 )
 

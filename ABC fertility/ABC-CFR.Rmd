@@ -1,0 +1,88 @@
+---
+title: "ABC Cohort Fertility"
+author: "Carl Schmertmann"
+date: "17 Dec 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+Read data downloaded from http://www.cfe-database.org
+
+```{r}
+ARG = read_csv('Argentina_Census 2001.csv')
+BRA = read_csv('Brazil_Census 2010.csv')
+CHI = read_csv('Chile_Census 2002.csv')
+
+CFR = function(data, census_year, country_name) {
+  
+x = data %>%
+      filter(stat %in% c('children_total','women_total')) %>%
+      group_by(cohort_from, cohort_to, stat) %>%
+      summarize(n=sum(value)) %>%
+      spread(key=stat,value=n) %>%
+      mutate(P=children_total/women_total,
+             age=census_year-cohort_from) %>%
+      filter(age > 44, age < 90)
+
+print( ggplot(data=x) +
+          aes(x=cohort_from, y = P) +
+          geom_point() +
+          geom_smooth(se=FALSE) +
+          theme_bw() +
+          labs(title=paste(country_name,'Completed Cohort Fertility'),
+               x = 'Cohort Year of Birth',
+               y = 'Children/Woman')
+    )
+
+ return(x)  
+
+}
+
+aa = CFR(ARG,2001,'Argentina')
+bb = CFR(BRA,2010,'Brazil')
+cc = CFR(CHI,2002,'Chile')
+
+
+```
+Now put the 3 countries together on the same CFR plot
+
+```{r}
+aa = add_column(aa, country='Argentina')
+bb = add_column(bb, country='Brazil')
+cc = add_column(cc, country='Chile')
+
+big = bind_rows(aa,
+                bb,
+                cc)
+
+theme_carl <- function () { 
+  theme_bw(base_size=13) %+replace% 
+    theme(
+      title      = element_text(size=22, face='bold', hjust =0.5),
+      axis.text  = element_text(size=15, face='bold'),
+      axis.title = element_text(size=15, face='bold')
+    )
+}
+
+ggplot(data=big) +
+    aes(x=cohort_from, y=P, group=country, shape=country, color=country) +
+    geom_point() +
+    geom_smooth(se=FALSE, size=1.5) +
+    scale_y_continuous(limits=c(2,6)) +
+    theme_carl() +
+    labs(title='Completed Fertility by Year of Woman\'s Birth',
+         caption = 'Source: http://www.cfe-database.org',
+         x = 'Cohort Year of Birth',
+         y = 'Children/Woman')
+
+ggsave(file='ABC-CFR.png', width=11, height=8, units='in', dpi=300)
+
+
+```
+
+
+

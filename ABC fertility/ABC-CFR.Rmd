@@ -8,6 +8,16 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+
+theme_carl <- function () { 
+  theme_bw(base_size=13) %+replace% 
+    theme(
+      title      = element_text(size=22, face='bold', hjust =0.5),
+      axis.text  = element_text(size=15, face='bold'),
+      axis.title = element_text(size=15, face='bold')
+    )
+}
+
 ```
 
 Read data downloaded from http://www.cfe-database.org
@@ -59,14 +69,7 @@ big = bind_rows(aa,
                 bb,
                 cc)
 
-theme_carl <- function () { 
-  theme_bw(base_size=13) %+replace% 
-    theme(
-      title      = element_text(size=22, face='bold', hjust =0.5),
-      axis.text  = element_text(size=15, face='bold'),
-      axis.title = element_text(size=15, face='bold')
-    )
-}
+
 
 ggplot(data=big) +
     aes(x=cohort_from, y=P, group=country, shape=country, color=country) +
@@ -84,5 +87,30 @@ ggsave(file='ABC-CFR.png', width=11, height=8, units='in', dpi=300)
 
 ```
 
+Now Mexico x Argentina
+
+```{r}
+MEX = read_csv('Mexico_Census 2010.csv')
+mm = CFR(MEX,2010,'Mexico')
+mm = add_column(mm, country='Mexico')
 
 
+big = bind_rows(aa,
+                mm)
+
+ggplot(data=big) +
+    aes(x=cohort_from, y=P, group=country, shape=country, color=country) +
+    geom_point() +
+    geom_smooth(se=FALSE, size=1.5) +
+    scale_y_continuous(limits=c(2,7)) +
+    scale_color_manual(values=c('royalblue','darkgreen')) +
+    theme_carl() +
+    labs(title='Completed Fertility by Year of Woman\'s Birth',
+         caption = 'Source: http://www.cfe-database.org',
+         x = 'Cohort Year of Birth',
+         y = 'Children/Woman')
+
+ggsave(file='MA-CFR.png', width=11, height=8, units='in', dpi=300)
+
+
+```

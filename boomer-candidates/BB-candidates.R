@@ -1,3 +1,5 @@
+library(tidyverse)
+
 BByrs = 1946:1964
 
 candidates = tribble(
@@ -7,7 +9,7 @@ candidates = tribble(
   'Biden', 1942,
   'Bloomberg', 1942,
   'Booker', 1969,
-  'Bullock', 1966,
+#  'Bullock', 1966,
   'Buttigieg', 1982,
   'Castro', 1974,
   'Delaney', 1963,
@@ -16,7 +18,7 @@ candidates = tribble(
   'Klobuchar', 1960,
   'Patrick', 1956,
   'Sanders', 1941,
-  'Sestack', 1951,
+#  'Sestack', 1951,
   'Steyer', 1957,
   'Warren', 1949,
   'Williamson', 1952,

@@ -9,12 +9,17 @@ library(tidyverse)
 data(pop)
 data(popproj)
 
-sel_countries = c('Germany', 
-                  'Italy',
-                  'United Kingdom',
-                  'Sweden',
-                  'Nigeria',
-                  'Brazil')
+yage = 20
+oage = 60
+xlab = paste0('Fraction ',oage,"+")
+ylab = paste0('Fraction Under ',yage)
+
+
+sel_countries = c('Asia',
+                  'Northern America',
+                  'Europe', 
+                  'South America',
+                  'Africa')
 
 # observed populations up through 2020 ----
 
@@ -33,14 +38,17 @@ big_obs = full_join(FF,MM) %>%
            transform(x = seq(0,100,5)) %>%
            group_by(name,period) %>%
            summarize(total = sum(pop), 
-                     young = sum(pop[x < 20])/total,
-                     elder = sum(pop[x > 55])/total)
+                     young = sum(pop[x <  yage])/total,
+                     elder = sum(pop[x >= oage])/total)
 
 
 ggplot(data=big_obs) +
   aes(x=elder, y=young, color=name,group=name) +
-  geom_point(size=3) +
+  geom_point(aes(size=total), alpha=.50) +
   geom_line(size=0.2) +
+  labs(x=xlab,y=ylab, 
+       title='Age Structure',
+       caption='Source: UN World Population Prospects 2019') +
   theme_bw()
 
 
@@ -61,20 +69,27 @@ big_pred = full_join(FF,MM) %>%
   transform(x = seq(0,100,5)) %>%
   group_by(name,period) %>%
   summarize(total = sum(pop), 
-            young = sum(pop[x < 20])/total,
-            elder = sum(pop[x > 55])/total)
+            young = sum(pop[x <  yage])/total,
+            elder = sum(pop[x >= oage])/total)
 
 
 ggplot(data=big_pred) +
   aes(x=elder, y=young, color=name,group=name) +
-  geom_point(size=3) +
+  geom_point(aes(size=total), alpha=.50) +
   geom_line(size=0.2) +
+  labs(x=xlab,y=ylab, 
+       title='Age Structure',
+       caption='Source: UN World Population Prospects 2019') +
   theme_bw()
 
 
 ggplot(data=bind_rows(big_obs,big_pred)) +
   aes(x=elder, y=young, color=name,group=name) +
-  geom_point(size=3) +
+  geom_point(aes(size=total), alpha=.50) +
+  scale_size_continuous(range=c(0,15)) +
+  labs(x=xlab,y=ylab, 
+       title='Age Structure',
+       caption='Source: UN World Population Prospects 2019') +
   geom_line(size=0.2) +
   theme_bw()
 

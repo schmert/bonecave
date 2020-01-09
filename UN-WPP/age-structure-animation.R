@@ -8,6 +8,8 @@ library(tidyverse)
 library(gganimate)
 library(gifski)
 
+rm(list=ls())
+
 data(pop)
 data(popproj)
 
@@ -18,33 +20,28 @@ ylab = paste0('Fraction Under ',yage)
 
 # keep the names in alphabetical order to avoid color mismatches
 sel = tribble(
- ~name, ~txt, ~color,
- 'Africa','Africa','darkgreen',
- 'Asia', 'Asia', 'blue',
- 'Europe','Europe','red',
- 'Latin America and the Caribbean', 'Lat Am/Caribb', 'purple',
- 'Northern America', 'N. America', 'orange'
+ ~name, ~txt, ~code, ~color,
+ 'Africa','Africa', 903, 'darkgreen',
+ 'Asia', 'Asia', 935, 'blue',
+ 'Europe','Europe', 908, 'red',
+ 'Latin America and the Caribbean', 'Lat Am/Caribb', 904, 'purple',
+ 'Northern America', 'N. America', 905, 'turquoise'
 ) 
-#%>%
-#  mutate(name=factor(name))
-               
 
 # observed populations up through 2020 ----
 
 FF = popF %>%
-       select(-country_code) %>%
-       filter(name %in% sel$name) %>% 
-       gather(key='period', value='Fpop', -name, -age)
+        filter(country_code %in% sel$code) %>% 
+        gather(key='year', value='Fpop', -name, -age)
 
 MM = popM %>%
-  select(-country_code) %>%
-  filter(name %in% sel$name) %>% 
-  gather(key='period', value='Mpop', -name, -age)
+        filter(country_code %in% sel$code) %>% 
+        gather(key='year', value='Mpop', -name, -age)
 
 big_obs = full_join(FF,MM) %>%
            mutate(pop = Fpop + Mpop) %>%
            transform(x = seq(0,100,5)) %>%
-           group_by(name,period) %>%
+           group_by(name,year) %>%
            summarize(total = sum(pop), 
                      young = sum(pop[x <  yage])/total,
                      elder = sum(pop[x >= oage])/total)
@@ -54,26 +51,25 @@ big_obs = full_join(FF,MM) %>%
 # median forecasts through 2100 ----
 
 FF = popFprojMed %>%
-  select(-country_code) %>%
-  filter(name %in% sel$name) %>% 
-  gather(key='period', value='Fpop', -name, -age)
+  filter(country_code %in% sel$code) %>% 
+  gather(key='year', value='Fpop', -name, -age)
 
 MM = popMprojMed %>%
-  select(-country_code) %>%
-  filter(name %in% sel$name) %>% 
-  gather(key='period', value='Mpop', -name, -age)
+  filter(country_code %in% sel$code) %>% 
+  gather(key='year', value='Mpop', -name, -age)
 
 big_pred = full_join(FF,MM) %>%
   mutate(pop = Fpop + Mpop) %>%
   transform(x = seq(0,100,5)) %>%
-  group_by(name,period) %>%
+  group_by(name,year) %>%
   summarize(total = sum(pop), 
             young = sum(pop[x <  yage])/total,
             elder = sum(pop[x >= oage])/total)
 
+@@@some problem with factors here...
 big = bind_rows(big_obs,
                 big_pred) %>%
-      mutate(period = as.integer(period)) %>%
+      mutate(year = as.integer(year)) %>%
       left_join(sel, by='name')
 
 A = ggplot(data=big) +
@@ -86,16 +82,16 @@ A = ggplot(data=big) +
       labs(x=xlab,y=ylab,
            title='xx',
            caption='Source: UN World Population Prospects 2019') +
-      geom_line(size=0.2) +
+      geom_line(size=1) +
       theme_bw() +
-      transition_reveal(period)
+      transition_reveal(year)
 
 animate(
   A,
   fps = 5,# 24,
   duration = 30,
-  width = 500,
-  height = 500,
+  width    = 500,
+  height   = 500,
   renderer = gifski_renderer('age-structure.gif')
 )
 

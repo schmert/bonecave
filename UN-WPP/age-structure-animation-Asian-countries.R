@@ -21,11 +21,12 @@ ylab = paste0('% YOUNG (0-',yage-1,')')
 # keep the names in alphabetical order to avoid color mismatches
 sel = tribble(
   ~name, ~txt, ~code, ~color, ~yoffset,
-  'Argentina','ARG',32,'cyan',+3,
-  'Brazil','BRA',76,'blue',-4,
-  'Colombia','COL',170,'darkgoldenrod',+3,
-  'Mexico','MEX',484,'darkgreen',+4,
-  'Peru','PER',604,'red',+3
+  'Bangladesh','BGD',50,'darkgreen',+3,
+  'China','CHN',156,'red',-6,
+  'India','IND',356,'orange',-6,
+  'Indonesia','IDN',360,'magenta',+4,
+  'Japan','JAP',392,'blue',+2.5,
+  'Pakistan','PAK',586,'green',+3
 ) 
 
 # observed populations up through 2020 ----
@@ -81,13 +82,17 @@ theme_carl <- function () {
 A = ggplot(data=big) +
       aes(x=elder, y=young, color=name, group=name, label=txt) +
       geom_point(aes(size=total), alpha=.70) +
+      geom_abline(slope=1, intercept=0, color='black',lty='dotted', size=1) +
+      annotate(geom='text', x=c(40,40), y=c(30,50),
+                label=c('More\nElders','More\nChildren'),
+               color='black',size=6) +
       scale_x_continuous(limits=c(0,45),
                          breaks=seq(0,40,10),
                          minor_breaks = NULL) +
       scale_y_continuous(breaks=seq(10,60,10),
                          minor_breaks = NULL,
                          limits=c(10,65)) +
-      scale_size_area(max_size=20) +
+      scale_size_area(max_size=30) +
       scale_color_manual(values=sel$color) +
       geom_text(nudge_y=big$yoffset, size=5) +
       guides(size=FALSE,color=FALSE) +
@@ -100,11 +105,11 @@ A = ggplot(data=big) +
 
 animate(
   A,
-  fps = 20,
+  fps      = 20,
   duration = 30,
   width    = 500,
   height   = 550,
-  renderer = gifski_renderer('age-structure-BAMCP.gif')
+  renderer = gifski_renderer('age-structure-Asian-countries.gif')
 )
 
     

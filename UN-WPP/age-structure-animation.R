@@ -83,7 +83,11 @@ theme_carl <- function () {
 A = ggplot(data=big) +
       aes(x=elder, y=young, color=name, group=name, label=txt) +
       geom_point(aes(size=total), alpha=.70) +
-      scale_x_continuous(limits=c(0,40),
+      geom_abline(slope=1, intercept=0, color='black',lty='dotted', size=1) +
+      annotate(geom='text', x=c(35,35), y=c(30,42),
+               label=c('More\nElders','More\nChildren'),
+               color='black',size=6) +
+        scale_x_continuous(limits=c(0,40),
                          breaks=seq(0,40,10),
                          minor_breaks = NULL) +
       scale_y_continuous(breaks=seq(20,60,10),
@@ -101,7 +105,7 @@ A = ggplot(data=big) +
 
 animate(
   A,
-  fps = 12,# 24,
+  fps      = 20,
   duration = 30,
   width    = 500,
   height   = 550,

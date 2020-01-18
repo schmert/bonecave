@@ -70,7 +70,7 @@ BR = B %>%
   group_by(parto,dow) %>%
   summarize(births = sum(births)) %>%
   mutate(`Delivery Type`= factor(parto,
-                              levels=c('Vaginal','Cesarean')))
+                              levels=c('Cesarean','Vaginal')))
 
 
 ggplot(data=BR) +
@@ -94,6 +94,19 @@ ggplot(data=BR) +
   
 ggsave(filename='Brazil-2018-births-weekday-delivery-type.png',
                 height=8, width=8, units='in', dpi=300)
+
+# write totals to a csv file
+days = c('Sun','Mon','Tue','Wed','Thu','Fri','Sat')
+names(days) = 0:6
+
+BR %>%
+   select(-`Delivery Type`) %>%
+   spread(key=parto, value=births) %>%
+   mutate(dow = days[dow]) %>%
+   write.csv(file='Brazil-2018-births-by-day-of-wk-and-delivery-type.csv',
+             row.names=FALSE)
+
+
 
 # remove all the unzipped files (to save space)
 fnames = unzip(zipfile='nascidos-vivos-preliminar-2018.zip', list=TRUE)$Name

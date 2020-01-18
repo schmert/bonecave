@@ -56,7 +56,7 @@ for (i in seq(state)) {
             mutate(doy = day_number(DTNASC),
                    dow = day_of_week(DTNASC),
                    parto = factor(PARTO, levels=1:2,
-                                  labels=c('Vaginal','Cesarian'))) %>%
+                                  labels=c('Vaginal','Cesarean'))) %>%
             group_by(parto,dow,doy) %>%
             summarize(births=n()) %>%
             ungroup() %>%
@@ -70,7 +70,7 @@ BR = B %>%
   group_by(parto,dow) %>%
   summarize(births = sum(births)) %>%
   mutate(`Delivery Type`= factor(parto,
-                              levels=c('Vaginal','Cesarian')))
+                              levels=c('Vaginal','Cesarean')))
 
 
 ggplot(data=BR) +

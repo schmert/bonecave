@@ -26,7 +26,7 @@ ggplot(data=D) +
        caption='Source: CDC Wonder',
        y='Births in 2018',
        x='Day of the Week') +
-  scale_x_discrete(breaks=0:6, 
+  scale_x_discrete( 
                    labels=c('Sun','Mon','Tue',
                             'Wed','Thu','Fri',
                             'Sat')) +

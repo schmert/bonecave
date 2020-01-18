@@ -1,0 +1,84 @@
+"Notes"	"Census Region of Residence"	"Census Region of Residence Code"	"Weekday"	"Weekday Code"	"Delivery Method"	"Delivery Method Code"	Births
+	"Census Region 1: Northeast"	"CENS-R1"	"Sunday"	"1"	"Vaginal"	"1"	48134
+	"Census Region 1: Northeast"	"CENS-R1"	"Sunday"	"1"	"Cesarean"	"2"	14717
+	"Census Region 1: Northeast"	"CENS-R1"	"Sunday"	"1"	"Unknown or Not Stated"	"9"	79
+	"Census Region 1: Northeast"	"CENS-R1"	"Monday"	"2"	"Vaginal"	"1"	55734
+	"Census Region 1: Northeast"	"CENS-R1"	"Monday"	"2"	"Cesarean"	"2"	32673
+	"Census Region 1: Northeast"	"CENS-R1"	"Monday"	"2"	"Unknown or Not Stated"	"9"	88
+	"Census Region 1: Northeast"	"CENS-R1"	"Tuesday"	"3"	"Vaginal"	"1"	61644
+	"Census Region 1: Northeast"	"CENS-R1"	"Tuesday"	"3"	"Cesarean"	"2"	33539
+	"Census Region 1: Northeast"	"CENS-R1"	"Tuesday"	"3"	"Unknown or Not Stated"	"9"	90
+	"Census Region 1: Northeast"	"CENS-R1"	"Wednesday"	"4"	"Vaginal"	"1"	63049
+	"Census Region 1: Northeast"	"CENS-R1"	"Wednesday"	"4"	"Cesarean"	"2"	32493
+	"Census Region 1: Northeast"	"CENS-R1"	"Wednesday"	"4"	"Unknown or Not Stated"	"9"	106
+	"Census Region 1: Northeast"	"CENS-R1"	"Thursday"	"5"	"Vaginal"	"1"	62657
+	"Census Region 1: Northeast"	"CENS-R1"	"Thursday"	"5"	"Cesarean"	"2"	33372
+	"Census Region 1: Northeast"	"CENS-R1"	"Thursday"	"5"	"Unknown or Not Stated"	"9"	90
+	"Census Region 1: Northeast"	"CENS-R1"	"Friday"	"6"	"Vaginal"	"1"	62188
+	"Census Region 1: Northeast"	"CENS-R1"	"Friday"	"6"	"Cesarean"	"2"	34774
+	"Census Region 1: Northeast"	"CENS-R1"	"Friday"	"6"	"Unknown or Not Stated"	"9"	85
+	"Census Region 1: Northeast"	"CENS-R1"	"Saturday"	"7"	"Vaginal"	"1"	54401
+	"Census Region 1: Northeast"	"CENS-R1"	"Saturday"	"7"	"Cesarean"	"2"	17216
+	"Census Region 1: Northeast"	"CENS-R1"	"Saturday"	"7"	"Unknown or Not Stated"	"9"	83
+	"Census Region 2: Midwest"	"CENS-R2"	"Sunday"	"1"	"Vaginal"	"1"	58826
+	"Census Region 2: Midwest"	"CENS-R2"	"Sunday"	"1"	"Cesarean"	"2"	16148
+	"Census Region 2: Midwest"	"CENS-R2"	"Sunday"	"1"	"Unknown or Not Stated"	"9"	40
+	"Census Region 2: Midwest"	"CENS-R2"	"Monday"	"2"	"Vaginal"	"1"	81083
+	"Census Region 2: Midwest"	"CENS-R2"	"Monday"	"2"	"Cesarean"	"2"	41132
+	"Census Region 2: Midwest"	"CENS-R2"	"Monday"	"2"	"Unknown or Not Stated"	"9"	55
+	"Census Region 2: Midwest"	"CENS-R2"	"Tuesday"	"3"	"Vaginal"	"1"	87277
+	"Census Region 2: Midwest"	"CENS-R2"	"Tuesday"	"3"	"Cesarean"	"2"	40567
+	"Census Region 2: Midwest"	"CENS-R2"	"Tuesday"	"3"	"Unknown or Not Stated"	"9"	64
+	"Census Region 2: Midwest"	"CENS-R2"	"Wednesday"	"4"	"Vaginal"	"1"	88074
+	"Census Region 2: Midwest"	"CENS-R2"	"Wednesday"	"4"	"Cesarean"	"2"	39252
+	"Census Region 2: Midwest"	"CENS-R2"	"Wednesday"	"4"	"Unknown or Not Stated"	"9"	56
+	"Census Region 2: Midwest"	"CENS-R2"	"Thursday"	"5"	"Vaginal"	"1"	88327
+	"Census Region 2: Midwest"	"CENS-R2"	"Thursday"	"5"	"Cesarean"	"2"	39867
+	"Census Region 2: Midwest"	"CENS-R2"	"Thursday"	"5"	"Unknown or Not Stated"	"9"	62
+	"Census Region 2: Midwest"	"CENS-R2"	"Friday"	"6"	"Vaginal"	"1"	87120
+	"Census Region 2: Midwest"	"CENS-R2"	"Friday"	"6"	"Cesarean"	"2"	42432
+	"Census Region 2: Midwest"	"CENS-R2"	"Friday"	"6"	"Unknown or Not Stated"	"9"	45
+	"Census Region 2: Midwest"	"CENS-R2"	"Saturday"	"7"	"Vaginal"	"1"	68420
+	"Census Region 2: Midwest"	"CENS-R2"	"Saturday"	"7"	"Cesarean"	"2"	19513
+	"Census Region 2: Midwest"	"CENS-R2"	"Saturday"	"7"	"Unknown or Not Stated"	"9"	41
+	"Census Region 3: South"	"CENS-R3"	"Sunday"	"1"	"Vaginal"	"1"	97235
+	"Census Region 3: South"	"CENS-R3"	"Sunday"	"1"	"Cesarean"	"2"	32157
+	"Census Region 3: South"	"CENS-R3"	"Sunday"	"1"	"Unknown or Not Stated"	"9"	31
+	"Census Region 3: South"	"CENS-R3"	"Monday"	"2"	"Vaginal"	"1"	145726
+	"Census Region 3: South"	"CENS-R3"	"Monday"	"2"	"Cesarean"	"2"	87985
+	"Census Region 3: South"	"CENS-R3"	"Monday"	"2"	"Unknown or Not Stated"	"9"	60
+	"Census Region 3: South"	"CENS-R3"	"Tuesday"	"3"	"Vaginal"	"1"	157464
+	"Census Region 3: South"	"CENS-R3"	"Tuesday"	"3"	"Cesarean"	"2"	89547
+	"Census Region 3: South"	"CENS-R3"	"Tuesday"	"3"	"Unknown or Not Stated"	"9"	73
+	"Census Region 3: South"	"CENS-R3"	"Wednesday"	"4"	"Vaginal"	"1"	157057
+	"Census Region 3: South"	"CENS-R3"	"Wednesday"	"4"	"Cesarean"	"2"	87111
+	"Census Region 3: South"	"CENS-R3"	"Wednesday"	"4"	"Unknown or Not Stated"	"9"	68
+	"Census Region 3: South"	"CENS-R3"	"Thursday"	"5"	"Vaginal"	"1"	159224
+	"Census Region 3: South"	"CENS-R3"	"Thursday"	"5"	"Cesarean"	"2"	87414
+	"Census Region 3: South"	"CENS-R3"	"Thursday"	"5"	"Unknown or Not Stated"	"9"	65
+	"Census Region 3: South"	"CENS-R3"	"Friday"	"6"	"Vaginal"	"1"	147911
+	"Census Region 3: South"	"CENS-R3"	"Friday"	"6"	"Cesarean"	"2"	87411
+	"Census Region 3: South"	"CENS-R3"	"Friday"	"6"	"Unknown or Not Stated"	"9"	73
+	"Census Region 3: South"	"CENS-R3"	"Saturday"	"7"	"Vaginal"	"1"	111774
+	"Census Region 3: South"	"CENS-R3"	"Saturday"	"7"	"Cesarean"	"2"	38396
+	"Census Region 3: South"	"CENS-R3"	"Saturday"	"7"	"Unknown or Not Stated"	"9"	50
+	"Census Region 4: West"	"CENS-R4"	"Sunday"	"1"	"Vaginal"	"1"	77096
+	"Census Region 4: West"	"CENS-R4"	"Sunday"	"1"	"Cesarean"	"2"	21774
+	"Census Region 4: West"	"CENS-R4"	"Monday"	"2"	"Vaginal"	"1"	88061
+	"Census Region 4: West"	"CENS-R4"	"Monday"	"2"	"Cesarean"	"2"	42913
+	"Census Region 4: West"	"CENS-R4"	"Monday"	"2"	"Unknown or Not Stated"	"9"	34
+	"Census Region 4: West"	"CENS-R4"	"Tuesday"	"3"	"Vaginal"	"1"	94768
+	"Census Region 4: West"	"CENS-R4"	"Tuesday"	"3"	"Cesarean"	"2"	42782
+	"Census Region 4: West"	"CENS-R4"	"Tuesday"	"3"	"Unknown or Not Stated"	"9"	21
+	"Census Region 4: West"	"CENS-R4"	"Wednesday"	"4"	"Vaginal"	"1"	96751
+	"Census Region 4: West"	"CENS-R4"	"Wednesday"	"4"	"Cesarean"	"2"	41870
+	"Census Region 4: West"	"CENS-R4"	"Wednesday"	"4"	"Unknown or Not Stated"	"9"	29
+	"Census Region 4: West"	"CENS-R4"	"Thursday"	"5"	"Vaginal"	"1"	98364
+	"Census Region 4: West"	"CENS-R4"	"Thursday"	"5"	"Cesarean"	"2"	42340
+	"Census Region 4: West"	"CENS-R4"	"Thursday"	"5"	"Unknown or Not Stated"	"9"	24
+	"Census Region 4: West"	"CENS-R4"	"Friday"	"6"	"Vaginal"	"1"	96778
+	"Census Region 4: West"	"CENS-R4"	"Friday"	"6"	"Cesarean"	"2"	43560
+	"Census Region 4: West"	"CENS-R4"	"Friday"	"6"	"Unknown or Not Stated"	"9"	11
+	"Census Region 4: West"	"CENS-R4"	"Saturday"	"7"	"Vaginal"	"1"	86849
+	"Census Region 4: West"	"CENS-R4"	"Saturday"	"7"	"Cesarean"	"2"	25221
+	"Census Region 4: West"	"CENS-R4"	"Saturday"	"7"	"Unknown or Not Stated"	"9"	15

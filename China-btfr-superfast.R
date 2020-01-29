@@ -247,8 +247,6 @@ superfast_bTFR = function(C , W , q5_est ,
 } # superfast_bTFR
 
 
-# FROM 
-# http://worldpopulationreview.com/countries/china-population/
 library(wpp2019)
 data(pop)
 
@@ -265,7 +263,7 @@ q5_CHN = .009  #approx
 est = superfast_bTFR(C=C_CHN, 
                      W=W_CHN, 
                      q5_est=q5_CHN,
-                     LTFR = 1, HTFR = 2, Hq5=.05, delta_TFR=.01) 
+                     LTFR = 0, HTFR = 3, Hq5=.05, delta_TFR=.01) 
 
 plot( est$dens, main='China 2016-2020', xlab='TFR')
 abline(v=est$Q50, lty=2)

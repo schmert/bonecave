@@ -18,7 +18,7 @@ font_add_google("Pacifico", "Pacifico")
 
 # use these fonts for all EXTERNAL devices
 # i.e., you can use the fonts in pdf, png, jpeg, windows(), x11(),...
-# but NOT in R studios plots pand
+# but NOT in R studio Plots panel
 
 showtext_auto() 
 

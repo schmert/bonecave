@@ -59,7 +59,7 @@ M = ggplot(data=US) +
       coord_sf(datum= st_crs(US)) +
       theme_map() +
       labs(title='% Population Born in Mexico', 
-           caption='Source: US Census Bureau, 2014-2018 ACS',
+           caption='Sources: US Census Bureau, 2014-2018 ACS. Historical Mexico shapefile from tinyurl.com/shneekq',
            fill='%') 
   
 
@@ -87,8 +87,10 @@ M +
    geom_sf(data=mex1815, color='darkgreen', 
            fill='darkgreen', alpha=.10 ) +
    geom_text(x=-110, y=24, label='Mexico in 1815',
-             color='darkgreen', size=35)
-
+             color='darkgreen', size=30) +
+  geom_text(x=-110, y=21, label='(Vice Royalty of New Spain)',
+            color='darkgreen', size=18) +
+  
 ggsave('US-fraction-residents-mexican-born-by-county.png', 
        height=8, width=11, units = 'in',dpi=300)
 

@@ -1,0 +1,194 @@
+---
+title: "Calibrated Spline Graduation of Fertility Schedules"
+author: "Carl Schmertmann"
+date: "02 Mar 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+```
+
+## Main Point
+
+*Calibrated Splines* make it possible to construct a fertility schedule over a fine grid of ages (like $x=(12.25, 12.75, \ldots,54.25, 54.75 )$) from age-grouped average ferility rates (like $_{5}F_{15}\ldots_{5}F_{45}$).
+
+Pre-calculated constants -- developed and described in my paper "Calibrated Spline Estimation of Detailed Fertility Schedules from Abridged Data" in 
+**Revista Brasileira de Estudos de População** 31(2):291-307 -- provide a way of graduating by simple arithmetic. For example, ther is an $86 \times 7$ matrix precalculated constants $\mathbf{A}$ such that
+
+\[
+\left[ \begin{array}{c}
+f_{12.25} \\
+f_{12.75} \\
+\vdots \\
+f_{54.75} \\
+\end{array}
+\right]
+=
+\mathbf{A}
+\:
+\left[ \begin{array}{c}
+_{5}F_{15} \\
+_{5}F_{20}\\
+\vdots \\
+_{5}F_{45} \\
+\end{array}
+\right]
+\]
+
+You can get the matrices of contants described in the paper at http://schmert.net/calibrated-spline/REBEP/
+
+## Example 1: Italian fertility rates in 2014
+
+In a first example we'll use a schedule with known single-year rates, Italy in 2014. 
+
+$_{1}F_x$ and $_{5}F_x$ values for Italy 2014 from the Human Fertility Database are below
+
+```{r}
+
+age1 = 12:55
+
+F1 =  c(0.00000, 0.00000, 0.00004, 0.00022, 0.00234, 0.00453, 0.00791,
+        0.01312, 0.01864, 0.02398, 0.02969, 0.03531, 0.04324, 0.05066,
+        0.06026, 0.07062, 0.07774, 0.08607, 0.09250, 0.09409, 0.09626,
+        0.09286, 0.08746, 0.08107, 0.07052, 0.06013, 0.04909, 0.03918,
+        0.02950, 0.02042, 0.01331, 0.00788, 0.00469, 0.00253, 0.00147,
+        0.00088, 0.00042, 0.00032, 0.00022, 0.00016, 0.00009, 0.00006,
+        0.00004, 0.00007)
+
+age5 = seq(from=15, to=45, by=5)
+
+F5 = c(0.005624, 0.030172, 0.069070, 0.092634,
+       0.059998, 0.015160, 0.001124)
+
+df1 = tibble(age=age1, rate1=F1)
+df5 = tibble(age=age5, rate5=F5)
+
+base_graph = ggplot() +
+               geom_histogram(data=df5, aes(x=age+2.5,y=rate5), stat='identity', fill='firebrick', alpha=.70) +
+              scale_x_continuous(limits=c(10,55)) +
+              geom_point(data=df1, aes(x=age+0.5,y=rate1), size=3, color='navy') +
+              theme_bw() +
+              labs(x='age',y='rate',
+                   title='1fx and 5Fx, Italy 2014',
+                   source='Human Fertility Database')
+
+print(base_graph)
+```
+
+Now get the constants and calculate graduated rates for 86 half-year age groups, based on the 7 $_{5}F_x$ values.
+
+```{r}
+
+url = 'http://schmert.net/calibrated-spline/REBEP/K7-10000.csv'
+
+A = read.csv(url, header=TRUE) %>%
+     select(-1) %>%   # drop row names
+     as.matrix()
+
+dim(A)
+
+```
+
+The graduated rates are simply $\mathbf{A}$ times the vector of age-group rates, as in the matrix equation.
+
+```{r}
+f_graduated = A %*% F5
+
+df_graduated = tibble(
+          age = seq(from=12.25, to=54.75, by=.50),
+          rate = f_graduated
+          )
+
+base_graph +
+  geom_line(data=df_graduated, aes(x=age,y=rate), color='blue',
+            size=1.5)
+
+```
+
+We can also check how well the graduated rates match the five-year averages. By design, this is not perfect. The graduated rates represent a compromise between *fitting the input data* and *looking like other known fertility curves*.
+
+```{r}
+comparison = df_graduated %>%
+              group_by(age_group = 5*floor(age/5)) %>%
+              summarize(F5_graduated = mean(rate)) %>%
+              full_join(df5, by=c('age_group'='age'))
+
+comparison
+```
+
+## Example 2: Cameroon 2015-2020
+
+WPP 2019 data has the following $_{5}F_x$ values for $x=15,20,\ldots,45$. 
+
+```{r}
+
+F5= c(0.1058, 0.2112, 0.21, 0.1878, 0.1386, 0.0505, 0.0166)
+
+df5 = tibble(age  = seq(15,45,5),
+             rate5= F5)
+```
+
+Graduating and plotting, we get
+
+```{r}
+
+f_graduated = A %*% F5
+
+df_graduated = tibble(
+          age = seq(from=12.25, to=54.75, by=.50),
+          rate = f_graduated
+          )
+
+ggplot() +
+     geom_histogram(data=df5, aes(x=age+2.5,y=rate5), stat='identity', fill='steelblue', alpha=.70) +
+              scale_x_continuous(limits=c(10,55)) +
+              theme_bw() +
+              labs(x='age',y='rate',
+                   title='5Fx and Calibrated Spline Rates, Cameroon 2015-2020',
+                   source='UN World Population Prospects 2019') +
+geom_line(data=df_graduated, aes(x=age,y=rate), color='blue',
+          size=1.5)
+
+
+```
+
+## Example 3: Romania 2015-2020
+
+WPP 2019 data has the following $_{5}F_x$ values for $x=15,20,\ldots,45$. 
+
+```{r}
+
+F5= c(0.0362, 0.0715, 0.0989, 0.0776, 0.0327, 0.0068, 0.0003)
+
+df5 = tibble(age  = seq(15,45,5),
+             rate5= F5)
+```
+
+Graduating and plotting, we get
+
+```{r}
+
+f_graduated = A %*% F5
+
+df_graduated = tibble(
+          age = seq(from=12.25, to=54.75, by=.50),
+          rate = f_graduated
+          )
+
+ggplot() +
+     geom_histogram(data=df5, aes(x=age+2.5,y=rate5), stat='identity', fill='orangered', alpha=.70) +
+              scale_x_continuous(limits=c(10,55)) +
+              theme_bw() +
+              labs(x='age',y='rate',
+                   title='5Fx and Calibrated Spline Rates, Romania 2015-2020',
+                   source='UN World Population Prospects 2019') +
+geom_line(data=df_graduated, aes(x=age,y=rate), color='blue',
+          size=1.5)
+
+
+```
+

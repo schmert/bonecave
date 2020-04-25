@@ -1,0 +1,2 @@
+https://fred.stlouisfed.org/series/UNRATE
+https://fred.stlouisfed.org/series/USREC

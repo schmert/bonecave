@@ -1,0 +1,521 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- UNCLASSIFIED -->
+<!-- Built from ANZLIC MET Template ISO 19139 2009-02-18 -->
+<ns0:MD_Metadata xmlns:ns0="http://www.isotc211.org/2005/gmd" xmlns:ns2="http://www.isotc211.org/2005/gco" xmlns:ns3="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://www.isotc211.org/2005/gmd/gmd.xsd http://www.opengis.net/gml http://www.isotc211.org/2005/gml/gml.xsd http://www.w3.org/1999/xlink http://www.isotc211.org/2005/xlink/xlinks.xsd">
+  <!--METValidation=True--><ns0:fileIdentifier>
+    <ns2:CharacterString>ABS-ASGS-1270.0.55.003-LGA-2018</ns2:CharacterString>
+  </ns0:fileIdentifier>
+  <ns0:language>
+    <ns2:CharacterString>eng</ns2:CharacterString>
+  </ns0:language>
+  <ns0:characterSet>
+    <ns0:MD_CharacterSetCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8">utf8</ns0:MD_CharacterSetCode>
+  </ns0:characterSet>
+  <ns0:hierarchyLevel>
+    <ns0:MD_ScopeCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/GAScopeCodeList.xml#MD_ScopeCode" codeListValue="dataset">dataset</ns0:MD_ScopeCode>
+  </ns0:hierarchyLevel>
+  <ns0:hierarchyLevelName>
+    <ns2:CharacterString>dataset</ns2:CharacterString>
+  </ns0:hierarchyLevelName>
+  <ns0:contact>
+    <ns0:CI_ResponsibleParty>
+      <ns0:individualName ns2:nilReason="withheld">
+        <ns2:CharacterString>
+        </ns2:CharacterString>
+      </ns0:individualName>
+      <ns0:organisationName>
+        <ns2:CharacterString>Australian Bureau of Stataistics (ABS)</ns2:CharacterString>
+      </ns0:organisationName>
+      <ns0:positionName>
+        <ns2:CharacterString>ASGS Manager</ns2:CharacterString>
+      </ns0:positionName>
+      <ns0:contactInfo>
+        <ns0:CI_Contact>
+          <ns0:phone>
+            <ns0:CI_Telephone>
+              <ns0:voice>
+                <ns2:CharacterString>1300 135 070</ns2:CharacterString>
+              </ns0:voice>
+            </ns0:CI_Telephone>
+          </ns0:phone>
+          <ns0:address>
+            <ns0:CI_Address>
+              <ns0:deliveryPoint>
+                <ns2:CharacterString>Locked Bag 10</ns2:CharacterString>
+              </ns0:deliveryPoint>
+              <ns0:city>
+                <ns2:CharacterString>BELCONNEN</ns2:CharacterString>
+              </ns0:city>
+              <ns0:administrativeArea>
+                <ns2:CharacterString>ACT</ns2:CharacterString>
+              </ns0:administrativeArea>
+              <ns0:postalCode>
+                <ns2:CharacterString>2616</ns2:CharacterString>
+              </ns0:postalCode>
+              <ns0:country>
+                <ns2:CharacterString>Australia</ns2:CharacterString>
+              </ns0:country>
+              <ns0:electronicMailAddress>
+                <ns2:CharacterString>client.services@abs.gov.au</ns2:CharacterString>
+              </ns0:electronicMailAddress>
+            </ns0:CI_Address>
+          </ns0:address>
+        </ns0:CI_Contact>
+      </ns0:contactInfo>
+      <ns0:role>
+        <ns0:CI_RoleCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#CI_RoleCode" codeListValue="author">author</ns0:CI_RoleCode>
+      </ns0:role>
+    </ns0:CI_ResponsibleParty>
+  </ns0:contact>
+  <ns0:dateStamp>
+    <ns2:Date>18-07-19</ns2:Date>
+  </ns0:dateStamp>
+  <ns0:metadataStandardName>
+    <ns2:CharacterString>ANZLIC Metadata Profile: An Australian/New Zealand Profile of AS/NZS ISO 19115:2005, Geographic information - Metadata</ns2:CharacterString>
+  </ns0:metadataStandardName>
+  <ns0:metadataStandardVersion>
+    <ns2:CharacterString>1.1</ns2:CharacterString>
+  </ns0:metadataStandardVersion>
+  <ns0:referenceSystemInfo>
+    <ns0:MD_ReferenceSystem>
+      <ns0:referenceSystemIdentifier>
+        <ns0:RS_Identifier>
+          <ns0:code>
+            <ns2:CharacterString>4283</ns2:CharacterString>
+          </ns0:code>
+        </ns0:RS_Identifier>
+      </ns0:referenceSystemIdentifier>
+    </ns0:MD_ReferenceSystem>
+  </ns0:referenceSystemInfo>
+  <ns0:identificationInfo>
+    <ns0:MD_DataIdentification>
+      <ns0:citation>
+        <ns0:CI_Citation>
+          <ns0:title>
+            <ns2:CharacterString>LGA_2018_AUST</ns2:CharacterString>
+          </ns0:title>
+          <ns0:alternateTitle>
+            <ns2:CharacterString>Local Government Area 2018</ns2:CharacterString>
+          </ns0:alternateTitle>
+          <ns0:date>
+            <ns0:CI_Date>
+              <ns0:date>
+                <ns2:Date>18-07-19</ns2:Date>
+              </ns0:date>
+              <ns0:dateType>
+                <ns0:CI_DateTypeCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</ns0:CI_DateTypeCode>
+              </ns0:dateType>
+            </ns0:CI_Date>
+          </ns0:date>
+          <ns0:otherCitationDetails>
+            <ns2:CharacterString>1270.0.55.003 - Australian Statistical Geography Standard (ASGS): Volume 3 - Non ABS Structures, July 2018 http://www.abs.gov.au/ausstats/abs@.nsf/mf/1270.0.55.003</ns2:CharacterString>
+          </ns0:otherCitationDetails>
+        </ns0:CI_Citation>
+      </ns0:citation>
+      <ns0:abstract>
+        <ns2:CharacterString>Local Government Areas (LGAs) are an ABS approximation of officially gazetted Local Government Areas as defined by each State and Territory Local Government Department. Further information about these regions can be found in the following publication: Australian Statistical Geography Standard (ASGS): Volume 3 - Non ABS Structure, July 2018 (cat no. 1270.0.55.003). http://www.abs.gov.au/ausstats/abs@.nsf/mf/1270.0.55.003</ns2:CharacterString>
+      </ns0:abstract>
+      <ns0:purpose>
+        <ns2:CharacterString>Local Government Areas (LGAs) enables the comparison of ABS data with other data collected using Local Government Areas as the geographic reference. Local Government Areas cover incorporated areas of Australia. Incorporated areas are legally designated parts of a State or Territory over which incorporated local governing bodies have responsibility. The major areas of Australia not administered by incorporated bodies are the northern parts of South Australia and all of the Australian Capital Territory and the Other Territories. These regions are identified as 'Unincorporated' in the ABS Local Government Area structure. The boundaries produced for Local Government Areas are constructed from allocations of whole Mesh Blocks. The ABS will review the Local Government Areas annually and changes will be applied by inclusion or exclusion of whole Mesh Blocks. Utilising Mesh Blocks to approximate Local Government Areas provides a better outcomes.</ns2:CharacterString>
+      </ns0:purpose>
+      <ns0:status>
+        <ns0:MD_ProgressCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_ProgressCode" codeListValue="completed">completed</ns0:MD_ProgressCode>
+      </ns0:status>
+      <ns0:pointOfContact>
+        <ns0:CI_ResponsibleParty>  <ns0:individualName ns2:nilReason="withheld">    <ns2:CharacterString />  </ns0:individualName>  <ns0:organisationName>    <ns2:CharacterString>Australian Bureau of Statistics (ABS)</ns2:CharacterString>  </ns0:organisationName>  <ns0:positionName>    <ns2:CharacterString>National Information and Referral Service (NIRS)</ns2:CharacterString>  </ns0:positionName>  <ns0:contactInfo>    <ns0:CI_Contact>      <ns0:phone>        <ns0:CI_Telephone>          <ns0:voice>            <ns2:CharacterString>1300 135 070</ns2:CharacterString>          </ns0:voice>          <ns0:facsimile ns2:nilReason="missing">            <ns2:CharacterString />          </ns0:facsimile>        </ns0:CI_Telephone>      </ns0:phone>      <ns0:address>        <ns0:CI_Address>          <ns0:deliveryPoint>            <ns2:CharacterString>Locked Bag 10</ns2:CharacterString>          </ns0:deliveryPoint>          <ns0:city>            <ns2:CharacterString>BELCONNEN</ns2:CharacterString>          </ns0:city>          <ns0:administrativeArea>            <ns2:CharacterString>ACT</ns2:CharacterString>          </ns0:administrativeArea>          <ns0:postalCode>            <ns2:CharacterString>2616</ns2:CharacterString>          </ns0:postalCode>          <ns0:country>            <ns2:CharacterString>Australia</ns2:CharacterString>          </ns0:country>          <ns0:electronicMailAddress>            <ns2:CharacterString>client.services@abs.gov.au</ns2:CharacterString>          </ns0:electronicMailAddress>        </ns0:CI_Address>      </ns0:address>    </ns0:CI_Contact>  </ns0:contactInfo>  <ns0:role>    <ns0:CI_RoleCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact">pointOfContact</ns0:CI_RoleCode>  </ns0:role></ns0:CI_ResponsibleParty>
+      </ns0:pointOfContact>
+      <ns0:resourceMaintenance>
+        <ns0:MD_MaintenanceInformation>
+          <ns0:maintenanceAndUpdateFrequency>
+            <ns0:MD_MaintenanceFrequencyCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="continual">continual</ns0:MD_MaintenanceFrequencyCode>
+          </ns0:maintenanceAndUpdateFrequency>
+          <ns0:dateOfNextUpdate>
+            <ns2:Date>2019</ns2:Date>
+          </ns0:dateOfNextUpdate>
+        </ns0:MD_MaintenanceInformation>
+      </ns0:resourceMaintenance>
+      <ns0:resourceFormat ns3:type="simple">
+        <ns0:MD_Format>
+          <ns0:name>
+            <ns2:CharacterString>*.xml</ns2:CharacterString>
+          </ns0:name>
+          <ns0:version>
+            <ns2:CharacterString>Unknown</ns2:CharacterString>
+          </ns0:version>
+        </ns0:MD_Format>
+      </ns0:resourceFormat>
+      <ns0:descriptiveKeywords>
+        <ns0:MD_Keywords>
+          <ns0:keyword>
+            <ns2:CharacterString>Australia</ns2:CharacterString>
+          </ns0:keyword>
+          <ns0:type>
+            <ns0:MD_KeywordTypeCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</ns0:MD_KeywordTypeCode>
+          </ns0:type>
+          <ns0:thesaurusName>
+            <ns0:CI_Citation>
+              <ns0:title>
+                <ns2:CharacterString>ANZLIC Jurisdictions</ns2:CharacterString>
+              </ns0:title>
+              <ns0:date>
+                <ns0:CI_Date>
+                  <ns0:date>
+                    <ns2:Date>2008-10-29</ns2:Date>
+                  </ns0:date>
+                  <ns0:dateType>
+                    <ns0:CI_DateTypeCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#CI_DateTypeCode" codeListValue="revision">revision</ns0:CI_DateTypeCode>
+                  </ns0:dateType>
+                </ns0:CI_Date>
+              </ns0:date>
+              <ns0:edition>
+                <ns2:CharacterString>Version 2.1</ns2:CharacterString>
+              </ns0:edition>
+              <ns0:editionDate>
+                <ns2:Date>2008-10-29</ns2:Date>
+              </ns0:editionDate>
+              <ns0:identifier>
+                <ns0:MD_Identifier>
+                  <ns0:code>
+                    <ns2:CharacterString>http://asdd.ga.gov.au/asdd/profileinfo/anzlic-jurisdic.xml#anzlic-jurisdic</ns2:CharacterString>
+                  </ns0:code>
+                </ns0:MD_Identifier>
+              </ns0:identifier>
+              <ns0:citedResponsibleParty>
+                <ns0:CI_ResponsibleParty>
+                  <ns0:organisationName>
+                    <ns2:CharacterString>ANZLIC the Spatial Information Council</ns2:CharacterString>
+                  </ns0:organisationName>
+                  <ns0:role>
+                    <ns0:CI_RoleCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian">custodian</ns0:CI_RoleCode>
+                  </ns0:role>
+                </ns0:CI_ResponsibleParty>
+              </ns0:citedResponsibleParty>
+            </ns0:CI_Citation>
+          </ns0:thesaurusName>
+        </ns0:MD_Keywords>
+      </ns0:descriptiveKeywords>
+      <ns0:descriptiveKeywords>
+        <ns0:MD_Keywords>
+          <ns0:keyword>
+            <ns2:CharacterString>ABS</ns2:CharacterString>
+          </ns0:keyword>
+          <ns0:keyword>
+            <ns2:CharacterString>ASGS</ns2:CharacterString>
+          </ns0:keyword>
+          <ns0:keyword>
+            <ns2:CharacterString>BOUNDARIES - Statistical</ns2:CharacterString>
+          </ns0:keyword>
+          <ns0:keyword>
+            <ns2:CharacterString>STATISTICAL GEOGRAPHY</ns2:CharacterString>
+          </ns0:keyword>
+          <ns0:type>
+            <ns0:MD_KeywordTypeCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</ns0:MD_KeywordTypeCode>
+          </ns0:type>
+          <ns0:thesaurusName>
+            <ns0:CI_Citation>
+              <ns0:title>
+                <ns2:CharacterString>ANZLIC Search Words</ns2:CharacterString>
+              </ns0:title>
+              <ns0:date>
+                <ns0:CI_Date>
+                  <ns0:date>
+                    <ns2:Date>2008-05-16</ns2:Date>
+                  </ns0:date>
+                  <ns0:dateType>
+                    <ns0:CI_DateTypeCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#CI_DateTypeCode" codeListValue="revision">revision</ns0:CI_DateTypeCode>
+                  </ns0:dateType>
+                </ns0:CI_Date>
+              </ns0:date>
+              <ns0:edition>
+                <ns2:CharacterString>Version 2.1</ns2:CharacterString>
+              </ns0:edition>
+              <ns0:editionDate>
+                <ns2:Date>2008-05-16</ns2:Date>
+              </ns0:editionDate>
+              <ns0:identifier>
+                <ns0:MD_Identifier>
+                  <ns0:code>
+                    <ns2:CharacterString>http://asdd.ga.gov.au/asdd/profileinfo/anzlic-theme.xml#anzlic-theme</ns2:CharacterString>
+                  </ns0:code>
+                </ns0:MD_Identifier>
+              </ns0:identifier>
+              <ns0:citedResponsibleParty>
+                <ns0:CI_ResponsibleParty>
+                  <ns0:organisationName>
+                    <ns2:CharacterString>ANZLIC the Spatial Information Council</ns2:CharacterString>
+                  </ns0:organisationName>
+                  <ns0:role>
+                    <ns0:CI_RoleCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian">custodian</ns0:CI_RoleCode>
+                  </ns0:role>
+                </ns0:CI_ResponsibleParty>
+              </ns0:citedResponsibleParty>
+            </ns0:CI_Citation>
+          </ns0:thesaurusName>
+        </ns0:MD_Keywords>
+      </ns0:descriptiveKeywords>
+      <ns0:resourceConstraints>
+        <ns0:MD_LegalConstraints>
+          <ns0:useLimitation>
+            <ns2:CharacterString>Unless otherwise noted, content is licensed under a Creative Commons Attribution 2.5 (CC BY 2.5 AU) </ns2:CharacterString>
+          </ns0:useLimitation>
+          <ns0:useConstraints>
+            <ns0:MD_RestrictionCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_RestrictionCode" codeListValue="license">license</ns0:MD_RestrictionCode>
+          </ns0:useConstraints>
+        </ns0:MD_LegalConstraints>
+      </ns0:resourceConstraints>
+      <ns0:spatialRepresentationType>
+        <ns0:MD_SpatialRepresentationTypeCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_SpatialRepresentationTypeCode" codeListValue="vector">vector</ns0:MD_SpatialRepresentationTypeCode>
+      </ns0:spatialRepresentationType>
+      <ns0:language>
+        <ns2:CharacterString>eng</ns2:CharacterString>
+      </ns0:language>
+      <ns0:characterSet>
+        <ns0:MD_CharacterSetCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8">utf8</ns0:MD_CharacterSetCode>
+      </ns0:characterSet>
+      <ns0:topicCategory>
+        <ns0:MD_TopicCategoryCode>boundaries</ns0:MD_TopicCategoryCode>
+      </ns0:topicCategory>
+      <ns0:extent>
+        <ns0:EX_Extent>
+          <ns0:geographicElement>
+            <ns0:EX_GeographicBoundingBox>
+              <ns0:westBoundLongitude>
+                <ns2:Decimal>96.0</ns2:Decimal>
+              </ns0:westBoundLongitude>
+              <ns0:eastBoundLongitude>
+                <ns2:Decimal>169.0</ns2:Decimal>
+              </ns0:eastBoundLongitude>
+              <ns0:southBoundLatitude>
+                <ns2:Decimal>-45.0</ns2:Decimal>
+              </ns0:southBoundLatitude>
+              <ns0:northBoundLatitude>
+                <ns2:Decimal>-8.0</ns2:Decimal>
+              </ns0:northBoundLatitude>
+            </ns0:EX_GeographicBoundingBox>
+          </ns0:geographicElement>
+        </ns0:EX_Extent>
+      </ns0:extent>
+    </ns0:MD_DataIdentification>
+  </ns0:identificationInfo>
+  <ns0:distributionInfo>
+    <ns0:MD_Distribution>
+      <ns0:distributor>
+        <ns0:MD_Distributor>
+          <ns0:distributorContact>
+            <ns0:CI_ResponsibleParty>  <ns0:individualName ns2:nilReason="withheld">    <ns2:CharacterString />  </ns0:individualName>  <ns0:organisationName>    <ns2:CharacterString>Australian Bureau of Statistics (ABS)</ns2:CharacterString>  </ns0:organisationName>  <ns0:positionName>    <ns2:CharacterString>National Information and Referral Service (NIRS)</ns2:CharacterString>  </ns0:positionName>  <ns0:contactInfo>    <ns0:CI_Contact>      <ns0:phone>        <ns0:CI_Telephone>          <ns0:voice>            <ns2:CharacterString>1300 135 070</ns2:CharacterString>          </ns0:voice>          <ns0:facsimile ns2:nilReason="missing">            <ns2:CharacterString />          </ns0:facsimile>        </ns0:CI_Telephone>      </ns0:phone>      <ns0:address>        <ns0:CI_Address>          <ns0:deliveryPoint>            <ns2:CharacterString>Australian Bureau of Statistics (ABS)</ns2:CharacterString>          </ns0:deliveryPoint>          <ns0:city>            <ns2:CharacterString>BELCONNEN</ns2:CharacterString>          </ns0:city>          <ns0:administrativeArea>            <ns2:CharacterString>ACT</ns2:CharacterString>          </ns0:administrativeArea>          <ns0:postalCode>            <ns2:CharacterString>2616</ns2:CharacterString>          </ns0:postalCode>          <ns0:country>            <ns2:CharacterString>Australia</ns2:CharacterString>          </ns0:country>          <ns0:electronicMailAddress>            <ns2:CharacterString>client.services@abs.gov.au</ns2:CharacterString>          </ns0:electronicMailAddress>        </ns0:CI_Address>      </ns0:address>    </ns0:CI_Contact>  </ns0:contactInfo>  <ns0:role>    <ns0:CI_RoleCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#CI_RoleCode" codeListValue="distributor">distributor</ns0:CI_RoleCode>  </ns0:role></ns0:CI_ResponsibleParty>
+          </ns0:distributorContact>
+          <ns0:distributionOrderProcess>
+            <ns0:MD_StandardOrderProcess>
+              <ns0:fees>
+                <ns2:CharacterString>Free to download from website</ns2:CharacterString>
+              </ns0:fees>
+              <ns0:orderingInstructions>
+                <ns2:CharacterString>Download from website</ns2:CharacterString>
+              </ns0:orderingInstructions>
+            </ns0:MD_StandardOrderProcess>
+          </ns0:distributionOrderProcess>
+          <ns0:distributorFormat>
+            <ns0:MD_Format>
+              <ns0:name>
+                <ns2:CharacterString>Shape</ns2:CharacterString>
+              </ns0:name>
+              <ns0:version>
+                <ns2:CharacterString>Strict Compatibility</ns2:CharacterString>
+              </ns0:version>
+              <ns0:specification>
+                <ns2:CharacterString>ESRI Shape File</ns2:CharacterString>
+              </ns0:specification>
+            </ns0:MD_Format>
+          </ns0:distributorFormat>
+          <ns0:distributorTransferOptions>
+            <ns0:MD_DigitalTransferOptions>
+              <ns0:onLine>
+                <ns0:CI_OnlineResource>
+                  <ns0:linkage>
+                    <ns0:URL>http://www.abs.gov.au/ausstats/abs@.nsf/mf/1270.0.55.003</ns0:URL>
+                  </ns0:linkage>
+                </ns0:CI_OnlineResource>
+              </ns0:onLine>
+              <ns0:offLine>
+                <ns0:MD_Medium>
+                  <ns0:name>
+                    <ns0:MD_MediumNameCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_MediumNameCode" codeListValue="onLine">onLine</ns0:MD_MediumNameCode>
+                  </ns0:name>
+                </ns0:MD_Medium>
+              </ns0:offLine>
+            </ns0:MD_DigitalTransferOptions>
+          </ns0:distributorTransferOptions>
+        </ns0:MD_Distributor>
+      </ns0:distributor>
+      <ns0:distributor>
+        <ns0:MD_Distributor>
+          <ns0:distributorContact>
+            <ns0:CI_ResponsibleParty>  <ns0:individualName ns2:nilReason="missing">    <ns2:CharacterString />  </ns0:individualName>  <ns0:organisationName>    <ns2:CharacterString>Australian Bureau of Statistics (ABS)</ns2:CharacterString>  </ns0:organisationName>  <ns0:positionName>    <ns2:CharacterString>National Information and Referral Service (NIRS)</ns2:CharacterString>  </ns0:positionName>  <ns0:contactInfo>    <ns0:CI_Contact>      <ns0:phone>        <ns0:CI_Telephone>          <ns0:voice>            <ns2:CharacterString>1300 135 070</ns2:CharacterString>          </ns0:voice>          <ns0:facsimile ns2:nilReason="missing">            <ns2:CharacterString />          </ns0:facsimile>        </ns0:CI_Telephone>      </ns0:phone>      <ns0:address>        <ns0:CI_Address>          <ns0:deliveryPoint>            <ns2:CharacterString>Australian Bureau of Statistics (ABS)</ns2:CharacterString>          </ns0:deliveryPoint>          <ns0:city>            <ns2:CharacterString>BELCONNEN</ns2:CharacterString>          </ns0:city>          <ns0:administrativeArea>            <ns2:CharacterString>ACT</ns2:CharacterString>          </ns0:administrativeArea>          <ns0:postalCode>            <ns2:CharacterString>2616</ns2:CharacterString>          </ns0:postalCode>          <ns0:country>            <ns2:CharacterString>Australia</ns2:CharacterString>          </ns0:country>          <ns0:electronicMailAddress>            <ns2:CharacterString>client.services@abs.gov.au</ns2:CharacterString>          </ns0:electronicMailAddress>        </ns0:CI_Address>      </ns0:address>    </ns0:CI_Contact>  </ns0:contactInfo>  <ns0:role>    <ns0:CI_RoleCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#CI_RoleCode" codeListValue="distributor">distributor</ns0:CI_RoleCode>  </ns0:role></ns0:CI_ResponsibleParty>
+          </ns0:distributorContact>
+          <ns0:distributionOrderProcess>
+            <ns0:MD_StandardOrderProcess>
+              <ns0:fees>
+                <ns2:CharacterString>Free to download from website.</ns2:CharacterString>
+              </ns0:fees>
+              <ns0:orderingInstructions>
+                <ns2:CharacterString>Download from website</ns2:CharacterString>
+              </ns0:orderingInstructions>
+            </ns0:MD_StandardOrderProcess>
+          </ns0:distributionOrderProcess>
+          <ns0:distributorFormat>
+            <ns0:MD_Format>
+              <ns0:name>
+                <ns2:CharacterString>Mid Mif</ns2:CharacterString>
+              </ns0:name>
+              <ns0:version>
+                <ns2:CharacterString>900</ns2:CharacterString>
+              </ns0:version>
+              <ns0:specification>
+                <ns2:CharacterString>Mapinfo Interchange Format</ns2:CharacterString>
+              </ns0:specification>
+            </ns0:MD_Format>
+          </ns0:distributorFormat>
+          <ns0:distributorTransferOptions>
+            <ns0:MD_DigitalTransferOptions>
+              <ns0:onLine>
+                <ns0:CI_OnlineResource>
+                  <ns0:linkage>
+                    <ns0:URL>http://www.abs.gov.au/ausstats/abs@.nsf/mf/1270.0.55.003</ns0:URL>
+                  </ns0:linkage>
+                </ns0:CI_OnlineResource>
+              </ns0:onLine>
+              <ns0:offLine>
+                <ns0:MD_Medium>
+                  <ns0:name>
+                    <ns0:MD_MediumNameCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_MediumNameCode" codeListValue="onLine">onLine</ns0:MD_MediumNameCode>
+                  </ns0:name>
+                </ns0:MD_Medium>
+              </ns0:offLine>
+            </ns0:MD_DigitalTransferOptions>
+          </ns0:distributorTransferOptions>
+        </ns0:MD_Distributor>
+      </ns0:distributor>
+      <ns0:distributor>
+        <ns0:MD_Distributor>
+          <ns0:distributorContact>
+            <ns0:CI_ResponsibleParty>  <ns0:individualName ns2:nilReason="missing">    <ns2:CharacterString />  </ns0:individualName>  <ns0:organisationName>    <ns2:CharacterString>Australian Bureau of Statistics (ABS)</ns2:CharacterString>  </ns0:organisationName>  <ns0:positionName>    <ns2:CharacterString>National Information and Referral Service (NIRS)</ns2:CharacterString>  </ns0:positionName>  <ns0:contactInfo>    <ns0:CI_Contact>      <ns0:phone>        <ns0:CI_Telephone>          <ns0:voice>            <ns2:CharacterString>1300 135 070</ns2:CharacterString>          </ns0:voice>          <ns0:facsimile ns2:nilReason="missing">            <ns2:CharacterString />          </ns0:facsimile>        </ns0:CI_Telephone>      </ns0:phone>      <ns0:address>        <ns0:CI_Address>          <ns0:deliveryPoint>            <ns2:CharacterString>Australian Bureau of Statistics (ABS)</ns2:CharacterString>          </ns0:deliveryPoint>          <ns0:city>            <ns2:CharacterString>BELCONNEN</ns2:CharacterString>          </ns0:city>          <ns0:administrativeArea>            <ns2:CharacterString>ACT</ns2:CharacterString>          </ns0:administrativeArea>          <ns0:postalCode>            <ns2:CharacterString>2616</ns2:CharacterString>          </ns0:postalCode>          <ns0:country>            <ns2:CharacterString>Australia</ns2:CharacterString>          </ns0:country>          <ns0:electronicMailAddress>            <ns2:CharacterString>client.services@abs.gov.au</ns2:CharacterString>          </ns0:electronicMailAddress>        </ns0:CI_Address>      </ns0:address>    </ns0:CI_Contact>  </ns0:contactInfo>  <ns0:role>    <ns0:CI_RoleCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#CI_RoleCode" codeListValue="distributor">distributor</ns0:CI_RoleCode>  </ns0:role></ns0:CI_ResponsibleParty>
+          </ns0:distributorContact>
+          <ns0:distributionOrderProcess>
+            <ns0:MD_StandardOrderProcess>
+              <ns0:fees>
+                <ns2:CharacterString>Free to download from website.</ns2:CharacterString>
+              </ns0:fees>
+              <ns0:orderingInstructions>
+                <ns2:CharacterString>Download from website</ns2:CharacterString>
+              </ns0:orderingInstructions>
+            </ns0:MD_StandardOrderProcess>
+          </ns0:distributionOrderProcess>
+          <ns0:distributorFormat>
+            <ns0:MD_Format>
+              <ns0:name>
+                <ns2:CharacterString>Tab</ns2:CharacterString>
+              </ns0:name>
+              <ns0:version>
+                <ns2:CharacterString>version 300, edit_version 450</ns2:CharacterString>
+              </ns0:version>
+              <ns0:specification>
+                <ns2:CharacterString>Mapinfo Tab File Format</ns2:CharacterString>
+              </ns0:specification>
+            </ns0:MD_Format>
+          </ns0:distributorFormat>
+          <ns0:distributorTransferOptions>
+            <ns0:MD_DigitalTransferOptions>
+              <ns0:onLine>
+                <ns0:CI_OnlineResource>
+                  <ns0:linkage>
+                    <ns0:URL>http://www.abs.gov.au/ausstats/abs@.nsf/mf/1270.0.55.003</ns0:URL>
+                  </ns0:linkage>
+                </ns0:CI_OnlineResource>
+              </ns0:onLine>
+              <ns0:offLine>
+                <ns0:MD_Medium>
+                  <ns0:name>
+                    <ns0:MD_MediumNameCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_MediumNameCode" codeListValue="onLine">onLine</ns0:MD_MediumNameCode>
+                  </ns0:name>
+                </ns0:MD_Medium>
+              </ns0:offLine>
+            </ns0:MD_DigitalTransferOptions>
+          </ns0:distributorTransferOptions>
+        </ns0:MD_Distributor>
+      </ns0:distributor>
+      <ns0:distributor>
+        <ns0:MD_Distributor>
+          <ns0:distributorContact>
+            <ns0:CI_ResponsibleParty>  <ns0:individualName ns2:nilReason="missing">    <ns2:CharacterString />  </ns0:individualName>  <ns0:organisationName>    <ns2:CharacterString>Australian Bureau of Statistics (ABS)</ns2:CharacterString>  </ns0:organisationName>  <ns0:positionName>    <ns2:CharacterString>National Information and Referral Service (NIRS)</ns2:CharacterString>  </ns0:positionName>  <ns0:contactInfo>    <ns0:CI_Contact>      <ns0:phone>        <ns0:CI_Telephone>          <ns0:voice>            <ns2:CharacterString>1300 135 070</ns2:CharacterString>          </ns0:voice>          <ns0:facsimile ns2:nilReason="missing">            <ns2:CharacterString />          </ns0:facsimile>        </ns0:CI_Telephone>      </ns0:phone>      <ns0:address>        <ns0:CI_Address>          <ns0:deliveryPoint>            <ns2:CharacterString>Australian Bureau of Statistics (ABS)</ns2:CharacterString>          </ns0:deliveryPoint>          <ns0:city>            <ns2:CharacterString>BELCONNEN</ns2:CharacterString>          </ns0:city>          <ns0:administrativeArea>            <ns2:CharacterString>ACT</ns2:CharacterString>          </ns0:administrativeArea>          <ns0:postalCode>            <ns2:CharacterString>2616</ns2:CharacterString>          </ns0:postalCode>          <ns0:country>            <ns2:CharacterString>Australia</ns2:CharacterString>          </ns0:country>          <ns0:electronicMailAddress>            <ns2:CharacterString>client.services@abs.gov.au</ns2:CharacterString>          </ns0:electronicMailAddress>        </ns0:CI_Address>      </ns0:address>    </ns0:CI_Contact>  </ns0:contactInfo>  <ns0:role>    <ns0:CI_RoleCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#CI_RoleCode" codeListValue="distributor">distributor</ns0:CI_RoleCode>  </ns0:role></ns0:CI_ResponsibleParty>
+          </ns0:distributorContact>
+          <ns0:distributionOrderProcess>
+            <ns0:MD_StandardOrderProcess>
+              <ns0:fees>
+                <ns2:CharacterString>Free to download from website.</ns2:CharacterString>
+              </ns0:fees>
+              <ns0:orderingInstructions>
+                <ns2:CharacterString>Download from website</ns2:CharacterString>
+              </ns0:orderingInstructions>
+            </ns0:MD_StandardOrderProcess>
+          </ns0:distributionOrderProcess>
+          <ns0:distributorFormat>
+            <ns0:MD_Format>
+              <ns0:name>
+                <ns2:CharacterString>gpkg</ns2:CharacterString>
+              </ns0:name>
+              <ns0:version>
+                <ns2:CharacterString>Version 1.0</ns2:CharacterString>
+              </ns0:version>
+              <ns0:specification>
+                <ns2:CharacterString>OGC GeoPackage; www.geopackage.org/</ns2:CharacterString>
+              </ns0:specification>
+            </ns0:MD_Format>
+          </ns0:distributorFormat>
+          <ns0:distributorTransferOptions>
+            <ns0:MD_DigitalTransferOptions>
+              <ns0:onLine>
+                <ns0:CI_OnlineResource>
+                  <ns0:linkage>
+                    <ns0:URL>http://www.abs.gov.au/ausstats/abs@.nsf/mf/1270.0.55.003</ns0:URL>
+                  </ns0:linkage>
+                </ns0:CI_OnlineResource>
+              </ns0:onLine>
+              <ns0:offLine>
+                <ns0:MD_Medium>
+                  <ns0:name>
+                    <ns0:MD_MediumNameCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_MediumNameCode" codeListValue="onLine">onLine</ns0:MD_MediumNameCode>
+                  </ns0:name>
+                </ns0:MD_Medium>
+              </ns0:offLine>
+            </ns0:MD_DigitalTransferOptions>
+          </ns0:distributorTransferOptions>
+        </ns0:MD_Distributor>
+      </ns0:distributor>
+    </ns0:MD_Distribution>
+  </ns0:distributionInfo>
+  <ns0:dataQualityInfo>
+    <ns0:DQ_DataQuality>
+      <ns0:scope>
+        <ns0:DQ_Scope>
+          <ns0:level>
+            <ns0:MD_ScopeCode codeList="http://asdd.ga.gov.au/asdd/profileinfo/gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset">dataset</ns0:MD_ScopeCode>
+          </ns0:level>
+          <ns0:levelDescription>
+            <ns0:MD_ScopeDescription>
+              <ns0:other>
+                <ns2:CharacterString>dataset</ns2:CharacterString>
+              </ns0:other>
+            </ns0:MD_ScopeDescription>
+          </ns0:levelDescription>
+        </ns0:DQ_Scope>
+      </ns0:scope>
+      <ns0:lineage>
+        <ns0:LI_Lineage>
+          <ns0:statement>
+            <ns2:CharacterString>LGA boundaries were created using various sources including the PSMA digital datasets and ABS boundaries, zoning information from state planning agencies and imagery. Positional Accuracy: Positional accuracy is an assessment of the closeness of the location of the spatial objects in relation to their true positions on the earth's surface. The positional accuracy includes: -a horizontal accuracy assessment -a vertical accuracy assessment Positional accuracy for ABS boundaries is dependent on the accuracy of the features they have been aligned to. ABS boundaries are aligned to a number of layers supplied by PSMA with an accuracy of +/-50 mm. PSMA layers and their positional accuracy are as follows: -Transport and Topography +/- 2 meters in urban areas and +/- 10 meters in rural and remote areas -CadLite +/- 2 meters in urban areas and +/- 10 meters in rural and remote areas -Administrative Boundaries Derived from the cadastre data from each Australian State and Territory jurisdiction. -Greenspace and Hydrology 90% of well-defined features are within 1mm (at plot scale) of their true position, eg 1:500 equates to +/- 0.5metre and 1:25,000 equates to +/- 25 metres. Relative spatial accuracy of these themes reflects that of the jurisdictional source data. The accuracy is +/- 2 metres in urban areas and +/- 10 metres in rural and remote areas. No "shift" of data as a means of "cartographic enhancement" to facilitate presentation has been employed for any real world feature.</ns2:CharacterString>
+          </ns0:statement>
+        </ns0:LI_Lineage>
+      </ns0:lineage>
+    </ns0:DQ_DataQuality>
+  </ns0:dataQualityInfo>
+</ns0:MD_Metadata>

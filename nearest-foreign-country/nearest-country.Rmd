@@ -3,8 +3,8 @@ title: "Nearest foreign borders within a selected country"
 author: "Carl Schmertmann"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}

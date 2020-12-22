@@ -3,6 +3,8 @@ library(tidycensus)
 library(sf)
 library(units)
 library(showtext)
+library(geobr)
+
 
 font_add_google("Roboto", "Roboto")
 showtext_auto() 
@@ -16,23 +18,14 @@ theme_carl <- function () {
           panel.grid = element_blank())
 }
 
-census_api_key('e90802bb40c08e84c7ea65ebe1f1f7cf70685bff')
+D = read_municipality(code_muni = 'all', simplified = TRUE)
 
-## remove AK and HI and PR
-  
-D = get_acs(geography = 'county', variables = 'B01001_001',
-              year=2018, geometry = TRUE) %>% 
-    filter( !(substring(GEOID,1,2) %in% c('02','15','72'))) %>% 
-    st_transform(2163)  # equal area projection
 
 ## lon/lat for possible origin points
-LAX = c(-118.410,33.943)
-MIA = c(-80.287, 25.796)
-LGA = c(-73.874, 40.777)
-ORD = c(-87.907, 41.974)  
+GIG = c(-43.2566, -22.8053) 
 
 # select origin
-origin = st_point(LAX) %>% 
+origin = st_point(GIG) %>% 
        st_sfc() %>% 
        st_set_crs('WGS84') %>% 
        st_transform(2163)

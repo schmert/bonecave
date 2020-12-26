@@ -1,47 +1,75 @@
-# Demographic composition of US congressional districts
+# Broadband access by population density and race
 # Carl Schmertmann
-# 17 Dec 2020
+# 24 Dec 2020
 
 library(tidyverse)
 library(tidycensus)
+
+
+data(fips_codes) %>% 
+  
+fips = fips_codes %>%   
+      mutate(GEOID = as.numeric(paste0(as.numeric(state_code), county_code)))
+
+density_info = read_csv('Average_Household_Size_and_Population_Density-County.csv',
+                        skip=2) %>% 
+               rename(density=B01001_calc_PopDensity) %>% 
+               select(GEOID,NAME,State,density) %>% 
+               left_join(fips, by='GEOID')
+
 
 # get API key
 my_api_key = scan('C:/Users/Carl/Dropbox/my-API-key.txt', what='character')
 
 census_api_key(my_api_key)  # get your key at http://api.census.gov/data/key_signup.html
 
-data(fips_codes)
 
-fips = fips_codes %>% 
-           group_by(state) %>% 
-           slice(1) %>% 
-           select(state, state_name, state_code) %>% 
-           mutate(state_num = as.numeric(state_code))
 
-vars = c('Total'='B03002_001',
-         'WNH'  ='B03002_003',
-         'BNH'  ='B03002_004',
-         'INH'  ='B03002_005',
-         'ANH'  ='B03002_006',
-         'Hisp' ='B03002_012')
+vars = c('Total'   ='B28008_001',
+         'TotalBB' ='B28008_004',
+         'White'   ='B28009A_001',
+         'WhiteBB' ='B28009A_004',
+         'Black'   ='B28009B_001',
+         'BlackBB' ='B28009B_004')
+         
 
-D = get_acs(geography = 'congressional district',
+D = get_acs(geography = 'county',
+            year = 2019,
             variables = vars) %>% 
+            mutate(GEOID = as.numeric(GEOID)) %>% 
             pivot_wider(id_cols     = GEOID,
                         names_from  = variable,
                         values_from = estimate) %>% 
-            mutate(state_num = as.numeric(substr(GEOID,1,2)),
-                   dist_num  = as.numeric(substr(GEOID,3,4))) %>% 
-            left_join(fips) %>% 
+            left_join(density_info, by='GEOID') %>% 
             filter(!(state %in% c('DC','PR')), Total >0) %>% 
-            mutate(frac_wnh = WNH/Total,
-                   frac_bnh = BNH/Total,
-                   frac_inh = INH/Total,
-                   frac_anh = ANH/Total,
-                   frac_hisp= Hisp/Total,
-                   district = paste(state,dist_num,sep='-')) %>% 
-           select(state,district,contains('frac'))
+            mutate(frac_total = TotalBB/Total,
+                   frac_white = WhiteBB/White,
+                   frac_black = BlackBB/Black)
 
+
+ggplot(data=D) +
+  geom_point(aes(x=density,y=frac_total)) +
+  geom_smooth(aes(x=density,y=frac_total)) +
+  scale_x_log10() +
+  theme_bw() 
+
+ggplot(data=D) +
+  geom_point(aes(x=density,y=frac_white)) +
+  geom_smooth(aes(x=density,y=frac_white)) +
+  scale_x_log10() +
+  theme_bw() 
+
+ggplot(data=D) +
+  geom_point(aes(x=density,y=frac_black)) +
+  geom_smooth(aes(x=density,y=frac_black)) +
+  scale_x_log10() +
+  theme_bw() 
+
+ggplot(data=D) +
+  geom_point(aes(x=density,y=frac_white-frac_black)) +
+  geom_smooth(aes(x=density,y=frac_white-frac_black)) +
+  scale_x_log10() +
+  theme_bw() 
 
 
 # devtools::install_github("ricardo-bion/ggradar",

@@ -266,7 +266,11 @@ age = factor(Lstar,
                          '85+'))
 
 plot_data = plot_data %>% 
-             transform(age=age)
+             transform(age=age) %>%
+             mutate( rep=factor(party,
+                                levels=c('Democrat','Republican'),
+                                labels=paste('Represented by a',c('Democrat','Republican'))) )
+
 
 
 ## plot all
@@ -274,20 +278,39 @@ plot_data = plot_data %>%
 G = ggplot(data=plot_data) +
   aes(x = age, y=all) +
   geom_bar(data=filter(plot_data,sex=='male'),
-           stat='identity', fill='cornflowerblue',alpha=.80, width=.90) +
+           stat='identity', fill='cornflowerblue',alpha=.70, width=.90,
+           color='black',lwd=0.4) +
   geom_bar(data=filter(plot_data,sex=='female'),
-           stat='identity', fill='lightcoral', alpha=.80, width=.90) +
+           stat='identity', fill='lightcoral', alpha=.70, width=.90,
+           color='black', lwd=0.4) +
   scale_y_continuous(breaks=seq(-6e6, 6e6, 2e6),
                      labels=c('6M','4M','2M','0','2M','4M','6M'),
                      minor_breaks = NULL) +
   coord_flip() +
-  facet_grid(~party) +
+  facet_grid(~rep) +
   theme_bw() 
 
-G + 
-  geom_bar(data=filter(plot_data,sex=='male'),aes(x=age,y=all-WNH,fill=sex),
+G = G + 
+  geom_bar(data=filter(plot_data,sex=='male'),aes(x=age,y=WNH,fill=sex),
            stat='identity', alpha=1, fill='blue', width=.90) +
-  geom_bar(data=filter(plot_data,sex=='female'),aes(x=age,y=all-WNH,fill=sex),
-           stat='identity', alpha=1, fill='red', width=.90)
+  geom_bar(data=filter(plot_data,sex=='female'),aes(x=age,y=WNH,fill=sex),
+           stat='identity', alpha=1, fill='red', width=.90) +
+  geom_hline(yintercept = c(-4e6,4e6), lty='dotted', color='black',alpha=.80) +
+  labs(title='US House Representation by Age, Sex, and Race/Ethnicity',
+       subtitle='117th Congress',
+       y='Population', x='Age Group',
+       caption='Source: US Census Bureau ACS 2015-2019') +
+  geom_text(x=18, y=-6e6, label='Male', color='blue') +
+  geom_text(x=18, y=+6e6, label='Female', color='red') +
+  geom_text(x=1, y=0,label='White Non-Hispanic', color='white') +
+  geom_text(x=1, y=5.6e6,label='Total', color='black') 
 
   
+  
+ggsave(plot=G, filename='population-pyramids-by-party.png',
+       height=6, width=12, dpi=300)
+
+####################
+
+
+

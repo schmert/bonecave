@@ -25,6 +25,8 @@ vars = c('Total'='B03002_001',
          'ANH'  ='B03002_006',
          'Hisp' ='B03002_012')
 
+
+
 D = get_acs(geography = 'congressional district',
             variables = vars) %>% 
             pivot_wider(id_cols     = GEOID,
@@ -44,48 +46,6 @@ D = get_acs(geography = 'congressional district',
 
 
 
-# devtools::install_github("ricardo-bion/ggradar",
-library(ggradar)
-
-for (sel_state in unique(D$state)) {
-
-  full_state_name = fips %>% 
-                     filter(state==sel_state) %>% 
-                     pull(state_name)
-  nreps = D %>% 
-    filter(state==sel_state) %>% 
-    slice(1) %>% 
-    pull(ndist)
-  
-  this_title = paste0(full_state_name,' (',nreps,')')
-  
-  print(this_title)
-  
-  X = D %>% 
-     filter(state==sel_state) %>% 
-     select(district,contains('frac')) %>% 
-     rename('White\nNon-Hispanic'           = frac_wnh,
-            'Black\nNon-Hispanic'           = frac_bnh,
-            'Asian\nNon-Hispanic'           = frac_anh,
-            'Native American\nNon-Hispanic' = frac_inh,
-             Hispanic                       = frac_hisp) 
-
-  G= ggradar(X, base.size=13,
-             plot.legend = FALSE, 
-             group.line.width = 0.4, 
-             group.point.size = 2,
-             background.circle.colour = 'white',
-             background.circle.transparency = 0,
-             axis.label.size=3.5,
-             gridline.label.offset = +0.15,
-             grid.label.size = 5,
-             plot.title = this_title)
-  
-  # print(G)
-  
-  ggsave(filename=paste0(sel_state,'-districts.jpg'),
-         plot=G,
-         dpi=200, width=5,height=5)
   
 }
 

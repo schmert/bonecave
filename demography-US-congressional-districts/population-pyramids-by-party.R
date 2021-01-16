@@ -302,7 +302,7 @@ G = G +
        caption='Source: US Census Bureau ACS 2015-2019') +
   geom_text(x=18, y=-6e6, label='Male', color='blue') +
   geom_text(x=18, y=+6e6, label='Female', color='red') +
-  geom_text(x=1, y=0,label='White Non-Hispanic', color='white') +
+  geom_text(x=1, y=0,label='White Non-Hispanics', color='white') +
   geom_text(x=1, y=5.6e6,label='Total', color='black') 
 
   

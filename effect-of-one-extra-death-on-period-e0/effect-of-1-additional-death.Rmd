@@ -1,7 +1,7 @@
 ---
 title: "Effect of an additional death on period e0"
 author: "Carl Schmertmann"
-date: "22 Feb 2021"
+date: "22 Feb 2021 (modified 23 Feb)"
 output: pdf_document
 ---
 
@@ -21,7 +21,7 @@ for ages $a=0,1,2,...$.  The cumulative mortality risk up to any specific age $x
 $$
 H_x = \int_0^x \mu_a \:da 
 $$
-and the probability that a newborn experiencing subject to current age-specific rates would survive to age $x$ is
+and the probability that a newborn subject to current age-specific rates would survive to age $x$ is
 $$
 \ell_x = \exp(-H_x)
 $$
@@ -123,15 +123,24 @@ exposure = c(669210.73, 691861.02, 712004.53, 715739.78,
 ggplot() + 
   geom_point(aes(x=age, y=exposure)) +
   geom_line(aes(x=age, y=exposure)) +
-  labs(title='England & Wales 2018: total exposure by age') +
+  labs(title='England & Wales 2018: total exposure by age',
+       caption='Source: Human Mortality Database') +
   theme_bw()
 
 ggplot() + 
   geom_point(aes(x=age, y=deaths), color='red') +
   geom_line(aes(x=age, y=deaths), color='red') +
-  labs(title='England & Wales 2018: total deaths by age') +
+  labs(title='England & Wales 2018: total deaths by age',caption='Source: Human Mortality Database') +
   theme_bw()
 
+ggplot() + 
+  geom_point(aes(x=age, y=deaths/exposure), color='orangered') +
+  geom_line(aes(x=age, y=deaths/exposure), color='orangered') +
+  labs(title='England & Wales 2018: mortality rates by age',
+       subtitle='(log10 scale)',
+       y='Mortality Rate',caption='Source: Human Mortality Database') +
+  scale_y_log10() +
+  theme_bw()
 ```
 Now calculate the period life expectancy:
 ```{r}
@@ -161,7 +170,7 @@ G = ggplot() +
   labs(title='Change in period e0 with +1 death',
        subtitle='England & Wales 2018',
        x = 'Age at which 1 additional death occurs',
-       y = 'Change in e0') +
+       y = 'Change in e0',caption='Source: Human Mortality Database') +
   theme_bw()
 
 print(G)

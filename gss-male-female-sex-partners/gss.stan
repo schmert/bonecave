@@ -31,7 +31,7 @@ model {
     z[i] ~ binomial( n[i], theta[ix]) ;
   }
   
-// priors
+// priors 
   theta ~ rw1(sigma);
   sigma ~ normal(0,.10);
 }

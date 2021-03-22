@@ -21,22 +21,13 @@ D = tribble(
   2010,12,143,
   2012,17,147,
   2014,24,179,
-  2016,16,161,
+  2016,26,161,
   2018,26,128
 )  %>% 
   mutate(p = z/n,
           se = sqrt(p*(1-p)/n))
 
 D
-
-ggplot(data=D) +
-  aes(x=year,y=p) +
-  geom_point() +
-  geom_line() +
-  theme_bw() +
-  geom_ribbon(aes(x=year, ymin = p-se, ymax=p+se),
-              fill='grey', alpha=.30)
-
 
 
 MODEL = stan_model(file = 'gss.stan', model_name = 'GSS')

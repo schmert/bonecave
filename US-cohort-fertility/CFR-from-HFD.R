@@ -144,3 +144,29 @@ cfr_plot = cfr_plot +
 ggsave(filename='USA-CFR.png', plot=cfr_plot,
        height=6, width=8, dpi=300)
 
+## second version with 2010 observations highlighted
+
+cfr_plot = 
+  cfr_plot +
+  geom_point(data=filter(D,Cohort+55==2010),
+             aes(x=Cohort,y=CFR),
+             size=6, color='black',alpha=.50)
+
+hue = c('25'='purple',
+        '30'='darkgreen',
+        '35'='blue',
+        '40'='red')
+
+for (x in c(25,30,35,40)) {
+  tmp = filter(D, Cohort + x ==2010)
+  cfr_plot = 
+    cfr_plot +
+    geom_point(data=tmp,
+               aes_string(x='Cohort',y=paste0('CFR',x)),
+               size=6, color=hue[paste(x)],alpha=.50)
+}
+
+
+ggsave(filename='USA-CFR2.png', plot=cfr_plot,
+       height=6, width=8, dpi=300)
+

@@ -1,0 +1,88 @@
+### Some data
+
+```{r}
+library(tidyverse)
+```
+
+2015-2019 USA female dx for ages 0,1,...,109,110+ from HMD
+(I had never noticed before that $\sum_x dx \ne \ell_0$ in HMD data.)
+
+```{r}
+x  = 0:110
+
+dx = c(517L, 34L, 22L, 16L, 13L, 12L, 11L, 10L, 10L, 10L, 9L, 11L, 
+       11L, 14L, 17L, 19L, 23L, 28L, 36L, 38L, 42L, 46L, 48L, 52L, 54L, 
+       58L, 61L, 66L, 70L, 73L, 80L, 84L, 90L, 95L, 98L, 104L, 111L, 
+       116L, 123L, 131L, 137L, 145L, 156L, 168L, 179L, 196L, 214L, 228L, 
+       249L, 271L, 297L, 324L, 351L, 381L, 413L, 446L, 482L, 519L, 553L, 
+       587L, 628L, 667L, 712L, 756L, 802L, 850L, 904L, 972L, 1045L, 
+       1132L, 1226L, 1328L, 1449L, 1566L, 1681L, 1823L, 1941L, 2091L, 
+       2239L, 2415L, 2600L, 2763L, 2968L, 3142L, 3301L, 3454L, 3563L, 
+       3671L, 3732L, 3763L, 3784L, 3751L, 3629L, 3439L, 3191L, 2833L, 
+       2482L, 2117L, 1754L, 1409L, 1096L, 824L, 598L, 418L, 282L, 183L, 
+       114L, 69L, 40L, 22L, 24L)
+
+
+sum(dx)
+
+plot(x, dx, type='h')
+```
+
+### Create a linear approx to the cumulative distribution function, and its inverse, for dx
+```{r}
+
+# cumulative deaths by exact ages 0,1,...,111
+xx = 0:111  # extends x to represent EXACT ages 0,1,...,111
+Dx = cumsum(c(0,dx))/sum(dx)
+
+plot(xx,Dx)
+abline(h=seq(0,1,.10),lty='dotted')
+
+P    = approxfun(xx, Dx, yleft=0, yright=1)
+Pinv = approxfun(Dx, xx, yleft=NA, yright=NA)
+
+# examples: P(dead by 45.6), age z such that P(dead by z) = .389
+P(45.6)
+
+Pinv(.389)
+
+finex = seq(0,110,.10)
+plot( finex, P(finex), type='l', main='P(x) function on a fine grid of exact ages')
+
+finep = seq(0,1,.005)
+plot( finep, Pinv(finep), type='l', main='Pinv(p) function on a fine grid of probabilities')
+
+
+
+```
+
+### Now define a function to locate the smallest interval of ages $[x1,x2]$ for which $P(x2) - P(x1)$ equals a target probability like 0.50
+
+```{r}
+
+Cindex = function(target_prob) {
+  tmp = tibble(quantile1 = seq(0,1-target_prob,.005),
+               quantile2 = quantile1 + target_prob,
+               age1      = Pinv(quantile1),
+               age2      = Pinv(quantile2),
+               distance  = age2 - age1) %>% 
+        arrange(distance) %>% 
+        slice(1) %>% 
+        unlist()
+
+  return(tmp)
+}
+
+Cindex(.50)
+
+Cindex(.25)
+
+Cindex(.80)
+
+plot(x,dx)
+C80 = Cindex(.80)
+abline(v= c(C80['age1'],C80['age2']), col='red')
+title('C80 for USA females 2015-2019')
+
+```
+

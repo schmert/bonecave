@@ -1,0 +1,23 @@
+library(wpp2019)
+library(tidyverse)
+
+# sample 10 countries with different levels of TFR
+
+data(UNlocations, tfr)
+
+country_list = UNlocations %>% 
+                filter(tree_level == 5) %>% 
+                left_join(tfr) %>% 
+                select(country_code, name, tfr2015 = `2015-2020`) %>% 
+                filter(is.finite(tfr2015)) %>% 
+                arrange(tfr2015)
+
+# select the countries at 0, 20, 40, ..., 100%ile of current TFR
+
+n = nrow(country_list)
+
+ix = 1 + round( (n-1) * seq(0,1,.20))
+
+country_list[ix,]
+
+

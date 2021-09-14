@@ -62,8 +62,19 @@ ui <- fluidPage(
 )
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
+server <- function(input, output, session) {
 
+    observeEvent(input$minus5, {
+        session$sendCustomMessage(type = 'testmessage',
+                                  message = '-5')
+    })
+    
+    observeEvent(input$plus5, {
+        session$sendCustomMessage(type = 'testmessage',
+                                  message = '+5')
+    })
+    
+    
     output$PopPlot <- renderPlot({
         # generate bins based on input$bins from ui.R
         x    <- seq(0,100,5)

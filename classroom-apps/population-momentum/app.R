@@ -23,12 +23,26 @@ sel_names = names(sel_codes)
 # make a tibble with one row per selected country
 # and list-columns that contain FEMALE population, mx, etc
 
-data(popF)
+data(popF, tfr, mxF)
 
-tmp = popF %>% 
+tmp1 = popF %>% 
         filter(country_code %in% sel_codes) %>% 
-        select(country_code, name, pop=`2020`) %>%
-        nest(pop=c(pop) ) 
+        select(country_code, name, pop=`2020`) %>% 
+        nest( female_pop = c(pop))
+
+tmp2 = tfr %>% 
+        filter(country_code %in% sel_codes) %>% 
+        select(country_code, name, tfr=`2015-2020`)
+
+# actually want to calculate the Lx terms....
+tmp3 = mxF %>% 
+    filter(country_code %in% sel_codes) %>% 
+    select(country_code, name, age, mx=`2015-2020`) %>% 
+    nest(mort = c(age, mx))
+
+z = tmp1 %>% 
+     left_join(tmp2) %>% 
+     left_join(tmp3)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -44,9 +58,11 @@ ui <- fluidPage(
                         choices  = sel_names,
                         selected = sel_names[1],
                         width    = '40%'),
+            
             actionButton(inputId = 'minus5',
                          label   = '-5 years',
                          width   = '15%'),
+            
             actionButton(inputId = 'plus5',
                          label   = '+5 years',
                          width   = '15%'),
@@ -62,16 +78,16 @@ ui <- fluidPage(
 )
 
 # Define server logic required to draw a histogram
-server <- function(input, output, session) {
+server <- function(input, output) {
 
+    tx = ''
+    
     observeEvent(input$minus5, {
-        session$sendCustomMessage(type = 'testmessage',
-                                  message = '-5')
+       tx = 'MINUS'
     })
     
     observeEvent(input$plus5, {
-        session$sendCustomMessage(type = 'testmessage',
-                                  message = '+5')
+       tx = 'PLUS'
     })
     
     
@@ -95,7 +111,7 @@ server <- function(input, output, session) {
                    caption = "Source: UN World Population Prospects, 2019") +
              scale_y_continuous(limits=range(0,fpop$pop)) +
              scale_x_continuous(breaks=seq(0,100,10)) +
-             theme_bw()
+             theme_bw() 
     })
 }
 

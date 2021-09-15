@@ -25,21 +25,24 @@ sel_names = names(sel_codes)
 # country_code, name, TFR, NRR,
 #    Nx (21x1), Lx (21x1), Fx (21x1), 
 #    Sx (21 x 1, survival elements of Leslie matrix)
-#    Gx (21 x 1, first row of Leslie matrix)
+#    Kx (21 x 1, first row of Leslie matrix)
 
 # prepare a small data frame with age distributions
 # and Leslie multipliers, for the selected countries
 
 data(popF, tfr, percentASFR, mxF)
 
-tfr_info = tfr %>% 
-             filter(country_code %in% sel_codes) %>% 
-             select(country_code, name, tfr=`2015-2020`)
+# start a tibble w/ country_code, name, tfr
 
+D = tfr %>% 
+      filter(country_code %in% sel_codes) %>% 
+      select(country_code, name, tfr=`2015-2020`)
+
+# add a list column 
 pop_info = popF %>% 
              filter(country_code %in% sel_codes) %>% 
              select(country_code, name, pop=`2020`) %>% 
-             nest( Nx = c(pop))
+             nest( Nx = c(pop)) 
     
 Fx_info = percentASFR %>% 
             filter(country_code %in% sel_codes) %>% 
@@ -74,34 +77,52 @@ Lx_info = mxF %>%
            ungroup() %>% 
            nest( Lx = c(Lx))
 
+mx100_info = mxF %>% 
+            filter(country_code %in% sel_codes,
+                   age==100) %>% 
+            select(country_code, name,m100=`2015-2020`) %>% 
+            mutate(S100 = exp(-5*m100))
+
 
 # join the (list-column) datasets by country
 
-sel_data = tfr_info %>% 
+D = tfr_info %>% 
             inner_join(pop_info) %>% 
             inner_join(Fx_info) %>% 
             inner_join(Lx_info) %>% 
+            inner_join(mx100_info) %>% 
             as_tibble()
 
 # calculate NRR and the Leslie Matrix elements
 
+calc_NRR = function(Lx_values,Fx_values) {
+    # assumes that 4-10th age groups are 15-19... 45-49
+    0.4886 * sum(unlist(Lx_values)[4:10] * 
+                 unlist(Fx_values))
+}
 
+calc_Sx = function(Lx_values, S100) {
+    L = unlist(Lx_values)
+    tmp = tail(L,-1) / head(L,-1)   #S0...S95 
+    return(c(tmp, S100))
+}
 
-# tmp1 = popF %>% 
-#         filter(country_code %in% sel_codes) %>% 
-#         select(country_code, name, pop=`2020`) %>% 
-#         nest( female_pop = c(pop))
-# 
-# 
-# # actually want to calculate the Lx terms....
-# tmp3 = mxF %>% 
-#     filter(country_code %in% sel_codes) %>% 
-#     select(country_code, name, age, mx=`2015-2020`) %>% 
-#     nest(mort = c(age, mx))
-# 
-# tmp = tmp1 %>% 
-#      left_join(tmp2) %>% 
-#      left_join(tmp3)
+calc_Kx = function(Lx_values, Fx_values) {
+  LL = unlist(Lx_values)
+  FF = c( 0,0,0, unlist(Fx_values), rep(0,11))
+  # start with all zeroes
+  tmp = 0*LL
+  # age groups 10-14 [3rd] through 45-49 [10th] element will have non-zero values
+  ix = 3:10
+  tmp[ix] = 0.4886 * LL[1]/2 * (FF[ix] + FF[ix+1] * LL[ix+1]/LL[ix])
+  return(tmp)
+}
+
+D$NRR = map2_dbl(D$Lx, D$Fx, calc_NRR)
+D$Sx  = map2(D$Lx, D$S100, calc_Sx)
+D$Kx  = map2(D$Lx, D$Fx, calc_Kx)
+
+#===============================================================
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -149,22 +170,30 @@ server <- function(input, output) {
     #    tx = 'PLUS'
     # })
     # 
-    
+
+  
     output$PopPlot <- renderPlot({
         # generate bins based on input$bins from ui.R
         x    <- seq(0,100,5)
 
-        fpop = sel_data %>% 
+        fpop = D %>% 
                 filter( name== input$country) %>% 
                 unnest(cols=c(Nx)) %>% 
                 add_column(age = seq(0,100,5))
+  
+        tmp = D %>% 
+            filter(name == input$country)    
+        
+        this_title = paste(toupper(tmp$name),
+                           'Female Population\nTFR=',sprintf("%.2f",tmp$tfr), 
+                           ', NRR=',sprintf("%.2f",tmp$NRR))
         
         # draw the histogram with the specified number of bins
         ggplot(data=fpop) +
              aes(x=age, y=pop) +
              geom_point() +
              geom_line() + 
-             labs( title= paste(input$country,'Females'),
+             labs( title= this_title,
                    x = 'Five-Year Age Group',
                    y = "Population (1000s)",
                    caption = "Source: UN World Population Prospects, 2019") +

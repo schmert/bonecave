@@ -20,7 +20,14 @@ library(tidyverse)
 # level TFR in 2020
 #................................................
 
-sel_codes = c('China'                    = 156,
+sel_codes = c('Republic of Korea'        = 410,
+              'Serbia'                   = 688,
+              'Norway'                   = 578,
+              'Turkey'                   = 792,
+              'South Africa'             = 710,
+              'Guatemala'                = 320,
+              'Iraq'                     = 368,
+              'China'                    = 156,
               'United States of America' = 840,
               'India'                    = 356,
               'Egypt'                    = 818,
@@ -136,9 +143,11 @@ calc_projection = function(Nx, Sx, Kx, NRR) {
   KK = unlist(Kx)/NRR  # kid multipliers AT REPLACEMENT LEVEL
   NN = unlist(Nx)      # 2020 pop
   
-  Proj = matrix(NA, 21, 21, dimnames=list(seq(0,100,5), seq(2020,2120,5)))
+  Proj = matrix(NA, 21, 31, 
+                dimnames=list(seq(0,100,5), seq(2020,2170,5)))
+  
   Proj[,'2020'] = NN
-  for (y in seq(2025,2120,5)) {
+  for (y in seq(2025,2170,5)) {
     thisy = paste(y)
     lasty = paste(y-5)
     
@@ -177,7 +186,7 @@ ui <- fluidPage(
                         label = 'Select a year',
                         value = 2020,
                         min   = 2020,
-                        max   = 2120,
+                        max   = 2170,
                         sep   = '',
                         step  = 5,
                         round = FALSE,
@@ -248,10 +257,9 @@ server <- function(input, output) {
                           '\n',yr,' Population = ',
                           sprintf("%.0f", pop_now),
                           '\n',
-                          sprintf("%.1f",100*pop_now/pop_start),
+                          sprintf("%.0f",100*pop_now/pop_start),
                           '% of original population')
-        print(this_info)
-        
+
         # draw the histogram with the specified number of bins
         ggplot() +
              aes(x=age, y=fpop[,yr]) +

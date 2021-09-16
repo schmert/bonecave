@@ -173,7 +173,7 @@ ui <- fluidPage(
     base_font = font_google('Sarabun') 
   ),
 
-
+    title = 'Population Momentum',
   
     # Application title
     titlePanel(HTML("Population Momentum<br/>(if Replacement-Level Fertility starts in 2020)")),

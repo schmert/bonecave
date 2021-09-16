@@ -109,14 +109,16 @@ D = tfr_info %>%
 # calculate NRR and the Leslie Matrix elements
 
 calc_NRR = function(Lx_values,Fx_values) {
+     LL  = unlist(Lx_values)
+     FF  = unlist(Fx_values)
     # assumes that 4-10th age groups are 15-19... 45-49
-    0.4886 * sum(unlist(Lx_values)[4:10] * 
-                 unlist(Fx_values))
+    0.4886 * sum(LL*FF)
 }
 
 calc_Sx = function(Lx_values, S100) {
-    L = unlist(Lx_values)
-    tmp = tail(L,-1) / head(L,-1)   #S0...S95 
+    LL  = unlist(Lx_values)
+    ix  = 1:20
+    tmp = LL[ix+1]/LL[ix]   #S0...S95 
     return(c(tmp, S100))
 }
 
@@ -147,6 +149,7 @@ calc_projection = function(Nx, Sx, Kx, NRR) {
                 dimnames=list(seq(0,100,5), seq(2020,2170,5)))
   
   Proj[,'2020'] = NN
+  
   for (y in seq(2025,2170,5)) {
     thisy = paste(y)
     lasty = paste(y-5)
@@ -216,17 +219,6 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-
-    # tx = ''
-    # 
-    # observeEvent(input$minus5, {
-    #    tx = 'MINUS'
-    # })
-    # 
-    # observeEvent(input$plus5, {
-    #    tx = 'PLUS'
-    # })
-    # 
 
   
     output$PopPlot <- renderPlot({

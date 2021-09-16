@@ -1,0 +1,13 @@
+name: population-momentum
+title: population-momentum
+username:
+account: schmertmann
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4671441
+bundleId: 5040587
+url: https://schmertmann.shinyapps.io/population-momentum/
+when: 1631823697.45074
+lastSyncTime: 1631823697.45074
+asMultiple: FALSE
+asStatic: FALSE

@@ -61,7 +61,7 @@ Fx_info = percentASFR %>%
             summarize( Fx = list(c(0,0,0,asfr,rep(0,11)))) 
 
 # function to approx Lx for (0,5,10,...,100) from
-# lx for (0,*1*,5,10,...,100)
+# lx for (0, 1 ,5,10,...,100)
 
 calc_Lx = function(lx) {
     n   = length(lx)-1
@@ -127,8 +127,9 @@ calc_Kx = function(Lx_values, Fx_values) {
 }
 
 D$NRR = map2_dbl(D$Lx, D$Fx, calc_NRR)
+
 D$Sx  = map2(D$Lx, D$S100, calc_Sx)
-D$Kx  = map2(D$Lx, D$Fx, calc_Kx)
+D$Kx  = map2(D$Lx, D$Fx,   calc_Kx)
 
 # calculate projection for population by age 0-4,5-9,...,95-99,100+
 # in 2020, 2025, ..., 2170
@@ -224,9 +225,9 @@ server <- function(input, output) {
         # generate bins based on input$bins from ui.R
         age    <- seq(0,100,5)
 
-        # fpop is the matrix of projectsions: 
+        # fpop is the matrix of projections: 
         # 21 ages 0,5,...100 by 
-        # 21 years 2020, 2025, ..., 2120
+        # 21 years 2020, 2025, ..., 2170
 
         tmp = D %>% 
                 filter(name == input$country)
@@ -251,7 +252,7 @@ server <- function(input, output) {
                           sprintf("%.0f",100*pop_now/pop_start),
                           '% of original population')
 
-        # draw the histogram with the specified number of bins
+        # population by age
         ggplot() +
              aes(x=age, y=fpop[,yr]) +
              geom_point(color=dark_purple, size=2) +
@@ -300,6 +301,8 @@ server <- function(input, output) {
 
       xx = input$year
       yy = sum(fpop[,yr])
+      
+      # time series of total population
       ggplot() +
         aes(x=seq(2020,input$year,5), y=total_pop) +
         geom_point(size=2.5,color=light_purple) +

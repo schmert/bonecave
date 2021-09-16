@@ -6,8 +6,8 @@
         "windowheight": 780
     },
     "right": {
-        "splitterpos": 325,
-        "topwindowstate": "NORMAL",
+        "splitterpos": 525,
+        "topwindowstate": "MAXIMIZE",
         "panelheight": 742,
         "windowheight": 780
     }

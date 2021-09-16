@@ -11,6 +11,15 @@ library(shiny)
 library(wpp2019)
 library(tidyverse)
 
+# data prep ----
+#................................................
+# DATA PREP:
+# select a few countries, grab relevant WPP
+# data, and calculate the projected populations
+# assuming an immediate change to replacement-
+# level TFR in 2020
+#................................................
+
 sel_codes = c('China'                    = 156,
               'United States of America' = 840,
               'India'                    = 356,
@@ -32,17 +41,15 @@ sel_names = names(sel_codes)
 
 data(popF, tfr, percentASFR, mxF)
 
-# start a tibble w/ country_code, name, tfr
+tfr_info = tfr %>% 
+            filter(country_code %in% sel_codes) %>% 
+            select(country_code, name, tfr=`2015-2020`)
 
-D = tfr %>% 
-      filter(country_code %in% sel_codes) %>% 
-      select(country_code, name, tfr=`2015-2020`)
-
-# add a list column 
 pop_info = popF %>% 
              filter(country_code %in% sel_codes) %>% 
              select(country_code, name, pop=`2020`) %>% 
-             nest( Nx = c(pop)) 
+             group_by(country_code, name) %>% 
+             summarize( Nx = list(pop)) 
     
 Fx_info = percentASFR %>% 
             filter(country_code %in% sel_codes) %>% 
@@ -50,7 +57,8 @@ Fx_info = percentASFR %>%
             left_join(tfr_info) %>% 
             mutate( asfr = tfr * pct/500) %>% 
             select(country_code, name, asfr) %>% 
-            nest( Fx = c(asfr))
+            group_by(country_code, name) %>% 
+            summarize( Fx = list(c(0,0,0,asfr,rep(0,11)))) 
 
 # function to approx Lx for (0,5,10,...,100) from
 # lx for (0,*1*,5,10,...,100)
@@ -73,9 +81,7 @@ Lx_info = mxF %>%
            mutate(hx = diff(c(age,Inf)) * mx,
                   Hx = cumsum(c(0,head(hx,-1))),
                   lx = exp(-Hx)) %>% 
-           summarize( Lx  = calc_Lx(lx)) %>% 
-           ungroup() %>% 
-           nest( Lx = c(Lx))
+           summarize( Lx  = list(calc_Lx(lx)))  
 
 mx100_info = mxF %>% 
             filter(country_code %in% sel_codes,
@@ -109,7 +115,7 @@ calc_Sx = function(Lx_values, S100) {
 
 calc_Kx = function(Lx_values, Fx_values) {
   LL = unlist(Lx_values)
-  FF = c( 0,0,0, unlist(Fx_values), rep(0,11))
+  FF = unlist(Fx_values)
   # start with all zeroes
   tmp = 0*LL
   # age groups 10-14 [3rd] through 45-49 [10th] element will have non-zero values
@@ -122,7 +128,35 @@ D$NRR = map2_dbl(D$Lx, D$Fx, calc_NRR)
 D$Sx  = map2(D$Lx, D$S100, calc_Sx)
 D$Kx  = map2(D$Lx, D$Fx, calc_Kx)
 
-#===============================================================
+# calculate projection for population by age 0-4,5-9,...,95-99,100+
+# in 2020, 2025, ..., 2120
+
+calc_projection = function(Nx, Sx, Kx, NRR) {
+  SS = unlist(Sx)      # survival multipliers
+  KK = unlist(Kx)/NRR  # kid multipliers AT REPLACEMENT LEVEL
+  NN = unlist(Nx)      # 2020 pop
+  
+  Proj = matrix(NA, 21, 21, dimnames=list(seq(0,100,5), seq(2020,2120,5)))
+  Proj[,'2020'] = NN
+  for (y in seq(2025,2120,5)) {
+    thisy = paste(y)
+    lasty = paste(y-5)
+    
+    Proj[ 1, thisy] = sum( KK * Proj[,lasty])
+    Proj[-1, thisy] = SS[1:20] * Proj[1:20,lasty]
+    Proj[21, thisy] = Proj[21,thisy] + SS[21] * Proj[21,lasty]
+  }
+  
+  return(Proj)
+}
+
+D$projection = pmap(select(D, Nx,Sx,Kx,NRR), calc_projection)
+
+# shiny app ----
+# .....................................................
+#  set up inputs and outputs for Shiny app
+# .....................................................
+
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -138,6 +172,20 @@ ui <- fluidPage(
                         choices  = sel_names,
                         selected = sel_names[1],
                         width    = '40%'),
+            
+            sliderInput(inputId = 'year',
+                        label = 'Select a year',
+                        value = 2020,
+                        min   = 2020,
+                        max   = 2120,
+                        sep   = '',
+                        step  = 5,
+                        round = FALSE,
+                        animate = animationOptions(
+                          loop=TRUE,
+                          playButton = 'Project at Replacement Level Fertility',
+                          pauseButton = NULL
+                        ))
             
             # actionButton(inputId = 'minus5',
             #              label   = '-5 years',
@@ -174,32 +222,52 @@ server <- function(input, output) {
   
     output$PopPlot <- renderPlot({
         # generate bins based on input$bins from ui.R
-        x    <- seq(0,100,5)
+        age    <- seq(0,100,5)
 
-        fpop = D %>% 
-                filter( name== input$country) %>% 
-                unnest(cols=c(Nx)) %>% 
-                add_column(age = seq(0,100,5))
-  
+        # fpop is the matrix of projectsions: 
+        # 21 ages 0,5,...100 by 
+        # 21 years 2020, 2025, ..., 2120
+
         tmp = D %>% 
-            filter(name == input$country)    
+                filter(name == input$country)
         
-        this_title = paste(toupper(tmp$name),
-                           'Female Population\nTFR=',sprintf("%.2f",tmp$tfr), 
-                           ', NRR=',sprintf("%.2f",tmp$NRR))
+        fpop = tmp$projection[[1]] 
+        
+        yr = as.character(input$year)
+        
+        this_title = paste(toupper(input$country),
+                           'Female Population',yr,
+                           '\nTFR in 2020=',sprintf("%.2f",tmp$tfr), 
+                           '\nNRR in 2020=',sprintf("%.2f",tmp$NRR))
+        
+        pop_start = sum( fpop[,'2020'])
+        pop_now   = sum( fpop[, yr])
+        
+        this_info = paste0('2020 Population = ',
+                          sprintf("%.0f", pop_start),
+                          '\n',yr,' Population = ',
+                          sprintf("%.0f", pop_now),
+                          '\n',
+                          sprintf("%.1f",100*pop_now/pop_start),
+                          '% of original population')
+        print(this_info)
         
         # draw the histogram with the specified number of bins
-        ggplot(data=fpop) +
-             aes(x=age, y=pop) +
+        ggplot() +
+             aes(x=age, y=fpop[,yr]) +
              geom_point() +
-             geom_line() + 
+             geom_line() +
+             geom_line(aes(x=age, y=fpop[,'2020']),
+                       color='grey',size=4,alpha=.40) +
              labs( title= this_title,
                    x = 'Five-Year Age Group',
                    y = "Population (1000s)",
                    caption = "Source: UN World Population Prospects, 2019") +
-             scale_y_continuous(limits=range(0,fpop$pop)) +
+             scale_y_continuous(limits=range(0,fpop)) +
              scale_x_continuous(breaks=seq(0,100,10)) +
-             theme_bw() 
+             theme_bw() +
+             geom_text( aes(x=12, y=0.30*fpop['0','2020'],
+                        label=this_info), size=6)
     })
 }
 

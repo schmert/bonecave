@@ -1,15 +1,7 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
 library(wpp2019)
 library(tidyverse)
+library(bslib)
 
 # data prep ----
 #................................................
@@ -20,19 +12,20 @@ library(tidyverse)
 # level TFR in 2020
 #................................................
 
-sel_codes = c('Republic of Korea'        = 410,
-              'Serbia'                   = 688,
-              'Norway'                   = 578,
-              'Turkey'                   = 792,
-              'South Africa'             = 710,
-              'Guatemala'                = 320,
-              'Iraq'                     = 368,
-              'China'                    = 156,
-              'United States of America' = 840,
-              'India'                    = 356,
+sel_codes = c('China'                    = 156,
               'Egypt'                    = 818,
               'Ethiopia'                 = 231,
-              'Nigeria'                  = 566)
+              'Guatemala'                = 320,
+              'India'                    = 356,
+              'Iraq'                     = 368,
+              'Republic of Korea'        = 410,
+              'Nigeria'                  = 566,
+              'Norway'                   = 578,
+              'Serbia'                   = 688,
+              'South Africa'             = 710,
+              'Turkey'                   = 792,
+              'United States of America' = 840)
+                
                 
 sel_names = names(sel_codes)
 
@@ -138,7 +131,7 @@ D$Sx  = map2(D$Lx, D$S100, calc_Sx)
 D$Kx  = map2(D$Lx, D$Fx, calc_Kx)
 
 # calculate projection for population by age 0-4,5-9,...,95-99,100+
-# in 2020, 2025, ..., 2120
+# in 2020, 2025, ..., 2170
 
 calc_projection = function(Nx, Sx, Kx, NRR) {
   SS = unlist(Sx)      # survival multipliers
@@ -164,6 +157,7 @@ calc_projection = function(Nx, Sx, Kx, NRR) {
 
 D$projection = pmap(select(D, Nx,Sx,Kx,NRR), calc_projection)
 
+
 # shiny app ----
 # .....................................................
 #  set up inputs and outputs for Shiny app
@@ -172,9 +166,17 @@ D$projection = pmap(select(D, Nx,Sx,Kx,NRR), calc_projection)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
+  
+  
+  theme = bslib::bs_theme(
+    bootswatch = "pulse", 
+    base_font = font_google('Sarabun') 
+  ),
 
+
+  
     # Application title
-    titlePanel("Population Momentum\nat Replacement-Level Fertility"),
+    titlePanel(HTML("Population Momentum<br/>(if Replacement-Level Fertility starts in 2020)")),
 
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
@@ -183,36 +185,31 @@ ui <- fluidPage(
                         label    = 'Select a Country',
                         choices  = sel_names,
                         selected = sel_names[1],
-                        width    = '40%'),
+                        width    = '80%'),
             
             sliderInput(inputId = 'year',
-                        label = 'Select a year',
+                        label = HTML('Select a year<br/>(Click Play to animate)'),
                         value = 2020,
                         min   = 2020,
                         max   = 2170,
                         sep   = '',
                         step  = 5,
                         round = FALSE,
+                        width='80%',
                         animate = animationOptions(
+                          interval = 800,
                           loop=TRUE,
-                          playButton = 'Project at Replacement Level Fertility',
+#                          playButton = HTML('<br/><b><small>Project Forward at Replacement TFR</small></b>'),
+                          playButton = NULL,
                           pauseButton = NULL
                         ))
             
-            # actionButton(inputId = 'minus5',
-            #              label   = '-5 years',
-            #              width   = '15%'),
-            # 
-            # actionButton(inputId = 'plus5',
-            #              label   = '+5 years',
-            #              width   = '15%'),
-            
-
         ),
 
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("PopPlot")
+           plotOutput("PopPlot", width='80%'),
+           plotOutput("TotalPlot", width='80%')
         )
     )
 )
@@ -220,6 +217,8 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
+    dark_purple  = "#4B0082" #indigo
+    light_purple = '#8A2BE2' #blueviolet
   
     output$PopPlot <- renderPlot({
         # generate bins based on input$bins from ui.R
@@ -255,8 +254,8 @@ server <- function(input, output) {
         # draw the histogram with the specified number of bins
         ggplot() +
              aes(x=age, y=fpop[,yr]) +
-             geom_point() +
-             geom_line() +
+             geom_point(color=dark_purple, size=2) +
+             geom_line(color=dark_purple, size=0.5) +
              geom_line(aes(x=age, y=fpop[,'2020']),
                        color='grey',size=4,alpha=.40) +
              labs( title= this_title,
@@ -266,8 +265,57 @@ server <- function(input, output) {
              scale_y_continuous(limits=range(0,fpop)) +
              scale_x_continuous(breaks=seq(0,100,10)) +
              theme_bw() +
-             geom_text( aes(x=12, y=0.30*fpop['0','2020'],
-                        label=this_info), size=6)
+             geom_text( aes(x=22, y=0.30*fpop['0','2020'],
+                        label=this_info), size=4) +
+             geom_text( aes(x=85, y = .80*max(fpop), 
+                            label=yr), color=dark_purple, size=10)
+    })
+    
+    output$TotalPlot <- renderPlot({
+      # generate bins based on input$bins from ui.R
+      age    <- seq(0,100,5)
+      
+      # fpop is the matrix of projectsions: 
+      # 21 ages 0,5,...100 by 
+      # 21 years 2020, 2025, ... CURRENT YEAR
+      
+      tmp = D %>% 
+        filter(name == input$country)
+      
+      fpop = tmp$projection[[1]] 
+
+      if (input$year > 2020) {
+         total_pop = fpop[, paste(seq(2020,input$year,5))] %>% 
+                       colSums()
+      } else {
+        total_pop = sum(fpop[,'2020'])
+      }
+      
+      yr = as.character(input$year)
+      
+      this_title = paste(toupper(input$country),
+                         'Total Female Population')
+
+      
+
+      xx = input$year
+      yy = sum(fpop[,yr])
+      ggplot() +
+        aes(x=seq(2020,input$year,5), y=total_pop) +
+        geom_point(size=2.5,color=light_purple) +
+        geom_point(aes(x=xx, y=yy),size=5, color=light_purple, shape=1) +
+        geom_text(aes(x=xx, y=yy, label=yr),color=light_purple, 
+                  nudge_x = 5, nudge_y = -.05*sum(fpop[,'2020'])) +
+        geom_line(color=light_purple) +
+        labs( title= this_title,
+              x = 'Year',
+              y = "Population (1000s)",
+              caption = "Source: UN World Population Prospects, 2019") +
+        scale_y_continuous(limits=range(0,colSums(fpop))) +
+        scale_x_continuous(breaks=seq(2020,2170,10),
+                           limits=c(2020,2170)) +
+        theme_bw() 
+
     })
 }
 

@@ -12,7 +12,8 @@ library(bslib)
 # level TFR in 2020
 #................................................
 
-sel_codes = c('China'                    = 156,
+sel_codes = c('Brazil'                   =  76,
+              'China'                    = 156,
               'Egypt'                    = 818,
               'Ethiopia'                 = 231,
               'Guatemala'                = 320,
@@ -167,7 +168,6 @@ D$projection = pmap(select(D, Nx,Sx,Kx,NRR), calc_projection)
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   
-  
   theme = bslib::bs_theme(
     bootswatch = "pulse", 
     base_font = font_google('Sarabun') 
@@ -219,6 +219,10 @@ server <- function(input, output) {
 
     dark_purple  = "#4B0082" #indigo
     light_purple = '#8A2BE2' #blueviolet
+    
+    hue20 = '#E0B0FF'  # for population < 20
+    hue40 = '#DA70D6'  # for population < 40
+    hue60 = '#673147'  # for population < 60
   
     output$PopPlot <- renderPlot({
         # generate bins based on input$bins from ui.R
@@ -265,7 +269,7 @@ server <- function(input, output) {
              scale_y_continuous(limits=range(0,fpop)) +
              scale_x_continuous(breaks=seq(0,100,10)) +
              theme_bw() +
-             geom_text( aes(x=22, y=0.30*fpop['0','2020'],
+             geom_text( aes(x=31, y=0.30*fpop['0','2020'],
                         label=this_info), size=4) +
              geom_text( aes(x=85, y = .80*max(fpop), 
                             label=yr), color=dark_purple, size=10)
@@ -283,12 +287,28 @@ server <- function(input, output) {
         filter(name == input$country)
       
       fpop = tmp$projection[[1]] 
-
+      
+      # ix20 = paste(seq(0,15,5))   # index ages for 0-19
+      # ix40 = paste(seq(0,35,5))   # index ages for 0-39
+      # ix60 = paste(seq(0,55,5))   # index ages for 0-59
+      ix20 = paste(seq(20,100,5))   # index ages for 0-19
+      ix40 = paste(seq(40,100,5))   # index ages for 0-39
+      ix60 = paste(seq(60,100,5))   # index ages for 0-59
+      
       if (input$year > 2020) {
          total_pop = fpop[, paste(seq(2020,input$year,5))] %>% 
                        colSums()
+         pop20 = fpop[ix20, paste(seq(2020,input$year,5))] %>% 
+                       colSums()
+         pop40 = fpop[ix40, paste(seq(2020,input$year,5))] %>% 
+                       colSums()
+         pop60 = fpop[ix60, paste(seq(2020,input$year,5))] %>% 
+                       colSums()
       } else {
         total_pop = sum(fpop[,'2020'])
+        pop20 = sum(fpop[ix20,'2020'])
+        pop40 = sum(fpop[ix40,'2020'])
+        pop60 = sum(fpop[ix60,'2020'])
       }
       
       yr = as.character(input$year)
@@ -298,15 +318,38 @@ server <- function(input, output) {
 
       
 
-      xx = input$year
-      yy = sum(fpop[,yr])
+      xx   = input$year
+      yy   = sum(fpop[,yr])
+      yy20 = tail(pop20,1)
+      yy40 = tail(pop40,1)
+      yy60 = tail(pop60,1)
+      
+      yrs = seq(2020,input$year,5)
       ggplot() +
-        aes(x=seq(2020,input$year,5), y=total_pop) +
+        aes(x=yrs, y=total_pop) +
         geom_point(size=2.5,color=light_purple) +
         geom_point(aes(x=xx, y=yy),size=5, color=light_purple, shape=1) +
-        geom_text(aes(x=xx, y=yy, label=yr),color=light_purple, 
+        geom_text(aes(x=xx, y=yy, label=paste(yr,'Total')),color=light_purple, 
+                  hjust=0.25,
                   nudge_x = 5, nudge_y = -.05*sum(fpop[,'2020'])) +
         geom_line(color=light_purple) +
+        
+        geom_line(aes(x=yrs,y=pop20),color=hue20) +
+        geom_line(aes(x=yrs,y=pop40),color=hue40) +
+        geom_line(aes(x=yrs,y=pop60),color=hue60) +
+        
+        geom_point(aes(x=yrs,y=pop20),color=hue20) +
+        geom_point(aes(x=yrs,y=pop40),color=hue40) +
+        geom_point(aes(x=yrs,y=pop60),color=hue60) +
+        
+
+        geom_text(aes(x=xx, y=yy20, label='20+'), color=hue20,                   
+                  hjust=0,nudge_x =2, nudge_y = -.02* tail(pop60,1)) +
+        geom_text(aes(x=xx, y=yy40, label='40+'), color=hue40,                   
+                  hjust=0,nudge_x =2, nudge_y = -.02* tail(pop60,1)) +
+        geom_text(aes(x=xx, y=yy60, label='60+'), color=hue60,                   
+                  hjust=0,nudge_x =2, nudge_y = -.02* tail(pop60,1)) +
+        
         labs( title= this_title,
               x = 'Year',
               y = "Population (1000s)",

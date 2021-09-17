@@ -188,6 +188,10 @@ ui <- fluidPage(
                         selected = sel_names[1],
                         width    = '80%'),
             
+            checkboxInput(inputId = 'pyramid_style', 
+                          label   = 'Rotate Top Plot (Pyramid-Style)',
+                          value   = FALSE),
+            
             sliderInput(inputId = 'year',
                         label = HTML('Select a year<br/>(Click Play to animate)'),
                         value = 2020,
@@ -209,8 +213,8 @@ ui <- fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("PopPlot", width='80%'),
-           plotOutput("TotalPlot", width='80%')
+           plotOutput("PopPlot"  , width='75%'),
+           plotOutput("TotalPlot", width='75%')
         )
     )
 )
@@ -257,7 +261,7 @@ server <- function(input, output) {
                           '% of original population')
 
         # draw the histogram with the specified number of bins
-        ggplot() +
+        G = ggplot() +
              aes(x=age, y=fpop[,yr]) +
              geom_point(color=dark_purple, size=2) +
              geom_line(color=dark_purple, size=0.5) +
@@ -274,6 +278,11 @@ server <- function(input, output) {
                         label=this_info), size=4) +
              geom_text( aes(x=85, y = .80*max(fpop), 
                             label=yr), color=dark_purple, size=10)
+        
+        if (input$pyramid_style) { G = G + coord_flip() }
+        
+        return(G)
+            
     })
     
     output$TotalPlot <- renderPlot({

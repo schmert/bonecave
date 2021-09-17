@@ -62,7 +62,7 @@ Fx_info = percentASFR %>%
             summarize( Fx = list(c(0,0,0,asfr,rep(0,11)))) 
 
 # function to approx Lx for (0,5,10,...,100) from
-# lx for (0, 1 ,5,10,...,100)
+# lx for (0,*1*,5,10,...,100)
 
 calc_Lx = function(lx) {
     n   = length(lx)-1
@@ -128,9 +128,8 @@ calc_Kx = function(Lx_values, Fx_values) {
 }
 
 D$NRR = map2_dbl(D$Lx, D$Fx, calc_NRR)
-
 D$Sx  = map2(D$Lx, D$S100, calc_Sx)
-D$Kx  = map2(D$Lx, D$Fx,   calc_Kx)
+D$Kx  = map2(D$Lx, D$Fx, calc_Kx)
 
 # calculate projection for population by age 0-4,5-9,...,95-99,100+
 # in 2020, 2025, ..., 2170
@@ -221,17 +220,17 @@ server <- function(input, output) {
     dark_purple  = "#4B0082" #indigo
     light_purple = '#8A2BE2' #blueviolet
     
-    hue20 = '#E0B0FF'  # for population < 20
-    hue40 = '#DA70D6'  # for population < 40
-    hue60 = '#673147'  # for population < 60
+    hue20 = '#E0B0FF'  # for population 20+
+    hue40 = '#DA70D6'  # for population 40+
+    hue60 = '#673147'  # for population 60+
   
     output$PopPlot <- renderPlot({
         # generate bins based on input$bins from ui.R
         age    <- seq(0,100,5)
 
-        # fpop is the matrix of projections: 
+        # fpop is the matrix of projectsions: 
         # 21 ages 0,5,...100 by 
-        # 21 years 2020, 2025, ..., 2170
+        # 21 years 2020, 2025, ..., 2120
 
         tmp = D %>% 
                 filter(name == input$country)
@@ -256,7 +255,7 @@ server <- function(input, output) {
                           sprintf("%.0f",100*pop_now/pop_start),
                           '% of original population')
 
-        # population by age
+        # draw the histogram with the specified number of bins
         ggplot() +
              aes(x=age, y=fpop[,yr]) +
              geom_point(color=dark_purple, size=2) +
@@ -289,12 +288,9 @@ server <- function(input, output) {
       
       fpop = tmp$projection[[1]] 
       
-      # ix20 = paste(seq(0,15,5))   # index ages for 0-19
-      # ix40 = paste(seq(0,35,5))   # index ages for 0-39
-      # ix60 = paste(seq(0,55,5))   # index ages for 0-59
-      ix20 = paste(seq(20,100,5))   # index ages for 0-19
-      ix40 = paste(seq(40,100,5))   # index ages for 0-39
-      ix60 = paste(seq(60,100,5))   # index ages for 0-59
+      ix20 = paste(seq(20,100,5))   # index ages for 20+
+      ix40 = paste(seq(40,100,5))   # index ages for 40+
+      ix60 = paste(seq(60,100,5))   # index ages for 60+
       
       if (input$year > 2020) {
          total_pop = fpop[, paste(seq(2020,input$year,5))] %>% 
@@ -326,9 +322,6 @@ server <- function(input, output) {
       yy60 = tail(pop60,1)
       
       yrs = seq(2020,input$year,5)
-      
-      # time series of total population
-
       ggplot() +
         aes(x=yrs, y=total_pop) +
         geom_point(size=2.5,color=light_purple) +

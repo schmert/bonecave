@@ -1,0 +1,26 @@
+{
+    "id": "AAAC0CE3",
+    "path": "~/GitHub/bonecave/classroom-apps/population-momentum/app.R",
+    "project_path": "population-momentum/app.R",
+    "type": "r_source",
+    "hash": "2089445275",
+    "contents": "",
+    "dirty": false,
+    "created": 1631890926512.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "21,47",
+        "scrollLine": "8"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1631890976,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1631890976642,
+    "read_only": false,
+    "read_only_alternatives": []
+}

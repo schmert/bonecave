@@ -262,7 +262,7 @@ server <- function(input, output) {
 
         # draw the histogram with the specified number of bins
         G = ggplot() +
-             aes(x=age, y=fpop[,yr]) +
+             aes(x=age, y=fpop[,yr], group=1) +
              geom_point(color=dark_purple, size=2) +
              geom_line(color=dark_purple, size=0.5) +
              geom_line(aes(x=age, y=fpop[,'2020']),
@@ -274,10 +274,10 @@ server <- function(input, output) {
              scale_y_continuous(limits=range(0,fpop)) +
              scale_x_continuous(breaks=seq(0,100,10)) +
              theme_bw() +
-             geom_text( aes(x=31, y=0.30*fpop['0','2020'],
-                        label=this_info), size=4) +
-             geom_text( aes(x=85, y = .80*max(fpop), 
-                            label=yr), color=dark_purple, size=10)
+             geom_text( aes(x=15, y=0.20*max(fpop),
+                        label=this_info),hjust=0, size=3) +
+             geom_text( aes(x=80, y = .80*max(fpop), 
+                            label=yr), hjust=0,color=dark_purple, size=10)
         
         if (input$pyramid_style) { G = G + coord_flip() }
         
@@ -333,7 +333,7 @@ server <- function(input, output) {
       
       yrs = seq(2020,input$year,5)
       ggplot() +
-        aes(x=yrs, y=total_pop) +
+        aes(x=yrs, y=total_pop, group=1) +
         geom_point(size=2.5,color=light_purple) +
         geom_point(aes(x=xx, y=yy),size=5, color=light_purple, shape=1) +
         geom_text(aes(x=xx, y=yy, label=paste(yr,'Total')),color=light_purple, 

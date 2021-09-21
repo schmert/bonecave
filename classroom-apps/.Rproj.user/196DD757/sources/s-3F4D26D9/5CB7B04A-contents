@@ -184,12 +184,14 @@ ui <- fluidPage(
         selectInput(inputId="std_select", 
                     label="Standard Schedule",
                     choices = tail( names(df), -1),
-                    selected='Norway Female 2010-2019'),
+                    selected='Norway Female 2010-2019',
+                    width='50%'),
         
         selectInput(inputId="plot_select", 
                     label="Select data to plot",
                     choices = c('logmu','lx','dx'),
-                    selected='logmu'),
+                    selected='logmu',
+                    width='50%'),
         
         
          sliderInput(inputId='a1',
@@ -272,7 +274,7 @@ server <- function(input, output) {
     #                       sprintf("% 2.1f", beta),')')
     #                 ) 
                    
-    legend_text = paste('Model', 1:2)
+    legend_text = c("Standard","TOPALS")
     
     # calculate log mortality and baseline
     transformed   = TOPALS(std,alpha)

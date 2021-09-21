@@ -1,0 +1,49 @@
+library(tidyverse)
+library(HMDHFDplus)
+library(splines)
+
+B    = bs(0:110, knots=seq(0,110,3), degree=3)
+Proj = B %*% solve(crossprod(B)) %*% t(B)
+
+## Norway females 2010-2019
+NOR = readHMDweb('NOR', item='fltper_1x10',un,pw) %>% 
+       as_tibble() %>% 
+       select(Year,Age,mx) %>% 
+       mutate(logmx = log(mx))
+
+yy = NOR %>% filter(Year == 2010) %>% pull(logmx)
+
+yhat_NOR = Proj %*% yy
+
+plot(0:110, yy, pch='+', col='grey')
+lines(0:110, yhat, lwd=3)
+
+# Poland  1960-1969 males
+POL = readHMDweb('POL', item='mltper_1x10',un,pw) %>% 
+as_tibble() %>% 
+  select(Year,Age,mx) %>% 
+  mutate(logmx = log(mx))
+
+yy = POL %>% filter(Year == 1960) %>% pull(logmx)
+
+yhat_POL = Proj %*% yy
+
+
+# Taiwan  1990-1999 both sexes
+TWN = readHMDweb('TWN', item='bltper_1x10',un,pw) %>% 
+  as_tibble() %>% 
+  select(Year,Age,mx) %>% 
+  mutate(logmx = log(mx))
+
+yy = TWN %>% filter(Year == 1990) %>% pull(logmx)
+
+yhat_TWN = Proj %*% yy
+
+
+L = tibble(
+     age = 0:99,
+     NOR2010 = round(yhat_NOR[1:100], 4),
+     POL1960 = round(yhat_POL[1:100], 4),
+     TWN1990 = round(yhat_TWN[1:100], 4)
+)
+

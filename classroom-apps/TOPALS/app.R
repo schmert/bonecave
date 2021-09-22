@@ -168,6 +168,35 @@ TOPALS = function(std, alpha) {
     return( tibble( age=0:99,mx, logmx, Hx, dx, lx) )
 }
 
+sliderPair <- function(k1,k2) {
+  if (is.na(k2)) {
+  fluidRow(
+    column(3,sliderInput(inputId=paste0('a',k1),
+                label = paste0('α',k1),
+                min = -1.0,
+                max = +1.0,
+                step = 0.10,
+                value=0))
+    ) # fluidRow
+  } else {
+    fluidRow(
+      column(3,sliderInput(inputId=paste0('a',k1),
+                           label = paste0('α',k1),
+                           min = -1.0,
+                           max = +1.0,
+                           step = 0.10,
+                           value=0)),
+      column(3,sliderInput(inputId=paste0('a',k2),
+                           label = paste0('α',k2),
+                           min = -1.0,
+                           max = +1.0,
+                           step = 0.10,
+                           value=0))
+    ) # fluidRow
+  }
+
+}    
+    
 # UI layout ----
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -178,72 +207,30 @@ ui <- fluidPage(
    
   
    sidebarLayout(
-      sidebarPanel(
-        
-    
-        selectInput(inputId="std_select", 
-                    label="Standard Schedule",
-                    choices = tail( names(df), -1),
-                    selected='Norway Female 2010-2019',
-                    width='50%'),
-        
-        selectInput(inputId="plot_select", 
-                    label="Select data to plot",
-                    choices = c('logmu','lx','dx'),
-                    selected='logmu',
-                    width='50%'),
-        
-        
-         sliderInput(inputId='a1',
-                     label = "a1",
-                     min = -1.0,
-                     max = +1.0,
-                     step = 0.10,
-                     value=0,width='25%'),
-         sliderInput(inputId='a2',
-                     label = "a2",
-                     min = -1.0,
-                     max = +1.0,
-                     step = 0.10,
-                     value=0,width='25%'),
-         sliderInput(inputId='a3',
-                     label = "a3",
-                     min = -1.0,
-                     max = +1.0,
-                     step = 0.10,
-                     value=0,width='25%'),
-         sliderInput(inputId='a4',
-                     label = "a4",
-                     min = -1.0,
-                     max = +1.0,
-                     step = 0.10,
-                     value=0,width='25%'),
-         sliderInput(inputId='a5',
-                     label = "a5",
-                     min = -1.0,
-                     max = +1.0,
-                     step = 0.10,
-                     value=0,width='25%'),
-         sliderInput(inputId='a6',
-                     label = "a6",
-                     min = -1.0,
-                     max = +1.0,
-                     step = 0.10,
-                     value=0,width='25%'),
-         sliderInput(inputId='a7',
-                     label = "a7",
-                     min = -1.0,
-                     max = +1.0,
-                     step = 0.10,
-                     value=0,width='25%')
-         
 
+     sidebarPanel( 
+          sliderPair(1,2),
+          sliderPair(3,4),
+          sliderPair(5,6),
+          sliderPair(7,NA),
+          
+          selectInput(inputId="std_select", 
+                      label="Standard Schedule",
+                      choices = tail( names(df), -1),
+                      selected='Norway Female 2010-2019',
+                      width='50%'),
+          
+          selectInput(inputId="plot_select", 
+                      label="Select data to plot",
+                      choices = c('logmu','lx','dx'),
+                      selected='logmu',
+                      width='50%'),
       
       ),  #sidebarPanel
 
       # Show a plot of log mortality
       mainPanel(
-         plotOutput(outputId="main_plot")
+         plotOutput(outputId="main_plot", height=600)
       )
  
    ) # sidebarLayout
@@ -289,21 +276,21 @@ server <- function(input, output) {
       alpha_info  = tibble(age = c(knot_positions,100), alpha=alpha)
       offset_info = tibble(age=0:100, y=c(as.numeric(B %*% alpha),NA))
     
-      df = data.frame( age= rep(baseline$age,2),
-                         sched = rep(legend_text,c(100,100)),
-                         logm = c(baseline$logmx,transformed$logmx))
+      tmp = data.frame( age   = rep(baseline$age,2),
+                        sched = rep(legend_text,c(100,100)),
+                        logm  = c(baseline$logmx,transformed$logmx))
         
-       G =  ggplot(data=df, aes(x=age, y=logm, 
+       G =  ggplot(data=tmp, aes(x=age, y=logm, 
                             color = sched, 
                             alpha = sched)) +
           geom_point(size=4) +
           geom_line(lwd=2) +
           scale_alpha_manual(guide=FALSE,
-                             values=c(1.0,0.5)) +
-          scale_color_manual(values=c('grey','red')) +
+                             values=c(0.8,0.5)) +
+          scale_color_manual(values=c('darkgrey','red')) +
           scale_x_continuous(limits=c(0,100),
                              breaks=seq(0,100,10)) +
-          scale_y_continuous(limits=c(-12,1)) +
+          scale_y_continuous(limits=c(-11,1)) +
           labs(title='Log Mortality Rates by Age',
                subtitle=paste('Standard Schedule =',std)) +
           theme_bw() +
@@ -313,8 +300,10 @@ server <- function(input, output) {
        # add knot positions
          
        G = G + 
-            geom_point(data=alpha_info,aes(x=age,y=alpha), color='red', inherit.aes = FALSE) +
-            geom_line(data=offset_info,aes(x=age,y=y), color='red', lwd=0.5, inherit.aes = FALSE) +
+            geom_point(data=alpha_info,aes(x=age,y=alpha), 
+                       color='red', inherit.aes = FALSE,size=3) +
+            geom_line(data=offset_info,aes(x=age,y=y), 
+                      color='red', lwd=1, inherit.aes = FALSE) +
             geom_text(aes(x=50,y=0.8), label='Linear Spline Offsets', size=5, color='red')
         
     } else if (plot == 'lx') {

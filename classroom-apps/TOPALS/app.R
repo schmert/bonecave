@@ -18,6 +18,7 @@
 #--------------------------------------
 
 library(shiny)
+library(shinyjs)
 library(tidyverse)
 library(splines)
 library(bslib)
@@ -33,7 +34,7 @@ library(bslib)
 
 
 df = structure(list(age = 0:99, 
-        `Norway F 2010` = 
+        `Norway Female 2010` = 
                    c(-6.1374, -8.5625, -9.3369, -9.3939, -9.492, 
                     -9.6903, -9.8729, -9.9491, -9.9287, -9.8464, 
                     -9.7329, -9.6024, -9.4646, -9.3245, -9.1667,
@@ -54,7 +55,7 @@ df = structure(list(age = 0:99,
                     -2.6229, -2.4849, -2.3427, -2.1965, -2.0508, 
                     -1.9117, -1.7834, -1.6630, -1.5464, -1.4302, 
                     -1.3155, -1.2046, -1.0993, -0.9998, -0.9060), 
-        `Poland M 1960` = 
+        `Poland Male 1960` = 
                   c(-2.9870, -5.7235, -6.7299, -6.9225, -7.0550, 
                     -7.2305, -7.3893, -7.4868, -7.5383, -7.5740, 
                     -7.6147, -7.6439, -7.6356, -7.5697, -7.4483, 
@@ -75,7 +76,7 @@ df = structure(list(age = 0:99,
                     -1.6503, -1.5710, -1.4941, -1.4209, -1.3510, 
                     -1.2837, -1.2181, -1.1533, -1.0883, -1.0226, 
                     -0.9586, -0.8991, -0.8459, -0.7969, -0.7488), 
-        `Taiwan B 1990` = 
+        `Taiwan Both 1990` = 
                   c(-5.0822, -6.7675, -7.4261, -7.6166, -7.7929, 
                     -7.9897, -8.1373, -8.1876, -8.1803, -8.1768, 
                     -8.2154, -8.2403, -8.1726, -7.9606, -7.6619, 
@@ -98,6 +99,7 @@ df = structure(list(age = 0:99,
                     -1.203,  -1.1222, -1.0496, -0.9834, -0.9203)), 
    class = c("tbl_df", "tbl", "data.frame"), row.names = c(NA, -100L))
 
+# define functions used in server ----
 #............................................................
 
 knot_positions = c(0,1,10,20,40,70)
@@ -119,25 +121,28 @@ TOPALS = function(std, alpha) {
     return( tibble( age=0:99,mx, logmx, Hx, dx, lx) )
 }
 
-sliderPair <- function(k1,k2) {
+# functoin to make a side-by-side pair of sliders
+sliderPair <- function(k1,k2,w=4) {
   if (is.na(k2)) {
   fluidRow(
-    column(4,sliderInput(inputId=paste0('a',k1),
+    column(w,sliderInput(inputId=paste0('a',k1),
                 label = paste0('α',k1),
                 min = -1.0,
                 max = +1.0,
                 step = 0.10,
-                value=0))
-    ) # fluidRow
+                value=0)),
+    column(w, actionButton(inputId='reset',
+                           label='Reset all α'))
+        ) # fluidRow
   } else {
     fluidRow(
-      column(4,sliderInput(inputId=paste0('a',k1),
+      column(w,sliderInput(inputId=paste0('a',k1),
                            label = paste0('α',k1),
                            min = -1.0,
                            max = +1.0,
                            step = 0.10,
                            value=0)),
-      column(4,sliderInput(inputId=paste0('a',k2),
+      column(w,sliderInput(inputId=paste0('a',k2),
                            label = paste0('α',k2),
                            min = -1.0,
                            max = +1.0,
@@ -154,8 +159,10 @@ ui <- fluidPage(
    
   theme = bslib::bs_theme(
     bootswatch = "spacelab", 
-    base_font = font_google('Roboto') 
+    base_font = font_google('Roboto Mono') 
   ),
+  
+  useShinyjs(),
   
    # Application title
    titlePanel("TOPALS Relational Model"),
@@ -176,10 +183,10 @@ ui <- fluidPage(
                                 selected='logmx'))
        ),
        
-          sliderPair(1,2),
-          sliderPair(3,4),
-          sliderPair(5,6),
-          sliderPair(7,NA)
+          sliderPair(1,2,w=5),
+          sliderPair(3,4,w=5),
+          sliderPair(5,6,w=5),
+          sliderPair(7,NA,w=5)
 
       ),  #sidebarPanel
 
@@ -192,9 +199,13 @@ ui <- fluidPage(
 ) # fluid
 
 # Server actions ----
-# Define server logic required to draw a histogram
 server <- function(input, output) {
    
+  observeEvent(input$reset, {
+    for (k in 1:K) { 
+      shinyjs::reset(paste0('a',k))
+    }  
+  })
   
   output$main_plot <- renderPlot({
 
@@ -244,12 +255,13 @@ server <- function(input, output) {
        # add knot positions
          
        G = G + 
-            geom_point(data=alpha_info,aes(x=age,y=alpha), 
-                       color='red', inherit.aes = FALSE,size=3) +
-            geom_line(data=offset_info,aes(x=age,y=y), 
-                      color='red', lwd=1, inherit.aes = FALSE) +
-            geom_text(aes(x=50,y=0.8), label='Linear Spline Offsets', size=5, color='red')
-        
+         geom_text(data=alpha_info,aes(x=age,y=alpha,label=1:K), 
+                    color='red', inherit.aes = FALSE,size=6) +
+         geom_line(data=offset_info,aes(x=age,y=y), 
+                   color='red', lwd=1, inherit.aes = FALSE) +
+         geom_text(aes(x=50,y=0.95), label='Linear Spline Offsets', 
+                   size=5, color='red')
+       
     } else if (plot == 'lx') {
       
       df = data.frame( age= rep(baseline$age,2),

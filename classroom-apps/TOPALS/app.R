@@ -257,6 +257,9 @@ server <- function(input, output) {
        G = G + 
          geom_text(data=alpha_info,aes(x=age,y=alpha,label=1:K), 
                     color='red', inherit.aes = FALSE,size=6) +
+         geom_point(data=alpha_info,aes(x=age,y=alpha), 
+                   shape=1, size=8,
+                   color='red', inherit.aes = FALSE) +
          geom_line(data=offset_info,aes(x=age,y=y), 
                    color='red', lwd=1, inherit.aes = FALSE) +
          geom_text(aes(x=50,y=0.95), label='Linear Spline Offsets', 

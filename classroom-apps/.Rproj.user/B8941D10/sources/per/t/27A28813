@@ -1,0 +1,26 @@
+{
+    "id": "27A28813",
+    "path": "~/GitHub/bonecave/classroom-apps/TOPALS-fit/extended_TOPALS_fit.R",
+    "project_path": "TOPALS-fit/extended_TOPALS_fit.R",
+    "type": "r_source",
+    "hash": "2007375472",
+    "contents": "",
+    "dirty": false,
+    "created": 1633466380412.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "188,46",
+        "scrollLine": "178"
+    },
+    "folds": "12|52|128|0|\n191|0|203|66|\n243|34|278|0|\n",
+    "lastKnownWriteTime": 1633470797,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1633470797205,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,13 @@
+name: TOPALS
+title: TOPALS
+username:
+account: schmertmann
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4804989
+bundleId: 5107616
+url: https://schmertmann.shinyapps.io/TOPALS/
+when: 1633465906.00596
+lastSyncTime: 1633465906.00596
+asMultiple: FALSE
+asStatic: FALSE

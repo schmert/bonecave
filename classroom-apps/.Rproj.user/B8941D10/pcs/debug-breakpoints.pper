@@ -1,0 +1,21 @@
+{
+    "debugBreakpointsState": {
+        "breakpoints": [
+            {
+                "id": 5,
+                "path": "~/GitHub/bonecave/classroom-apps/TOPALS-fit/extended_TOPALS_fit.R",
+                "line_number": 105,
+                "function_steps": "21,3,8",
+                "function_name": "TOPALS_fit",
+                "state": 1,
+                "editor_state": 1,
+                "editor_line_number": 105,
+                "is_pending_debug_completion": false,
+                "needs_updated_steps": false,
+                "type": 0,
+                "is_package_breakpoint": false,
+                "package_name": ""
+            }
+        ]
+    }
+}

@@ -237,12 +237,13 @@ server <- function(input, output) {
         
        G =  ggplot(data=tmp, aes(x=age, y=logm, 
                             color = sched, 
-                            alpha = sched)) +
-#          geom_point(size=2) +
-          geom_line(lwd=3) +
-          scale_alpha_manual(guide=FALSE,
-                             values=c(0.8,0.5)) +
-          scale_color_manual(values=c('darkgrey','red')) +
+                            alpha = sched,
+                            size  = sched)) +
+          geom_line() +
+          scale_alpha_manual(guide='none',
+                             values=c(1,0.5)) +
+          scale_color_manual(values=c('black','red')) +
+          scale_size_manual(values=c(1,3)) +
           scale_x_continuous(limits=c(0,100),
                              breaks=seq(0,100,10)) +
           scale_y_continuous(limits=c(-11,1)) +
@@ -273,12 +274,13 @@ server <- function(input, output) {
       
       G =  ggplot(data=df, aes(x=age, y=lx, 
                           color = sched, 
-                          alpha = sched)) +
-#        geom_point(size=4) +
-        geom_line(lwd=3) +
-        scale_alpha_manual(guide=FALSE,
-                           values=c(0.8,0.5)) +
-        scale_color_manual(values=c('darkgrey','limegreen')) +
+                          alpha = sched,
+                          size  = sched)) +
+        geom_line() +
+        scale_alpha_manual(guide='none',
+                           values=c(1,0.5)) +
+        scale_color_manual(values=c('black','limegreen')) +
+        scale_size_manual(values=c(1,3)) +
         scale_x_continuous(limits=c(0,99),
                            breaks=seq(0,99,10)) +
         scale_y_continuous(limits=c(0,1)) +
@@ -297,12 +299,13 @@ server <- function(input, output) {
       
       G=  ggplot(data=df, aes(x=age, y=dx, 
                           color = sched, 
-                          alpha = sched)) +
-#        geom_point(size=4) +
-        geom_line(lwd=3) +
-        scale_alpha_manual(guide=FALSE,
-                           values=c(0.8,0.5)) +
-        scale_color_manual(values=c('darkgrey','purple')) +
+                          alpha = sched,
+                          size  = sched)) +
+        geom_line() +
+        scale_alpha_manual(guide='none',
+                           values=c(1,0.5)) +
+        scale_color_manual(values=c('black','purple')) +
+        scale_size_manual(values=c(1,3)) +
         scale_x_continuous(limits=c(0,99),
                            breaks=seq(0,99,10)) +
         scale_y_continuous(limits=c(0,.14)) +

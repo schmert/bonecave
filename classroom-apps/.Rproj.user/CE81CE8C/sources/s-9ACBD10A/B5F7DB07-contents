@@ -1,6 +1,5 @@
 #.......................................................................
 # generate some (D,N,logm) samples from the HMD
-# and save to input_datasets.Rdata
 #.......................................................................
 
 library(tidyverse)
@@ -18,7 +17,7 @@ N = readHMDweb('RUS', item='Exposures_5x5', username=un, password=pw) %>%
 
 logmx1_RUS = readHMDweb('RUS', item='mltper_1x5', username=un, password=pw) %>% 
               filter(Year==1980, Age < 100) %>% 
-              mutate(logmx=log(mx)) %>% 
+              mutate(logmx = log(mx)) %>% 
               pull(logmx)
 
 RUS = left_join(D,N) %>% 
@@ -36,12 +35,13 @@ N = readHMDweb('ISL', item='Exposures_5x1', username=un, password=pw) %>%
 
 logmx1_ISL = readHMDweb('ISL', item='fltper_1x1', username=un, password=pw) %>% 
   filter(Year==2002, Age < 100) %>% 
-  mutate(logmx=log(mx)) %>% 
+  mutate(logmx = log(mx)) %>% 
   pull(logmx)
 
 ISL = left_join(D,N) %>% 
        mutate(H = c(tail(L,-1),100),.after='L')
     
+
 # 3rd example ----
 # simulated deaths and exposure for both sexes, 
 # Little Rock Arkansas in 1990. 
@@ -213,7 +213,7 @@ SaoBorja = tribble(
 98,99,0,1,
 99,100,1,0.6)
 
-# assemble and save the list of examples ----
+# assemble and save the list of examples 
 # as a tibble data frame with list columns
 
 case   = c('RUS','ISL','LittleRock','SaoBorja')
@@ -226,14 +226,13 @@ data$L = map(case,function(k) get(k)$L)
 data$H = map(case,function(k) get(k)$H)
 data$D = map(case,function(k) get(k)$Deaths)
 data$N = map(case,function(k) get(k)$Exposure)
+data$logmx = map(case,function(k) {
+                  v = paste0('logmx1_',k)
+                  if(exists(v)) {
+                     return( get(v))
+                  } else {
+                    return(NA)
+                  }})
 
-data$logmx = map(case, function(k) {
-                         v = paste0('logmx1_',k)
-                         if (exists(v)) {
-                           get(v)
-                         } else {
-                           NA
-                         }
-                        })
 
-save(data, file='TOPALS-fit/input_datasets.Rdata')
+

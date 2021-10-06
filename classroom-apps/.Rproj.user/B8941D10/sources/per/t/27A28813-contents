@@ -4,6 +4,10 @@
 # steps
 #------------------------------------------------------------
 
+library(tidyverse)
+
+graphics.off()
+
 TOPALS_fit = function( N, D, std,
                        age_group_bounds   = 0:100,
                        knot_positions     = c(0,1,10,20,40,70), 
@@ -49,7 +53,7 @@ TOPALS_fit = function( N, D, std,
     
     ## penalty function
     Pen = function(alpha) {
-      penalty    = 1/2 * t(alpha) %*% P %*% alpha
+      penalty    = -1/2 * t(alpha) %*% P %*% alpha
       return( penalty )
     }
     
@@ -106,10 +110,12 @@ TOPALS_fit = function( N, D, std,
       
       covar = solve( t(X) %*% A %*% X + P)
       
-      final_i = niter+1  # which row of amat has the final estimates?
-        
+      final_i     = niter+1  # which row of amat has the final estimates?
+      final_alpha = amat[final_i,]
+      
       return( list( niter             = niter,
-                    alpha             = amat[1:final_i,], 
+                    alpha             = amat[1:final_i,],
+                    final_alpha       = final_alpha,
                     D                 = D,
                     N                 = N,
                     age_group_bounds  = age_group_bounds,
@@ -165,7 +171,9 @@ big_fit = TOPALS_fit(N,D,std,
                  details=TRUE)
 str(big_fit)
 
-target_pop = 500
+
+
+target_pop = 5000
 
 smallN = N * target_pop/sum(N)
 smallD = rpois(length(smallN), smallN* D/N)
@@ -204,7 +212,7 @@ ITA_HMD_logmx =
     -1.3792, -1.297, -1.2087, -1.1393, -1.0245, -0.9444, -0.8681, 
     -0.7958, -0.7276)
 
-show = function(fit, hue='red') {
+show = function(fit, hue='red', ti='') {
   
   df_grouped = data.frame(
     L = head( fit$age_group_bounds, -1),
@@ -214,16 +222,24 @@ show = function(fit, hue='red') {
   ) %>%
     mutate(logmx_obs = log(D/N))
   
-  
   df_single  = data.frame(
     age=  seq(fit$std) - .50,  # 0.5, 1.5, ...
     std = fit$std,
-    logmx_true = ITA_HMD_logmx,
     logmx_fit  = fit$logm
-  )
+    )
+  
+  # simulate 10th and 90th pointwise intervals at each age
+  CH  = t( chol( fit$covar ))
+  m   = fit$final_alpha
+  sim = replicate(10000, {a=m + CH %*% rnorm(7); as.vector(fit$std + fit$B %*% a)})
+  
+  df_single$Q10 = apply(sim,1,quantile,prob=.10)
+  df_single$Q90 = apply(sim,1,quantile,prob=.90)
+  
+  mx_vals =  c(1,2,10,20,100,200,1000,2000,10000)
   
   this_plot =
-    ggplot(data = df_single, aes(x=age,y=logmx_true)) +
+    ggplot(data = df_single, aes(x=age,y=std)) +
     geom_line(aes(x=age,y=std), color='black', lwd=0.5) +
     geom_line(aes(x=age,y=logmx_fit), color=hue, lwd=3, alpha=.40) +
     geom_segment(data=df_grouped,aes(x=L,xend=U,
@@ -231,56 +247,152 @@ show = function(fit, hue='red') {
                                      yend=logmx_obs),
                  color=hue,lwd=1.5, alpha=.90) +
     geom_point(size=0.60) +
-    labs(x='Age',y='Log Mortality Rate',
-         title='Italy Females 1980',
-         subtitle = paste(sum(fit$D),'deaths to',round(sum(fit$N)),'women')) +
+    geom_ribbon(aes(x=age,ymin=Q10,ymax=Q90), fill=hue, alpha=.10) +
+    labs(x='Age',y='Mortality Rate per 10,000 (Log Scale)',
+         title=ti, subtitle = paste(round(sum(fit$D)),'deaths in',round(sum(fit$N)),'person-years')) +
     scale_x_continuous(breaks=c(0,1,seq(5,100,5)),minor_breaks = NULL) +
-    scale_y_continuous(limits=c(-10,0),breaks=seq(-10,0,2),minor_breaks = NULL) +
+    scale_y_continuous(limits=range(c(-10,0,df_single$Q10,df_single$Q90)),
+                       breaks=log(mx_vals /10000),
+                       minor_breaks = NULL,
+                       labels=paste(mx_vals)) +
     theme_bw()
   
   print(this_plot)
 } # show  
 
-show2 = function(fit, hue='red') {
-  
-  df_grouped = data.frame(
-    L = head( fit$age_group_bounds, -1),
-    U = tail( fit$age_group_bounds, -1),
-    N = fit$N,
-    D = fit$D
-  ) %>%
-    mutate(logmx_obs = log(D/N))
-  
-  
-  df_single  = data.frame(
-    age=  seq(fit$std) - .50,  # 0.5, 1.5, ...
-    std = fit$std,
-    logmx_true = ITA_HMD_logmx,
-    logmx_fit  = fit$logm
-  )
-  
-  this_plot =
-    ggplot(data = df_single, aes(x=age,y=logmx_true)) +
-    geom_line(aes(x=age,y=std), color='black', lwd=0.5) +
-    geom_line(aes(x=age,y=logmx_fit), color=hue, lwd=3, alpha=.40) +
-    geom_segment(data=df_grouped,aes(x=L,xend=U,
-                                     y=logmx_obs,
-                                     yend=logmx_obs),
-                 color=hue,lwd=1.5, alpha=.90) +
-    geom_point(size=0.60) +
-    labs(x='Age',y='Log Mortality Rate',
-         title='Italy Females 1980',
-         subtitle = paste(sum(fit$D),'deaths to',round(sum(fit$N)),'women')) +
-    scale_x_continuous(breaks=c(0,1,seq(5,100,5)),minor_breaks = NULL) +
-    scale_y_continuous(limits=c(-10,0),breaks=seq(-10,0,2),minor_breaks = NULL) +
-    theme_bw()
-  
-  print(this_plot)
-} # show2  
 
-
-show(fit, 'orangered')
 
 matplot(0:99, fit$std + fit$B %*% t(fit$alpha), type='o')
-matplot(seq(nrow(fit$alpha))-1,fit$alpha, type='o',xlab='iteration')
+
+ii = seq(nrow(fit$alpha))-1
+matplot(ii,fit$alpha, type='o',xlab='iteration')
+
+plot(ii,fit$Pen/fit$Lik, type='o', main='Pen/Lik')
+
+show(fit, 'orangered', 'Simulated Population')
+
+
+############ delete from here down after testing
+
+SaoBorja = structure(list(L = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 
+                                13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 
+                                29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 
+                                45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 
+                                61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 
+                                77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 
+                                93, 94, 95, 96, 97, 98, 99), 
+                          H = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 
+                              10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 
+                              26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 
+                              42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 
+                              58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 
+                              74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 
+                              90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100), 
+                          Deaths = c(1, 0, 
+                                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
+                                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                     0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 
+                                     0, 0, 1, 1, 0, 0, 3, 0, 2, 0, 1, 0, 1, 0, 1, 0, 1, 3, 2, 0, 2, 
+                                     2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1), 
+                          Exposure = c(63.7, 
+                                  57.8, 56.8, 52.8, 54.7, 60, 69.1, 79.5, 75.4, 73, 71.2, 83.4, 
+                                  90.4, 85.6, 79.6, 86.4, 88.3, 88.4, 84.4, 90.7, 91, 98.4, 101, 
+                                  102.3, 89.6, 88.2, 86.6, 89.3, 80.4, 76.2, 71.7, 72.5, 74.4, 
+                                  74.2, 78.7, 81.5, 88.1, 88.6, 87.9, 75.4, 70.8, 74.5, 87.1, 91.5, 
+                                  81.7, 73.6, 79.6, 83.8, 90.7, 86.2, 86.1, 80.1, 80.8, 81.9, 82.5, 
+                                  72.9, 80.1, 75.6, 78.5, 67.7, 70, 67.8, 64.2, 54.2, 45.4, 40, 
+                                  41.8, 46.2, 48.4, 46.3, 40.9, 37.3, 35.8, 34.1, 34.1, 36.9, 35.4, 
+                                  31.8, 30.1, 30.5, 27.9, 26, 24.7, 23.5, 15.9, 9.1, 4.7, 5.7, 
+                                  7.2, 6.5, 4.6, 3, 2, 1.9, 1.1, 0.6, 0.4, 1.3, 1, 0.6)), 
+                     class = c("tbl_df",                                                                                                                        
+                               "tbl", "data.frame"), row.names = c(NA, -100L))
+ 
+tmp = SaoBorja
+fit = TOPALS_fit(N=tmp$Exposure, D= tmp$Deaths, std=std, 
+                 age_group_bounds = c(tmp$L,100), details=TRUE)
+show(fit, hue='blue', ti="São Borja RS 2009-2011")
+
+##
+LittleRock = structure(list(L = c(0L, 5L, 18L, 21L, 25L, 45L, 55L, 60L, 65L, 
+                                  75L, 85L), 
+                            H = c(4L, 17L, 20L, 24L, 44L, 54L, 59L, 64L, 74L, 
+                                                   84L, 99L), 
+                            Deaths = c(91L, 23L, 13L, 16L, 146L, 104L, 72L, 109L, 
+                                                                         392L, 589L, 508L), 
+                            Exposure = c(12741, 31012, 7374, 11076, 61002, 
+                                           16878, 6753, 6888, 12190, 7384, 2497)), 
+                       class = c("tbl_df", "tbl",  "data.frame"), row.names = c(NA, -11L))
+
+tmp = LittleRock
+fit = TOPALS_fit(N=tmp$Exposure, D= tmp$Deaths, 
+                 age_group_bounds = c(tmp$L,100),
+                 std=std, details=TRUE)
+show(fit, hue='orange', ti="Little Rock 1990")
+
+ISL = structure(list(L = c(0L, 1L, 5L, 10L, 15L, 20L, 25L, 30L, 35L, 
+                           40L, 45L, 50L, 55L, 60L, 65L, 70L, 75L, 80L, 85L, 90L, 95L), 
+                     H = c(1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 
+                           70, 75, 80, 85, 90, 95, 100), 
+                     Deaths = c(2, 3, 5, 2, 0, 5, 
+                          5, 5, 10, 13, 13, 23, 24, 37, 41, 77, 97, 178, 173, 117, 
+                          46), 
+             Exposure = c(2014.96, 8382.31, 10890.62, 11096.16, 10144.15, 
+                        10935.01, 10522.14, 9902.84, 10864.81, 10556.26, 9636.91, 
+                        8412.53, 6773.92, 5073.68, 4869.78, 4723.54, 3838.91, 2694.91, 
+                        1517.95, 623.48, 164.55)), 
+                row.names = c(NA, -21L), class = "data.frame")  
+  tmp = ISL
+  fit = TOPALS_fit(N=tmp$Exposure, D= tmp$Deaths, std=std, 
+                   age_group_bounds=c(tmp$L,100),details=TRUE)
+  show(fit, hue='purple', ti="Iceland Females 2002")
+  
+RUS =  structure(list(L = c(0L, 1L, 5L, 10L, 15L, 20L, 25L, 30L, 35L, 
+                            40L, 45L, 50L, 55L, 60L, 65L, 70L, 75L, 80L, 85L, 90L, 95L), 
+                      H = c(1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 
+                            70, 75, 80, 85, 90, 95, 105), 
+                      Deaths = c(142382.89, 35103.61, 
+                               20844.88, 15661.23, 45332.9, 101355.55, 132479.93, 148928.9, 
+                               118267.4, 236438.23, 285552.75, 406375.72, 378929.32, 279944.86, 
+                               371661.07, 430455.41, 336869.39, 202931.61, 106637.51, 38754.7, 
+                               10284.95), 
+                      Exposure = c(5854168.07, 22051398.7, 26280605.34, 
+                                 24147608.61, 26175480.59, 32744750.36, 31878566.42, 27921974.27, 
+                                16963977.69, 23888101.88, 21827019.46, 22012556.51, 15335986.02, 
+                                  7990749.5, 7475667.82, 6063199.91, 3243859.02, 1300877.55, 
+                                 481510.01, 134707.34, 31306.19)), 
+                 row.names = c(NA, -21L), class = "data.frame") 
+
+
+tmp = RUS
+fit = TOPALS_fit(N=tmp$Exposure, D= tmp$Deaths, std=std, 
+                 age_group_bounds=c(tmp$L,100),details=TRUE)
+show(fit, hue='darkgreen', ti="Russia 1980-1984")
+
+# silly experiment: refit using Arkansas male 1990 as standard
+mx = 
+  c(0.02738, 0.00221, 0.00129, 8e-04, 0.00059, 0.00054, 0.00048, 
+    0.00054, 0.00036, 0.00041, 6e-04, 0.00052, 0.00042, 0.00067, 
+    0.00088, 0.0011, 0.00115, 0.00146, 0.00149, 0.00152, 0.0016, 
+    0.00189, 0.00185, 0.0014, 0.00191, 0.00141, 0.0013, 0.00165, 
+    0.00127, 0.00208, 0.0016, 0.00203, 0.0017, 0.00214, 0.00224, 
+    0.00231, 0.00267, 0.00234, 0.00346, 0.00316, 0.00295, 0.00293, 
+    0.00441, 0.00418, 0.00385, 0.00513, 0.00482, 0.00583, 0.00619, 
+    0.00649, 0.00759, 0.00748, 0.0082, 0.00857, 0.01068, 0.00982, 
+    0.01031, 0.01091, 0.01479, 0.01511, 0.01504, 0.01751, 0.01961, 
+    0.01948, 0.01985, 0.02369, 0.02522, 0.02949, 0.02944, 0.03234, 
+    0.0365, 0.03388, 0.0419, 0.0476, 0.04942, 0.05781, 0.04908, 0.06636, 
+    0.06914, 0.08174, 0.09346, 0.089, 0.10525, 0.1113, 0.13789, 0.13177, 
+    0.16051, 0.16474, 0.16704, 0.17884, 0.19128, 0.20437, 0.21811, 
+    0.23249, 0.24751, 0.26314, 0.27937, 0.29618, 0.31351, 0.33135
+  )
+
+sp = smooth.spline(x=0:99, y=log(mx) )
+sm = predict(sp,0:99)$y
+
+tmp = RUS
+fit2 = TOPALS_fit(N=tmp$Exposure, D= tmp$Deaths, std= sm, 
+                 age_group_bounds=c(tmp$L,100),details=TRUE)
+
+show(fit2, hue='darkgreen', ti="Russia 1980-1984, alt standard")
+
 

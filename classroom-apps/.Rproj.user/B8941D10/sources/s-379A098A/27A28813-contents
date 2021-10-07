@@ -222,7 +222,7 @@ show = function(fit, hue='red', ti='',subti='', true_logm=NA) {
 
 # Simulated population, based on RUS
 
-target_pop = 1000
+target_pop = 100
 
 N = data %>% filter(case=='RUS') %>% pull(N) %>% unlist()
 D = data %>% filter(case=='RUS') %>% pull(D) %>% unlist()
@@ -261,7 +261,7 @@ matplot(ii,fit$alpha, type='o',xlab='iteration')
 
 plot(ii,fit$Pen/fit$Lik, type='o', main='Pen/Lik')
 
-subti = paste(round(sum(D)), 'deaths in',round(sum(N)), 'person-years')
+subti = paste(round(sum(smallD)), 'deaths in',round(sum(smallN)), 'person-years')
 
 show(fit, 'orangered', 
      'Simulated Population with Russian Male 1990-1994 mortality', subti,

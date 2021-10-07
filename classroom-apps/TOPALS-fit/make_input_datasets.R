@@ -5,8 +5,13 @@
 # must have HMD username and password in memory as objects 'un' and 'pw'
 #.......................................................................
 
+{
+
 library(tidyverse)
 library(HMDHFDplus)
+
+ok = exists('un') & exists('pw')
+if (!ok) stop('Must have HMD username and password in variables un and pw, resp.')
 
 # 1st example ----
 # (big national population): raw data from Russian Males 1980-1984
@@ -67,6 +72,8 @@ c(0.02738, 0.00221, 0.00129, 8e-04, 0.00059, 0.00054, 0.00048,
 )
 
 names(mx) = 0:99
+
+logmx1_LittleRock = log(mx)
 
 # Pop Data from https://arstatedatacenter.youraedi.com/census/censusdata/Census1990/Cities/LittleRock.pdf 
 
@@ -283,3 +290,4 @@ save(data, male_std, female_std, both_std,
      file='TOPALS-fit/input_datasets.Rdata')
 
 
+}

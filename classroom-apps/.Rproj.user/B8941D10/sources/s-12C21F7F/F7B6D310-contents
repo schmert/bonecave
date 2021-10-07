@@ -1,5 +1,8 @@
 #.......................................................................
 # generate some (D,N,logm) samples from the HMD
+# and save to input_datasets.Rdata
+# 
+# must have HMD username and password in memory as objects 'un' and 'pw'
 #.......................................................................
 
 library(tidyverse)
@@ -15,6 +18,11 @@ N = readHMDweb('RUS', item='Exposures_5x5', username=un, password=pw) %>%
       filter(Year==1980, Age < 100) %>% 
       select(L=Age,Exposure=Male)
 
+logmx1_RUS = readHMDweb('RUS', item='mltper_1x5', username=un, password=pw) %>% 
+              filter(Year==1980, Age < 100) %>% 
+              mutate(logmx=log(mx)) %>% 
+              pull(logmx)
+
 RUS = left_join(D,N) %>% 
         mutate(H = c(tail(L,-1),100),.after='L')
 
@@ -28,10 +36,14 @@ N = readHMDweb('ISL', item='Exposures_5x1', username=un, password=pw) %>%
   filter(Year==2002, Age < 100) %>% 
   select(L=Age,Exposure=Female)
 
+logmx1_ISL = readHMDweb('ISL', item='fltper_1x1', username=un, password=pw) %>% 
+  filter(Year==2002, Age < 100) %>% 
+  mutate(logmx=log(mx)) %>% 
+  pull(logmx)
+
 ISL = left_join(D,N) %>% 
        mutate(H = c(tail(L,-1),100),.after='L')
     
-
 # 3rd example ----
 # simulated deaths and exposure for both sexes, 
 # Little Rock Arkansas in 1990. 
@@ -202,5 +214,72 @@ SaoBorja = tribble(
 97,98,1,1.3,
 98,99,0,1,
 99,100,1,0.6)
+
+
+# generate general male, female, total standards ----
+# from 1x10 deaths and exposures
+
+country_list = getHMDcountries()
+
+# 100x3 matrices to hold sums
+DD = matrix(0, 100, 3, dimnames=list(0:99,c('male','female','both')))
+NN = DD
+
+for (this_country in country_list) {
+
+# put deaths and exposures for this country into 100x3 matrices
+  D = readHMDweb(this_country, 'Deaths_1x10',un,pw)  %>% 
+        filter(Year >= 1990, Age < 100) %>% 
+        group_by(Age) %>% 
+        summarize(male=sum(Male), female=sum(Female),both=sum(Total)) %>% 
+        select(male:both) %>% 
+        as.matrix()
+  
+  
+  N = readHMDweb(this_country, 'Exposures_1x10',un,pw)  %>% 
+    filter(Year >= 1990, Age < 100) %>% 
+    group_by(Age) %>% 
+    summarize(male=sum(Male), female=sum(Female),both=sum(Total)) %>% 
+    select(male:both) %>% 
+    as.matrix()
+
+# add this country's data to totals
+  NN = NN + N
+  DD = DD + D
+  
+}
+
+# standards will be log( Dx/Nx) 
+logm = log(DD/NN)
+
+male_std   = logm[,'male']
+female_std = logm[,'female']
+both_std   = logm[,'both']
+
+# assemble and save the list of examples ----
+# as a tibble data frame with list columns
+
+case   = c('RUS','ISL','LittleRock','SaoBorja')
+name   = c('Russia','Iceland','Little Rock, Arkansas','São Borja RS, Brazil')
+sex    = c('male','female','both','female')
+period = c('1980-1984','2002','1990','2009-2011')
+
+data   = tibble(case,name,sex,period)
+data$L = map(case,function(k) get(k)$L)
+data$H = map(case,function(k) get(k)$H)
+data$D = map(case,function(k) get(k)$Deaths)
+data$N = map(case,function(k) get(k)$Exposure)
+
+data$logmx = map(case, function(k) {
+  v = paste0('logmx1_',k)
+  if (exists(v)) {
+    get(v)
+  } else {
+    NA
+  }
+})
+
+save(data, male_std, female_std, both_std, 
+     file='TOPALS-fit/input_datasets.Rdata')
 
 

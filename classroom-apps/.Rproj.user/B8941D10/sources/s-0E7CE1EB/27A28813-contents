@@ -141,7 +141,7 @@ TOPALS_fit = function( N, D, std,
     
 } # TOPALS_fit
 
-show = function(fit, hue='red', ti='',subti='') {
+show = function(fit, hue='red', ti='',subti='', true_logm=NA) {
   
   df_grouped = data.frame(
     L = head( fit$age_group_bounds, -1),
@@ -173,17 +173,20 @@ show = function(fit, hue='red', ti='',subti='') {
     px = exp(-mx)
     lx = c(1,cumprod(px))
     ex = sum( head(lx,-1) + tail(lx,-1))/2
+    return(ex)
   }
   
-  esim = apply(sim,1,e0)
+  esim = apply(sim,2,e0)
   e10  = quantile(esim,prob=.10)
   e90  = quantile(esim,prob=.90)
 
   text_info = paste0(
-    '(Unscaled) Log Lik =  ',prettyNum(fit$Lik[1+fit$niter], digits=1),'\n',
-    'Roughness Penalty  =  ',prettyNum(fit$Pen[1+fit$niter], digits=1),'\n',
-    'Convergence        =  ',fit$converge,'\n',
-    '# iterations       =  ',fit$niter)
+    'Newton-Raphson Converged =  ',fit$converge,'\n',
+    '# iterations             =  ',fit$niter,'\n',
+    '(Unscaled) Log Lik       =  ',prettyNum(fit$Lik[1+fit$niter], digits=2),'\n',
+    'Roughness Penalty        =  ',prettyNum(fit$Pen[1+fit$niter], digits=2),'\n\n',
+    'Life Exp. 10%-90%ile CI  = [',prettyNum(e10,digits=3),'-',prettyNum(e90,digits=3),']'
+  )
     
  
     
@@ -197,7 +200,6 @@ show = function(fit, hue='red', ti='',subti='') {
                                      y=logmx_obs,
                                      yend=logmx_obs),
                  color=hue,lwd=1, alpha=.90) +
-#    geom_point(size=0.60) +
     geom_ribbon(aes(x=age,ymin=Q10,ymax=Q90), fill=hue, alpha=.10) +
     labs(x='Age',y='Mortality Rate per 10,000 (Log Scale)',
          title=ti, subtitle = subti) +
@@ -206,9 +208,14 @@ show = function(fit, hue='red', ti='',subti='') {
                        breaks=log(mx_vals /10000),
                        minor_breaks = NULL,
                        labels=paste(mx_vals)) +
-    geom_text(x=65, y=log(5e-4), label=text_info, hjust=0, size=4,
+    geom_text(x=55, y=log(3e-4), label=text_info, hjust=0, size=4,
             family='CO',face='bold') +
     theme_bw()
+
+  if (!is.na(true_logm)) {
+    this_plot = this_plot +
+                  geom_point(aes(x=0:99,y=true_logm), shape='+')
+  } 
   
   print(this_plot)
 } # show  
@@ -221,6 +228,8 @@ N = data %>% filter(case=='RUS') %>% pull(N) %>% unlist()
 D = data %>% filter(case=='RUS') %>% pull(D) %>% unlist()
 L = data %>% filter(case=='RUS') %>% pull(L) %>% unlist()
 H = data %>% filter(case=='RUS') %>% pull(H) %>% unlist()
+
+true_logm = data %>% filter(case=='RUS') %>% pull(logmx) %>% unlist()
 
 boundaries = c(L, tail(H,1))
 
@@ -255,7 +264,8 @@ plot(ii,fit$Pen/fit$Lik, type='o', main='Pen/Lik')
 subti = paste(round(sum(D)), 'deaths in',round(sum(N)), 'person-years')
 
 show(fit, 'orangered', 
-     'Simulated Population with Russian Male 1990-1994 mortality', subti)
+     'Simulated Population with Russian Male 1990-1994 mortality', subti,
+     true_logm)
 
 # cycle over the example cases and fit the TOPALS models
 
@@ -265,6 +275,9 @@ process_case = function(i) {
   D = data[i,] %>% pull(D) %>% unlist()
   L = data[i,] %>% pull(L) %>% unlist()
   H = data[i,] %>% pull(H) %>% unlist()
+  
+  true_logm = data[i,] %>% pull(logmx) %>% unlist()
+  
   
   boundaries = c(L, tail(H,1))
   
@@ -281,7 +294,7 @@ process_case = function(i) {
                    detail=TRUE)
   
   print(fit)
-  show(fit, 'blue', ti=this_title, subti=this_subtitle)
+  show(fit, 'blue', ti=this_title, subti=this_subtitle, true_logm)
 }
 
 for (i in 1:nrow(data)) process_case(i)

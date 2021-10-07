@@ -1,0 +1,26 @@
+{
+    "id": "AE993AFC",
+    "path": "D:/Carl/Documents/GitHub/bonecave/classroom-apps/TOPALS-fit/app.R",
+    "project_path": "TOPALS-fit/app.R",
+    "type": "r_source",
+    "hash": "3739995488",
+    "contents": "",
+    "dirty": false,
+    "created": 1633645990951.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "294,11",
+        "scrollLine": "289"
+    },
+    "folds": "20|20|27|0|\n28|26|155|0|\n160|63|237|0|\n240|28|266|0|\n",
+    "lastKnownWriteTime": 1633647959,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1633647959142,
+    "read_only": false,
+    "read_only_alternatives": []
+}

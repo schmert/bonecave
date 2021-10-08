@@ -252,13 +252,11 @@ show = function(fit, hue='red', ti='',subti='', true_logm=NA) {
   print(this_plot)
 } # show 
 
-show_data = function(i, hue='red') {
+show_data = function(i, hue='orangered') {
   
   df = make_df(i) %>% 
         mutate(logmx_obs = log(D/N))
   
- print(df)
- 
   mx_vals =  c(1,2,10,20,100,200,1000,2000,10000)
   
   
@@ -331,8 +329,8 @@ ui <- fluidPage(
      sidebarPanel( 
        radioButtons(inputId  = 'dataset_number',
                     label    = 'Select Data',
-                    choiceNames  = population,
-                    choiceValues = seq(population))
+                    choiceNames  = data$label,
+                    choiceValues = seq(nrow(data)))
        
 
       ),  #sidebarPanel
@@ -343,11 +341,19 @@ ui <- fluidPage(
         type='pills',
         tabPanel(title='Data',
                  tableOutput(outputId = 'data_table')
-                 ),
+                 ), #Data tab
         tabPanel(title='Plot',
-            plotOutput(outputId="data_plot", width='600px')
-                 ), #Data Tab
-        tabPanel(title='Fit'),
+            plotOutput(outputId="data_plot")
+                 ), #Plot tab
+        tabPanel(title='Fit',
+            fluidRow(
+            column(4,
+            plotOutput(outputId='fit_plot'),
+            br(),
+            selectInput(inputId='standard', label='Select HMD Standard',
+                        choices=c('Male','Female','Both'))
+            )) #fluidRow
+            ), #Fit tab
         tabPanel(title='Diagnostics')
         )
       ,class="span9")
@@ -360,10 +366,14 @@ server <- function(input, output) {
    
 
   output$data_plot <- renderPlot({
-    show_data(input$dataset_number, hue='blue')
+    show_data(input$dataset_number, hue='orangered')
    }, width=500,height=500) # renderPlot
 
-
+  output$fit_plot <- renderPlot({
+    show_data(input$dataset_number, hue='orangered')
+  }, width=500,height=500) # renderPlot
+  
+  
   output$data_table <- renderTable({
      make_df(input$dataset_number)
   },digits=0)    

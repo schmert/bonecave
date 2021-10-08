@@ -19,12 +19,12 @@ library(splines)
 library(bslib)
 
 # load example data ----
-
 # retrieve example data and HMD-based standards
 load('input_datasets.Rdata')
 
-population = paste(data$name, data$sex, data$period)
+windowsFonts(CO = 'Consolas')
 
+population = paste(data$name, data$sex, data$period)
 
 # TOPALS fitting function ----
 
@@ -154,9 +154,24 @@ TOPALS_fit = function( N, D, std,
   
 } # TOPALS_fit
 
-# display function for TOPALS fit ----
+# functions for displaying data and fits ----
 
-windowsFonts(CO = 'Consolas')
+make_name = function(i) {
+  paste(data$name[i], data$sex[i], data$period[i])
+} # make name
+
+make_df = function(i) {
+  sex    = data[i,] %>% pull(sex) %>% unlist()
+  period = data[i,] %>% pull(period) %>% unlist()
+  label  = data[i,] %>% pull(label) %>% unlist()
+  
+  N = data[i,] %>% pull(N) %>% unlist()
+  D = data[i,] %>% pull(D) %>% unlist()
+  L = data[i,] %>% pull(L) %>% unlist()
+  H = data[i,] %>% pull(H) %>% unlist()
+  
+  tibble(label,L,H,N,D)  
+}
 
 show = function(fit, hue='red', ti='',subti='', true_logm=NA) {
   
@@ -237,6 +252,37 @@ show = function(fit, hue='red', ti='',subti='', true_logm=NA) {
   print(this_plot)
 } # show 
 
+show_data = function(i, hue='red') {
+  
+  df = make_df(i) %>% 
+        mutate(logmx_obs = log(D/N))
+  
+ print(df)
+ 
+  mx_vals =  c(1,2,10,20,100,200,1000,2000,10000)
+  
+  
+  ti    = df$label[1]
+  
+  subti = paste(prettyNum(round(sum(df$D)),big.mark=','),'deaths in',
+                prettyNum(round(sum(df$N)),big.mark=','),'person-years') 
+  
+this_plot =
+    ggplot(data = df, aes(x=L,y=logmx)) +
+    geom_segment(data=df,aes(x=L,xend=H,y=logmx_obs,yend=logmx_obs),
+                 color=hue,lwd=1.5, alpha=.90) +
+    labs(x='Age',y='Mortality Rate per 10,000 (Log Scale)',
+         title=ti, subtitle = subti) +
+    scale_x_continuous(breaks=c(0,1,seq(5,100,5)),minor_breaks = NULL) +
+    scale_y_continuous(limits=range(c(-10,0,df$logmx_obs[is.finite(df$logmx_obs)])),
+                       breaks=log(mx_vals /10000),
+                       minor_breaks = NULL,
+                       labels=paste(mx_vals)) +
+    theme_bw()
+  
+  print(this_plot)
+  
+} # show_data 
 
 process_case = function(i) {
   
@@ -283,7 +329,7 @@ ui <- fluidPage(
    sidebarLayout(
 
      sidebarPanel( 
-       radioButtons(inputId  = 'dataset',
+       radioButtons(inputId  = 'dataset_number',
                     label    = 'Select Data',
                     choiceNames  = population,
                     choiceValues = seq(population))
@@ -296,6 +342,9 @@ ui <- fluidPage(
         tabsetPanel(
         type='pills',
         tabPanel(title='Data',
+                 tableOutput(outputId = 'data_table')
+                 ),
+        tabPanel(title='Plot',
             plotOutput(outputId="data_plot", width='600px')
                  ), #Data Tab
         tabPanel(title='Fit'),
@@ -309,12 +358,15 @@ ui <- fluidPage(
 # Server actions ----
 server <- function(input, output) {
    
-  output$data_plot <- renderPlot({
 
-    process_case(input$dataset)
-    
-   }) # renderPlot
-   
+  output$data_plot <- renderPlot({
+    show_data(input$dataset_number, hue='blue')
+   }, width=500,height=500) # renderPlot
+
+
+  output$data_table <- renderTable({
+     make_df(input$dataset_number)
+  },digits=0)    
 } # server
 
 # Run the application 

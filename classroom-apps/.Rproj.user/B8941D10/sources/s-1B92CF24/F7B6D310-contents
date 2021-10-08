@@ -111,7 +111,7 @@ G = list(0:4,5:17,18:20,21:24,25:44,45:54,55:59,60:64,65:74,75:84,85:99)
 Dsim_grouped = sapply(G, function(a) sum(Dsim[(0:99) %in% a]))
 
 # construct a LittleRock dataframe
-LittleRock = tibble( L=sapply(G,min), H=sapply(G,max),
+LittleRock = tibble( L=sapply(G,min), H=sapply(G,max)+1,
                      Deaths=Dsim_grouped, Exposure = pop)
 
 # 4th Example ----

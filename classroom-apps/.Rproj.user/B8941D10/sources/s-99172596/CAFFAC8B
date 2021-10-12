@@ -3,7 +3,7 @@
     "path": "~/GitHub/bonecave/classroom-apps/TOPALS-fit/compare-Camarda-and-exact-derivs.R",
     "project_path": "TOPALS-fit/compare-Camarda-and-exact-derivs.R",
     "type": "r_source",
-    "hash": "2191932449",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1633955301774.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "240,28",
-        "scrollLine": "225"
+        "cursorPosition": "189,22",
+        "scrollLine": "183"
     },
-    "folds": "",
-    "lastKnownWriteTime": 1633988805,
+    "folds": "264|63|341|0|\n",
+    "lastKnownWriteTime": 1634051877,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1633988805603,
+    "last_content_update": 1634051877350,
     "read_only": false,
     "read_only_alternatives": []
 }

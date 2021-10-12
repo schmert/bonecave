@@ -14,6 +14,8 @@
 
 library(shiny)
 library(shinyjs)
+library(htmltools)
+library(shinydashboard)
 library(tidyverse)
 library(splines)
 library(bslib)
@@ -345,18 +347,18 @@ ui <- fluidPage(
         tabPanel(title='Plot',
             plotOutput(outputId="data_plot")
                  ), #Plot tab
-        tabPanel(title='Fit',
+        tabPanel(title='Step-by-Step Fit',
             fluidRow(
-            column(4,
+            column(12,
             plotOutput(outputId='fit_plot'),
-            br(),
+
             selectInput(inputId='standard', label='Select HMD Standard',
                         choices=c('Male','Female','Both'))
             )) #fluidRow
             ), #Fit tab
         tabPanel(title='Diagnostics')
         )
-      ,class="span9")
+      ,class="span12")
  
    ) # sidebarLayout
 ) # fluid
@@ -367,16 +369,16 @@ server <- function(input, output) {
 
   output$data_plot <- renderPlot({
     show_data(input$dataset_number, hue='orangered')
-   }, width=500,height=500) # renderPlot
+   }) # renderPlot
 
   output$fit_plot <- renderPlot({
     show_data(input$dataset_number, hue='orangered')
-  }, width=500,height=500) # renderPlot
+  }) # renderPlot
   
   
   output$data_table <- renderTable({
      make_df(input$dataset_number)
-  },digits=0)    
+  },digits=0,spacing='s',striped=TRUE)    
 } # server
 
 # Run the application 

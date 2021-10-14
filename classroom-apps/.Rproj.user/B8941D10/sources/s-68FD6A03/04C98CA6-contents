@@ -1,0 +1,107 @@
+
+graphics.off()
+rm(list=ls())
+
+library(numDeriv)
+library(tidyverse)
+
+# start from a TOPALS fit 
+
+source('compare-Camarda-and-exact-derivs.R')
+
+if (exists('fit')) {
+  for (k in names(fit))  assign(k, fit[[k]] )
+} else {
+  stop('object [fit] does not exist')
+}
+
+K = ncol(B)
+
+a = fit$final_alpha
+z = 0*a
+
+Camarda_H = function(a) {
+  mu = as.vector( exp( std + B %*% a ))
+  M  = as.vector(W %*% mu)
+  A  = diag(N/M)
+  X  = W %*% diag(mu) %*% B
+  return( -(t(X) %*% A %*% X + P))
+}
+
+Lik = function(a) {
+  M = W %*% exp( std + B %*% a)
+  Dhat = N*M
+  return( sum( dpois( D, Dhat, log=TRUE)))
+}
+
+Pen = function(a) {
+  as.numeric( -1/2 * t(a) %*% P %*% a)
+}
+
+Q = function(a) { Lik(a) + Pen(a)}
+
+empirical_g = function(a) { numDeriv::grad(Q, a) }
+empirical_H = function(a) { numDeriv::hessian(Q, a) }
+
+analytical_g = function(a) {
+  mu = as.vector( exp( std + B %*% a ))
+  M  = as.vector(W %*% mu)
+  
+  AA = diag(mu)
+  BB = diag(1/M)
+
+  exactg = t(B) %*% AA %*% t(W) %*% BB %*% D -
+            t(B) %*% AA %*% t(W) %*% N -
+            P %*% a
+  
+
+  return(as.vector(exactg))
+} # analytical_g
+
+
+
+analytical_H = function(a) {
+  mu = as.vector( exp( std + B %*% a ))
+  M  = as.vector(W %*% mu)
+  
+  AA = diag(mu)
+  BB = diag(1/M)
+  CC = diag((1/M)^2)
+  
+  exactH = matrix(NA,K,K)
+
+  for (i in 1:K) {
+    bi = as.vector(B[,i])
+    for (j in 1:K) {
+      bj = as.vector(B[,j])
+      dAA = diag(bj * mu)
+      dBB = diag( as.vector( t(bj*mu) %*% t(W) %*% CC))
+      
+      exactH[i,j] = t(bi) %*% dAA %*% t(W) %*% BB %*% D +
+                      t(bi) %*% AA %*% t(W) %*% dBB %*% D -
+                      t(bi) %*% dAA %*% t(W) %*% N -
+                      P[i,j]
+    }
+  }
+
+    return(exactH)
+} # analytical_H
+
+
+# compare at a and z and random pt
+
+
+compare = function(this_a) {
+  list(empg = empirical_g(this_a)  %>% round(2), 
+       anag = analytical_g(this_a) %>% round(2), 
+       empH = empirical_H(this_a)  %>% round(2), 
+       CamH = Camarda_H(this_a)    %>% round(2), 
+       anaH = analytical_H(this_a) %>% round(2)) 
+}
+
+
+compare(a)
+compare(z)
+
+r = runif(K,-1,1)
+compare(r)

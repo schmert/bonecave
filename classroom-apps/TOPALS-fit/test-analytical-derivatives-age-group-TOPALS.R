@@ -86,7 +86,7 @@ analytical_g = function(a) {
 
 # analytical formula for Hessian
 
-analytical_H = function(a) {
+good_analytical_H = function(a) {
 
   mu = as.vector( exp( std + B %*% a ))
   M  = as.vector(W %*% mu)
@@ -111,6 +111,29 @@ analytical_H = function(a) {
     exactH[,j] = tmp
   }
 
+} # good_analytical_H
+
+# the next version matches new text description  
+  analytical_H = function(a) {
+    
+    mu = as.vector( exp( std + B %*% a ))
+    M  = as.vector(W %*% mu)
+    
+    X = W %*% diag(mu) %*% B
+    
+    exactH = matrix(NA,K,K)
+    
+    for (j in 1:K) {
+    
+      bj = B[,j]
+      part1 = t(B) %*% diag(bj * mu) %*% t(W) %*% (D/M - N) 
+      part2 = t(X) %*% diag(as.vector((bj*mu) %*% t(W))/(M^2)) %*% D
+      part3 = P[,j]            
+      
+      
+      exactH[,j] = as.vector( part1 - part2 - part3)
+    }
+    
     return(exactH)
 } # analytical_H
 

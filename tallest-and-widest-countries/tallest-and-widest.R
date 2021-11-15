@@ -3,7 +3,6 @@
 # 15 Nov 2021
 # 
 # find N-S and E-W extremes for countries
-# at gadm.org (UC Davis)
 # .................................................................
 
 library(spData) 
@@ -60,24 +59,11 @@ box_height = sapply(1:nrow(box), function(k) {
 
 names(box_height) = world2$name_long
 
-# calculate the "width" of each country in km
-box_width = sapply(1:nrow(box), function(k) {
-  st_distance(box$SW_corner[k], box$SE_corner[k]) / 1000
-})
-
-names(box_width) = world2$name_long
-
 # 20 tallest
 
 tmp = box_height %>% sort() %>% rev() %>% head(20)
 
 tibble( name=names(tmp), height_km = round(tmp))
-
-# 20 widest
-
-tmp = box_width %>% sort() %>% rev() %>% head(20)
-
-tibble( name=names(tmp), width_km = round(tmp))
 
 # Sweden, Chile, and Norway
 tmp = box_height[c('Sweden','Norway','Chile','Finland')] %>% sort() %>% rev()
@@ -86,4 +72,22 @@ tibble( name=names(tmp), height_km = round(tmp))
 
 
 
+
+# "WIDTH" still needs work... depends on latitudes
+# calculate the "width" of each country in km
+if (FALSE) {
+
+box_width = sapply(1:nrow(box), function(k) {
+  st_distance(box$SW_corner[k], box$SE_corner[k]) / 1000
+})
+
+names(box_width) = world2$name_long
+
+# 20 widest
+
+tmp = box_width %>% sort() %>% rev() %>% head(20)
+
+tibble( name=names(tmp), width_km = round(tmp))
+
+}
 

@@ -2,6 +2,9 @@
 # Legislative Power of US Citizens, by state
 # Data from Michael Fay, letter to Amstat News, Nov 2021
 # 
+# Carl Schmertmann
+# 01 Dec 2021
+# 
 # assumes 
 #   1/2 of "legislative power" is in US Senate
 #   1/2 in House of Reps

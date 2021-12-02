@@ -5,8 +5,6 @@ library(cowplot)
 # select data and download from HMD ----
 # HMD username and password must be in session memory as 'un' and 'pw' 
 
-un = 'schmertmann@fsu.edu'
-pw = '0redlamp'
 
 country_list = getHMDcountries()
 

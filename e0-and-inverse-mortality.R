@@ -2,6 +2,8 @@ library(tidyverse)
 library(HMDHFDplus)
 library(cowplot)
 
+rm(list=ls())
+
 # select data and download from HMD ----
 # HMD username and password must be in session memory as 'un' and 'pw' 
 
@@ -13,6 +15,8 @@ need_data = !exists('HMDdata')
 if (need_data) {
     
     HMDdata = tibble()
+    
+    country_list = getHMDcountries()
     
     for (this_country in country_list) {
     

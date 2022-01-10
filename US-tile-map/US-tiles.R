@@ -90,4 +90,4 @@ TILEMAP =
 TILEMAP
 
 # save the plot ----
-ggsave(filename='US-tiles.png', width=11, height=8, dpi=300)
+ggsave(filename='US-tiles.png', width=11, height=8, dpi=300, bg='white')

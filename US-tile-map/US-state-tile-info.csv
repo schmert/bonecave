@@ -1,0 +1,52 @@
+﻿abb,name,division,region,grid_x,grid_y
+AL,Alabama,East South Central,South,6,1
+AK,Alaska,Pacific,West,0,7
+AZ,Arizona,Mountain,West,1,2
+AR,Arkansas,West South Central,South,4,2
+CA,California,Pacific,West,0,3
+CO,Colorado,Mountain,West,2,3
+CT,Connecticut,New England,Northeast,9,4
+DE,Delaware,South Atlantic,South,9,3
+DC,District of Columbia,South Atlantic,South,8,2
+FL,Florida,South Atlantic,South,8,0
+GA,Georgia,South Atlantic,South,7,1
+HI,Hawaii,Pacific,West,0,0
+ID,Idaho,Mountain,West,1,5
+IL,Illinois,East North Central,Midwest,5,5
+IN,Indiana,East North Central,Midwest,5,4
+IA,Iowa,West North Central,Midwest,4,4
+KS,Kansas,West North Central,Midwest,3,2
+KY,Kentucky,East South Central,South,5,3
+LA,Louisiana,West South Central,South,4,1
+ME,Maine,New England,Northeast,10,7
+MD,Maryland,South Atlantic,South,8,3
+MA,Massachusetts,New England,Northeast,9,5
+MI,Michigan,East North Central,Midwest,6,5
+MN,Minnesota,West North Central,Midwest,4,5
+MS,Mississippi,East South Central,South,5,1
+MO,Missouri,West North Central,Midwest,4,3
+MT,Montana,Mountain,West,2,5
+NE,Nebraska,West North Central,Midwest,3,3
+NV,Nevada,Mountain,West,1,4
+NH,New Hampshire,New England,Northeast,10,6
+NJ,New Jersey,Middle Atlantic,Northeast,8,4
+NM,New Mexico,Mountain,West,2,2
+NY,New York,Middle Atlantic,Northeast,8,5
+NC,North Carolina,South Atlantic,South,6,2
+ND,North Dakota,West North Central,Midwest,3,5
+OH,Ohio,East North Central,Midwest,6,4
+OK,Oklahoma,West South Central,South,3,1
+OR,Oregon,Pacific,West,0,4
+PA,Pennsylvania,Middle Atlantic,Northeast,7,4
+RI,Rhode Island,New England,Northeast,10,4
+SC,South Carolina,South Atlantic,South,7,2
+SD,South Dakota,West North Central,Midwest,3,4
+TN,Tennessee,East South Central,South,5,2
+TX,Texas,West South Central,South,3,0
+UT,Utah,Mountain,West,1,3
+VT,Vermont,New England,Northeast,9,6
+VA,Virginia,South Atlantic,South,7,3
+WA,Washington,Pacific,West,0,5
+WV,West Virginia,South Atlantic,South,6,3
+WI,Wisconsin,East North Central,Midwest,5,6
+WY,Wyoming,Mountain,West,2,4

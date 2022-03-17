@@ -71,7 +71,8 @@ TILEMAP =
         plot.subtitle = element_text(size=14)) +
   labs(title='Where do Florida-born Adults Live?',
        subtitle = paste('Each dot represents approx', 
-                        dotpop_text,'Floridians 25+ years old'))
+                        dotpop_text,'Floridians 25+ years old'),
+       caption='Source: IPUMS-USA Online Analysis tool, https://ipums.org  [@cschmert]  ')
   
 
 # save the plot ----

@@ -1,0 +1,52 @@
+﻿abb,name,division,region,fipscode,grid_x,grid_y
+AL,Alabama,East South Central,South,1,6,1
+AK,Alaska,Pacific,West,2,0,7
+AZ,Arizona,Mountain,West,4,1,2
+AR,Arkansas,West South Central,South,5,4,2
+CA,California,Pacific,West,6,0,3
+CO,Colorado,Mountain,West,8,2,3
+CT,Connecticut,New England,Northeast,9,9,4
+DE,Delaware,South Atlantic,South,10,9,3
+DC,District of Columbia,South Atlantic,South,11,8,2
+FL,Florida,South Atlantic,South,12,8,0
+GA,Georgia,South Atlantic,South,13,7,1
+HI,Hawaii,Pacific,West,15,0,0
+ID,Idaho,Mountain,West,16,1,5
+IL,Illinois,East North Central,Midwest,17,5,5
+IN,Indiana,East North Central,Midwest,18,5,4
+IA,Iowa,West North Central,Midwest,19,4,4
+KS,Kansas,West North Central,Midwest,20,3,2
+KY,Kentucky,East South Central,South,21,5,3
+LA,Louisiana,West South Central,South,22,4,1
+ME,Maine,New England,Northeast,23,10,7
+MD,Maryland,South Atlantic,South,24,8,3
+MA,Massachusetts,New England,Northeast,25,9,5
+MI,Michigan,East North Central,Midwest,26,6,5
+MN,Minnesota,West North Central,Midwest,27,4,5
+MS,Mississippi,East South Central,South,28,5,1
+MO,Missouri,West North Central,Midwest,29,4,3
+MT,Montana,Mountain,West,30,2,5
+NE,Nebraska,West North Central,Midwest,31,3,3
+NV,Nevada,Mountain,West,32,1,4
+NH,New Hampshire,New England,Northeast,33,10,6
+NJ,New Jersey,Middle Atlantic,Northeast,34,8,4
+NM,New Mexico,Mountain,West,35,2,2
+NY,New York,Middle Atlantic,Northeast,36,8,5
+NC,North Carolina,South Atlantic,South,37,6,2
+ND,North Dakota,West North Central,Midwest,38,3,5
+OH,Ohio,East North Central,Midwest,39,6,4
+OK,Oklahoma,West South Central,South,40,3,1
+OR,Oregon,Pacific,West,41,0,4
+PA,Pennsylvania,Middle Atlantic,Northeast,42,7,4
+RI,Rhode Island,New England,Northeast,44,10,4
+SC,South Carolina,South Atlantic,South,45,7,2
+SD,South Dakota,West North Central,Midwest,46,3,4
+TN,Tennessee,East South Central,South,47,5,2
+TX,Texas,West South Central,South,48,3,0
+UT,Utah,Mountain,West,49,1,3
+VT,Vermont,New England,Northeast,50,9,6
+VA,Virginia,South Atlantic,South,51,7,3
+WA,Washington,Pacific,West,53,0,5
+WV,West Virginia,South Atlantic,South,54,6,3
+WI,Wisconsin,East North Central,Midwest,55,5,6
+WY,Wyoming,Mountain,West,56,2,4

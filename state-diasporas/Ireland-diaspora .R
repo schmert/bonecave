@@ -13,7 +13,7 @@ library(tidyverse)
 library(ggimage)
 
 # read FL data and separate state names and fipscodes
-IRE = read.csv(file='Irish-born.csv', skip=11, header=TRUE,
+IRE = read.csv(file='Irish-born.csv', skip=8, header=TRUE,
               col.names = c('var','birthplace','fipscode','male','female','total'))
 
 

@@ -1,0 +1,63 @@
+Date/time,"Mar 17, 2022 (Thu 01:17 PM UTC)",,,,
+,,,,,
+Row variable,statefip,,State (FIPS code),,
+Column variable,sex,,Sex,,
+Weight variable,perwt,,Person weight,,
+Filter,age(25-99),,Age,,
+Filter,bpl(12),,Birthplace,,
+,,,,,
+"NOTE: I manually added header names ""Variable"" and ""Birthplace"", and the data in the ""fipscode"" column",,,,,
+,,,,,
+Frequency Distribution,,,,,
+Variable,Birthplace,fipscode,1 Male,2 Female,ROW TOTAL
+Weighted N,1 Alabama,1,44531,56311,100842
+Weighted N,2 Alaska,2,3484,2646,6130
+Weighted N,4 Arizona,4,20135,20900,41035
+Weighted N,5 Arkansas,5,8342,9805,18147
+Weighted N,6 California,6,64871,65226,130097
+Weighted N,8 Colorado,8,25447,27090,52537
+Weighted N,9 Connecticut,9,8308,6122,14430
+Weighted N,10 Delaware,10,1968,3024,4992
+Weighted N,11 District of Columbia,11,4471,3760,8231
+Weighted N,12 Florida,12,1818796,1876189,3694985
+Weighted N,13 Georgia,13,148566,165022,313588
+Weighted N,15 Hawaii,15,2850,3447,6297
+Weighted N,16 Idaho,16,1925,2290,4215
+Weighted N,17 Illinois,17,18613,23311,41924
+Weighted N,18 Indiana,18,17769,18333,36102
+Weighted N,19 Iowa,19,4509,5305,9814
+Weighted N,20 Kansas,20,6940,5021,11961
+Weighted N,21 Kentucky,21,18169,13258,31427
+Weighted N,22 Louisiana,22,12161,14854,27015
+Weighted N,23 Maine,23,4593,3439,8032
+Weighted N,24 Maryland,24,18824,18175,36999
+Weighted N,25 Massachusetts,25,14709,13006,27715
+Weighted N,26 Michigan,26,15657,16544,32201
+Weighted N,27 Minnesota,27,5842,7307,13149
+Weighted N,28 Mississippi,28,12177,10830,23007
+Weighted N,29 Missouri,29,12676,13575,26251
+Weighted N,30 Montana,30,2169,2030,4199
+Weighted N,31 Nebraska,31,3785,1631,5416
+Weighted N,32 Nevada,32,8435,9686,18121
+Weighted N,33 New Hampshire,33,4289,3958,8247
+Weighted N,34 New Jersey,34,14912,20495,35407
+Weighted N,35 New Mexico,35,3159,5233,8392
+Weighted N,36 New York,36,45509,39034,84543
+Weighted N,37 North Carolina,37,83304,79052,162356
+Weighted N,38 North Dakota,38,626,1036,1662
+Weighted N,39 Ohio,39,23535,25494,49029
+Weighted N,40 Oklahoma,40,12301,10410,22711
+Weighted N,41 Oregon,41,10513,10406,20919
+Weighted N,42 Pennsylvania,42,27354,26415,53769
+Weighted N,44 Rhode Island,44,3518,1908,5426
+Weighted N,45 South Carolina,45,35435,35984,71419
+Weighted N,46 South Dakota,46,922,729,1651
+Weighted N,47 Tennessee,47,52645,57380,110025
+Weighted N,48 Texas,48,81885,84494,166379
+Weighted N,49 Utah,49,5855,6758,12613
+Weighted N,50 Vermont,50,1941,1536,3477
+Weighted N,51 Virginia,51,38267,45359,83626
+Weighted N,53 Washington,53,25447,18734,44181
+Weighted N,54 West Virginia,54,5797,5663,11460
+Weighted N,55 Wisconsin,55,7575,8356,15931
+Weighted N,56 Wyoming,56,1216,1166,2382

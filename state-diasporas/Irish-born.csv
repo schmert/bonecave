@@ -1,0 +1,59 @@
+Date/time,"Mar 17, 2022 (Thu 05:37 PM UTC)",,,,
+,,,,,
+Row variable,statefip,,State (FIPS code),,
+Column variable,sex,,Sex,,
+Weight variable,perwt,,Person weight,,
+Filter,bpl(414),,Birthplace,,
+,,,,,
+Frequency Distribution,,,,,
+Variable,State,fipscode,1 Male,2 Female,ROW TOTAL
+Weighted N,1 Alabama,1,291,112,403
+Weighted N,2 Alaska,2,37,89,126
+Weighted N,4 Arizona,4,704,1290,1994
+Weighted N,5 Arkansas,5,102,265,367
+Weighted N,6 California,6,9929,8952,18881
+Weighted N,8 Colorado,8,762,817,1579
+Weighted N,9 Connecticut,9,1564,1750,3314
+Weighted N,10 Delaware,10,163,252,415
+Weighted N,11 District of Columbia,11,318,387,705
+Weighted N,12 Florida,12,4611,4845,9456
+Weighted N,13 Georgia,13,905,972,1877
+Weighted N,15 Hawaii,15,195,200,395
+Weighted N,16 Idaho,16,86,86,172
+Weighted N,17 Illinois,17,4913,3830,8743
+Weighted N,18 Indiana,18,489,511,1000
+Weighted N,19 Iowa,19,67,150,217
+Weighted N,20 Kansas,20,88,51,139
+Weighted N,21 Kentucky,21,509,236,745
+Weighted N,22 Louisiana,22,241,259,500
+Weighted N,23 Maine,23,129,155,284
+Weighted N,24 Maryland,24,957,1183,2140
+Weighted N,25 Massachusetts,25,8336,7928,16264
+Weighted N,26 Michigan,26,841,1190,2031
+Weighted N,27 Minnesota,27,472,577,1049
+Weighted N,28 Mississippi,28,186,31,217
+Weighted N,29 Missouri,29,464,376,840
+Weighted N,30 Montana,30,100,76,176
+Weighted N,31 Nebraska,31,85,42,127
+Weighted N,32 Nevada,32,385,328,713
+Weighted N,33 New Hampshire,33,367,455,822
+Weighted N,34 New Jersey,34,3688,4262,7950
+Weighted N,35 New Mexico,35,206,164,370
+Weighted N,36 New York,36,14957,16035,30992
+Weighted N,37 North Carolina,37,1258,982,2240
+Weighted N,39 Ohio,39,879,901,1780
+Weighted N,40 Oklahoma,40,121,108,229
+Weighted N,41 Oregon,41,555,700,1255
+Weighted N,42 Pennsylvania,42,2542,3365,5907
+Weighted N,44 Rhode Island,44,273,298,571
+Weighted N,45 South Carolina,45,761,610,1371
+Weighted N,46 South Dakota,46,0,18,18
+Weighted N,47 Tennessee,47,273,632,905
+Weighted N,48 Texas,48,2077,2474,4551
+Weighted N,49 Utah,49,142,357,499
+Weighted N,50 Vermont,50,165,149,314
+Weighted N,51 Virginia,51,996,1614,2610
+Weighted N,53 Washington,53,1352,1564,2916
+Weighted N,54 West Virginia,54,77,66,143
+Weighted N,55 Wisconsin,55,325,494,819
+Weighted N,56 Wyoming,56,45,37,82

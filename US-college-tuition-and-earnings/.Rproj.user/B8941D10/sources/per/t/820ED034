@@ -1,0 +1,26 @@
+{
+    "id": "820ED034",
+    "path": "~/GitHub/bonecave/US-college-tuition-and-earnings/weeks-needed-to-pay-college-costs.R",
+    "project_path": "weeks-needed-to-pay-college-costs.R",
+    "type": "r_source",
+    "hash": "2522325425",
+    "contents": "",
+    "dirty": false,
+    "created": 1650286120548.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "82,44",
+        "scrollLine": "69"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1650286897,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1650286897232,
+    "read_only": false,
+    "read_only_alternatives": []
+}

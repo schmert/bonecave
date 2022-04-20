@@ -1,0 +1,96 @@
+#............................................................
+# construct the index sets for the space-time interaction
+# penalty when time series should be RW2, spatial pattern is 
+# ICAR, and parameters are sorted by time within spatial unit
+# {(t,r)} = [(1,1),(2,1),...,(T,1); (1,2),(2,2),...,(T,2);...]
+#............................................................
+
+# RW2 penalty matrix, Rt
+ntime = 17
+Dt    = diff(diag(ntime), diff=2)  
+Rt    = crossprod(Dt)
+
+# ICAR penalty matrix, Rs
+# depends on adjacencies 
+# input for this calculation is a data frame
+# with one observation for each unique pair
+# of adjacent regions, and columns ii and jj
+# such that ii ~ jj, and ii <= jj
+
+
+
+
+# implicit sorting: time within space
+R = Rs %x% Rt
+
+index = function(s,t) { ntime*(s-1) + t }
+
+image(Matrix(R))
+
+# adj
+adj = tibble(
+  ii = c(1L,2L,2L),
+  jj = c(2L,3L,4L)
+)
+
+# indices for differences
+tmp = expand.grid(edge=1:nrow(adj), 
+            time= tail(seq(ntime),-2)) %>% 
+  mutate(ii = adj$ii[edge], 
+         jj = adj$jj[edge],
+         
+         i0 = index( ii, time),
+         i1 = index( ii, time-1),
+         i2 = index( ii, time-2),
+         
+         j0 = index( jj, time),
+         j1 = index( jj, time-1),
+         j2 = index( jj, time-2))
+         
+v = runif(ntime * nreg, min = -1, max=+1)
+
+v %*% R %*% v
+
+e = (v[tmp$i0] - 2*v[tmp$i1] + v[tmp$i2]) - 
+    (v[tmp$j0] - 2*v[tmp$j1] + v[tmp$j2]) 
+
+
+sum(e^2)
+
+# a quick Metropolis simulation
+
+L = function(v) {
+  e = (v[tmp$i0] - 2*v[tmp$i1] + v[tmp$i2]) - 
+      (v[tmp$j0] - 2*v[tmp$j1] + v[tmp$j2]) 
+  
+  -10000/2 * sum(e^2)
+}
+
+
+nsim = 10000
+vsim = matrix(NA, ntime*nreg, 1+nsim)
+
+vsim[,1] = v
+L_curr   = L(vsim[,1])
+
+for (i in 1+1:nsim) {
+  v_prop = vsim[,i-1] + runif( ntime*nreg, -0.005, +0.005)
+  L_prop = L(v_prop) 
+  if (L_prop > L_curr) {
+    vsim[,i] = v_prop
+    L_curr   = L_prop
+  } else {
+    logu = log( runif(1) )
+    if (logu < (L_prop - L_curr)) {
+      vsim[,i] = v_prop
+      L_curr   = L_prop
+    } else {
+      vsim[,i] = vsim[,i-1]
+    }
+  }
+  
+} # for
+
+mean( diff(vsim[1,]) != 0)
+
+apply(vsim[,5000:nsim],1, mean) %>% matrix(nrow=ntime) %>% matplot(type='o')

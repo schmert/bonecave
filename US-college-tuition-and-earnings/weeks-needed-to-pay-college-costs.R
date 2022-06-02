@@ -78,12 +78,15 @@ ggplot(data=data) +
   geom_line(color='darkgreen', size=1.5) +
   theme_bw(base_size=14) +
   theme(axis.text = element_text(face='bold'),
-        axis.title = element_text(face='bold')) +
+        axis.title = element_text(face='bold'),
+        plot.subtitle = element_text(size=12),
+        plot.caption =  element_text(size=12)) +
   scale_y_continuous( limits=c(0,35)) +
-  labs(title='US Four-Year College Costs\n(Tuition, Fees, Room, and Board)',
+  labs(title='US College Costs',
+       subtitle= '(1 yr at a Four-year college: Tuition, Fees, Room, and Board)',
        x='Year',y='Weeks of Work',
-       caption='Source: Natl Center for Education Statistics\nBureau of Labor Stati\n@cschmert') +
-  geom_label(data=text_df, aes(label=txt), face='bold', 
+       caption='Source: Natl Center for Education Statistics\nBureau of Labor Statistics\n@cschmert') +
+  geom_label(data=text_df, aes(label=txt), 
              nudge_y = -3, size=4, color='darkgreen') +
   geom_text(x=1990, y=14, hjust=0, 
             label=paste0('Weeks of Work Required',

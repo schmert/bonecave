@@ -162,7 +162,7 @@ descriptions in addition to the (often obscure) Census codes.
 
 ## Download a table and automatically join variable descriptions
 
-Say we decided we want the simpler table, B13106, for counties in
+Say we decided we want the simpler table, B13016, for counties in
 Missouri. We can use *tidycensus::get_acs* and then join the metadata to
 make file with variable descriptions:
 

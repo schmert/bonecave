@@ -106,12 +106,9 @@ selected_tabs = c('B13002','B13016')
 
 col_info %>% 
   filter( table_id %in% selected_tabs) %>% 
-  left_join(tab_info) %>% 
   select(table_id, line_number, column_title) %>% 
   print(n=9999)
 ```
-
-    ## Joining, by = "table_id"
 
     ## # A tibble: 36 × 3
     ##    table_id line_number column_title                                         

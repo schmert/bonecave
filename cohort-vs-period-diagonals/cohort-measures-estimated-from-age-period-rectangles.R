@@ -1,15 +1,13 @@
 library(tidyverse)
 library(HMDHFDplus)
 
-#getHFDcountries()
-#getHFDitemavail(CNTRY='JPN')
 
 # Cohort TFR 13-40 from Lexis triangles ----
 
-BTR = readHFDweb(CNTRY='JPN', item='birthsTR', username=un, password = pw) %>% 
-      rename(Births=Total)
+BTR = readHFD('JPNbirthsTR.txt')  %>% 
+  rename(Births=Total)
 
-NTR = readHFDweb(CNTRY='JPN', item='exposTR', username=un, password = pw)
+NTR = readHFD('JPNexposTR.txt')
 
 DTR = full_join(BTR,NTR) 
 
@@ -24,10 +22,10 @@ TFR_triangle =
 
 # Cohort TFR from Age-Period rectangles ----
 
-BRR = readHFDweb(CNTRY='JPN', item='birthsRR', username=un, password = pw) %>% 
+BRR = readHFD('JPNbirthsRR.txt') %>% 
   rename(Births=Total)
 
-NRR = readHFDweb(CNTRY='JPN', item='exposRR', username=un, password = pw)
+NRR = readHFD('JPNexposRR.txt')
 
 DRR = full_join(BRR,NRR) %>% 
      mutate(Cohort = Year-Age,
@@ -67,6 +65,6 @@ TFR_new = TFR_rectangle %>%
 
 G + geom_line(data=TFR_new,aes(x=Cohort,y=newTFR), color='black')
 
-@@@NEXT STEP: CAN WE USE THE EXPOSURE RR DATA TO PICK 
-WEIGHTS OTHER THAN (0.5,0.5) IN THE NEWTFR FORMULA TO
-AMELIORATE THE COHORT SIZE BIAS?
+#@@@NEXT STEP: CAN WE USE THE EXPOSURE RR DATA TO PICK 
+#WEIGHTS OTHER THAN (0.5,0.5) IN THE NEWTFR FORMULA TO
+#AMELIORATE THE COHORT SIZE BIAS?

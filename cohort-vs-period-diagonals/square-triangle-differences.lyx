@@ -158,10 +158,6 @@ F_{1960}=\frac{L_{1960}^{\ast}+U_{1960}^{\ast}}{N_{1960}}
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 If we used the orange age-period squares to approximate the fertility history
  there would be 
 \begin_inset Formula 
@@ -172,15 +168,250 @@ B & =\,\left(L_{0,1960}+L_{1,1961}+\cdots+L_{39,1999}\right)\,+\left(U_{0,1960}+
 
 \end_inset
 
-and estimated completed fertility would be
+and estimated completed fertility would be lifetime events / cohort size:
 \begin_inset Formula 
 \[
-\hat{F}_{1960}=\frac{L_{1960}^{\ast}+U_{1959}^{\ast}}{\tfrac{1}{2}(N_{1959}+N_{1960})}
+\hat{F}_{1960}=\frac{U_{1959}^{\ast}+L_{1960}^{\ast}}{\tfrac{1}{2}(N_{1959}+N_{1960})}
 \]
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection*
+Simplifying Approximations
+\end_layout
+
+\begin_layout Standard
+In order to develop a simple expression for 
+\begin_inset Quotes eld
+\end_inset
+
+AP bias
+\begin_inset Quotes erd
+\end_inset
+
+, assume that
+\end_layout
+
+\begin_layout Enumerate
+Mortality is negligible below the highest age of childbearing 
+\end_layout
+
+\begin_layout Enumerate
+In a small neighborhood around our focal cohort 
+\begin_inset Formula $c$
+\end_inset
+
+, cohort sizes change multiplicatively: 
+\begin_inset Formula $\tfrac{N_{c}}{N_{c-1}}=\tfrac{N_{c+1}}{N_{c}}=K$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+In a small neighborhood around our focal cohort 
+\begin_inset Formula $c$
+\end_inset
+
+, completed fertility changes additively: 
+\begin_inset Formula $\left(F_{c}-F_{c-1}\right)=\left(F_{c+1}-F_{c}\right)=\Delta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Half of a cohort's lifetime births happen in lower Lexis triangles, half
+ in upper triangles: 
+\begin_inset Formula $L_{c}^{\ast}=U_{c}^{\ast}\approx\tfrac{1}{2}N_{c}F_{c}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Under these assumptions the 
+\begin_inset Quotes eld
+\end_inset
+
+diagonal AP
+\begin_inset Quotes erd
+\end_inset
+
+ estimator for completed fertility of the cohort born in year 
+\begin_inset Formula $c$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+\hat{F}_{c}\approx\frac{\tfrac{1}{2}N_{c-1}F_{c-1}+\tfrac{1}{2}N_{c}F_{c}}{\tfrac{1}{2}(N_{c-1}+N_{c})}
+\]
+
+\end_inset
+
+If cohort sizes around 
+\begin_inset Formula $c$
+\end_inset
+
+ are changing multiplicatively with annual multiplier 
+\begin_inset Formula $K$
+\end_inset
+
+, this implies that 
+\begin_inset Formula 
+\begin{align*}
+\hat{F}_{c} & \approx\frac{\tfrac{1}{2}N_{c-1}F_{c-1}+\tfrac{1}{2}KN_{c-1}F_{c}}{\tfrac{1}{2}(N_{c-1}+K\cdot N_{c-1})}\\
+ & =\frac{F_{c-1}+KF_{c}}{K+1}\\
+ & =\left(\tfrac{1}{K+1}\right)F_{c-1}+\left(\tfrac{K}{K+1}\right)F_{c}
+\end{align*}
+
+\end_inset
+
+That is, the AP diagonal estimator is is approximately equal to a weighted
+ average of the previous and current cohort's completed fertility.
+ The approximate additive error from using the AP diagonal estimator is
+ therefore 
+\begin_inset Formula 
+\begin{align*}
+\hat{F}_{c}-F_{c}\, & =\,\left(\frac{1}{K+1}\right)\left(F_{c-1}-F_{c}\right)\,=\,-\left(\frac{\Delta}{K+1}\right)
+\end{align*}
+
+\end_inset
+
+and the approximate proportional error is
+\begin_inset Formula 
+\[
+\frac{\hat{F}_{c}-F_{c}}{F_{c}}\,=\,-\left(\frac{1}{K+1}\right)\left(\frac{\Delta}{F_{c}}\right)
+\]
+
+\end_inset
+
+From these relationships we learn that 
+\end_layout
+
+\begin_layout Itemize
+bias from using the AP diagonal estimator is negative when completed fertility
+ is rising with cohort birth year (
+\begin_inset Formula $\Delta>0),$
+\end_inset
+
+and negative wieh completed fertility is falling
+\end_layout
+
+\begin_layout Itemize
+bias from using the AP diagonal estimator is smaller when cohort size is
+ increasing more quickly between consecutive birth years (larger 
+\begin_inset Formula $K$
+\end_inset
+
+ implies additive and relative bias closer to zero)
+\end_layout
+
+\begin_layout Subsection*
+averaging AP diagonals
+\end_layout
+
+\begin_layout Standard
+If we try estimating 
+\begin_inset Formula $F_{1960}$
+\end_inset
+
+ by averaging 
+\begin_inset Formula $\hat{F}_{1960}$
+\end_inset
+
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\hat{F}_{1961}$
+\end_inset
+
+ we get 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+[assume that cohort size ratios stay constant]
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula 
+\begin{align*}
+\tilde{F}_{1960} & =\,\tfrac{1}{2}\left[\left(\tfrac{1}{K+1}\right)F_{1959}+\left(\tfrac{K}{K+1}\right)F_{1960}\right]\\
+ & \,\,+\tfrac{1}{2}\left[\left(\tfrac{1}{K+1}\right)F_{1960}+\left(\tfrac{K}{K+1}\right)F_{1961}\right]\\
+ & =\,\tfrac{1}{2}F_{1960}+\tfrac{1}{2}\left[\left(\tfrac{1}{K+1}\right)F_{1959}+\left(\tfrac{K}{K+1}\right)F_{1961}\right]
+\end{align*}
+
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+If change in 
+\begin_inset Formula $F_{c}$
+\end_inset
+
+ across cohorts is linear, 
+\begin_inset Formula $F_{c}-F_{c-1}=\Delta$
+\end_inset
+
+, then
+\begin_inset Formula 
+\begin{align*}
+\tilde{F}_{1960} & =\,\tfrac{1}{2}F_{1960}+\tfrac{1}{2}\left[\left(\tfrac{1}{K+1}\right)\left(F_{1960}-\Delta\right)+\left(\tfrac{K}{K+1}\right)\left(F_{1960}+\Delta\right)\right]\\
+ & =\,F_{1960}+\tfrac{1}{2}\left(\tfrac{K-1}{K+1}\right)\Delta
+\end{align*}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsection*
+old derivation
 \end_layout
 
 \begin_layout Standard

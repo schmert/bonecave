@@ -44,34 +44,55 @@ TFR_rectangle =
   filter(n==28) %>% 
   add_column(method='A-P Squares')
 
-tmp = bind_rows(
-        TFR_triangle, 
-        TFR_rectangle
-        )
-
-G = ggplot(data=tmp) + 
-  aes(x=Cohort,y=TFR, shape=method, color=method) + 
-  geom_point(size=2, alpha=.70) + 
-  theme_bw() +
-  scale_shape_manual(values=c('square','triangle')) +
-  labs(title='JPN Cohort Fertility over ages 13-40',
-       y='CFR40')
-
-print(G)
-
 # new procedure: average the lagged and leading "rectangle" 
 # measures for each cohort
 
 TFR_new = TFR_rectangle %>% 
-            ungroup() %>% 
-            mutate(nextCohort = lead(Cohort,1),
-                   nextTFR    = lead(TFR,1),
-                   newTFR     = (TFR+nextTFR)/2)
+  ungroup() %>% 
+  mutate(TFR     = (TFR+ lead(TFR,1))/2,
+         method='Avg A-P Squares')
 
-G + 
-  geom_line(data=TFR_new,aes(x=Cohort,y=newTFR), color='black') +
-  labs(subtitle='Line = Avg of consecutive A-P squares')
 
-#@@@NEXT STEP: CAN WE USE THE EXPOSURE RR DATA TO PICK 
-#WEIGHTS OTHER THAN (0.5,0.5) IN THE NEWTFR FORMULA TO
-#AMELIORATE THE COHORT SIZE BIAS?
+df = bind_rows(
+        TFR_triangle, 
+        TFR_rectangle,
+        TFR_new
+        )
+
+G = ggplot(data=df) + 
+  aes(x=Cohort,y=TFR, shape=method, color=method) + 
+  geom_point(size=2, alpha=.70) + 
+  geom_line(data=filter(df,method=='Avg A-P Squares')) +
+  theme_bw() +
+  scale_shape_manual(values=c('square','cross','triangle')) +
+  labs(title='JPN Cohort Fertility over ages 13-40',
+       y='CFR40',
+       subtitle='Line = Avg of consecutive A-P squares')
+
+print(G)
+
+# calculate errors
+
+df = df %>% 
+  mutate(method=case_match(method,
+                           'Lexis Triangles'~'Tri',
+                           'A-P Squares'~'Squ',
+                           'Avg A-P Squares'~'New'))
+
+err_df = df %>% 
+  group_by(Cohort) %>% 
+  summarize(e_old = TFR[method=='Squ'] - TFR[method=='Tri'],
+            e_new = TFR[method=='New'] - TFR[method=='Tri']) %>% 
+  pivot_longer(cols=starts_with('e_'), 
+               names_to = 'etype', values_to = 'error')
+
+
+ggplot(data=err_df) +
+  aes(x=Cohort,y=error,color=etype) +
+  geom_hline(yintercept = 0) +
+  geom_point() +
+  geom_line() +
+  theme_bw()
+
+
+  

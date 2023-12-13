@@ -211,7 +211,27 @@ as the size of the 1959 cohort relative to the 1960 cohort, we can rewrite
 \begin{align*}
 \hat{F}_{1960}-F_{1960}\, & =\,\frac{L_{1960}^{\ast}+U_{1959}^{\ast}}{\tfrac{1}{2}(K\cdot N_{1960}+N_{1960})}\,-\,\frac{L_{1960}^{\ast}+U_{1960}^{\ast}}{N_{1960}}\\
  & =\,\frac{1}{N_{1960}}\left[\frac{L_{1960}^{\ast}+U_{1959}^{\ast}}{\tfrac{1}{2}(K+1)}\,-\,\left(L_{1960}^{\ast}+U_{1960}^{\ast}\right)\right]\\
- & =\,\frac{1}{N_{1960}}\left[\left(\frac{L_{1960}^{\ast}}{\tfrac{1}{2}(K+1)}\,-\,L_{1960}^{\ast}\right)+\left(\frac{U_{1959}^{\ast}}{\tfrac{1}{2}(K+1)}-U_{1960}^{\ast}\right)\right]
+ & =\,\frac{1}{N_{1960}}\left[\left(\frac{L_{1960}^{\ast}}{\tfrac{1}{2}(K+1)}\,-\,L_{1960}^{\ast}\right)+\left(\frac{U_{1959}^{\ast}}{\tfrac{1}{2}(K+1)}-U_{1960}^{\ast}\right)\right]\\
+ & =\,\frac{1}{N_{1960}}\left[\left(\frac{L_{1960}^{\ast}}{\tfrac{1}{2}(K+1)}\,-\,L_{1960}^{\ast}\right)+\left(\frac{U_{1959}^{\ast}}{\tfrac{1}{2}(K+1)}-U_{1959}^{\ast}\right)+\left(U_{1959}^{\ast}-U_{1960}^{\ast}\right)\right]\\
+ & =\,\frac{1}{N_{1960}}\left[\left(\frac{1}{\tfrac{1}{2}(K+1)}-1\right)\left(L_{1960}^{\ast}+U_{1959}^{\ast}\right)+\left(U_{1959}^{\ast}-U_{1960}^{\ast}\right)\right]\\
+ & =\,\frac{1}{N_{1960}}\left[\underbrace{\left(\frac{1-K}{1+K}\right)\left(L_{1960}^{\ast}+U_{1959}^{\ast}\right)}+\underbrace{\left(U_{1959}^{\ast}-U_{1960}^{\ast}\right)}\right]
+\end{align*}
+
+\end_inset
+
+where the first term in square brackets is a cohort size effect, and the
+ second is a rate-change effect.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $K=1$
+\end_inset
+
+ the error simplifies to 
+\begin_inset Formula 
+\begin{align*}
+\hat{F}_{1960}-F_{1960}\, & =\,\frac{U_{1959}^{\ast}-U_{1960}^{\ast}}{N_{1960}}
 \end{align*}
 
 \end_inset

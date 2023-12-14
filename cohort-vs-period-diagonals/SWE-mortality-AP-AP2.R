@@ -5,30 +5,37 @@ graphics.off()
 rm(list=ls() )
 
 # e0 SWE males Lexis triangles ----
-DTR = readHMD('SWE_Deaths_lexis.txt') %>% 
+DTR = readHMD('./Data/SWE_Deaths_lexis.txt') %>% 
           select(Year,Age,Cohort,Deaths=Male) %>% 
-          filter(Cohort > 1799)
+          filter(Cohort > 1849)
               
-NTR = readHMD('SWE_Exposures_lexis.txt') %>% 
-          select(Year,Age,Cohort,Exposure=Male) %>% 
-          filter(Cohort > 1799)   
+NTR = readHMD('./Data/SWE_Exposures_lexis.txt') %>% 
+          select(Year,Age,Cohort,Exposure=Male) 
 
+TR = full_join(DTR,NTR) %>% 
+  mutate(rate = Deaths/Exposure) %>% 
+  filter(Cohort > 1849, Age < 100) %>% 
+  group_by(Cohort, Age) %>% 
+  summarize(Deaths=sum(Deaths),
+            Exposure = sum(Exposure),
+            rate = Deaths/Exposure) %>% 
+  add_column(method='TR')
 
-TR = full_join(DTR,NTR) 
 
 # Age-Period rectangles ----
 
-DRR = readHMD('SWE_Deaths_1x1.txt') %>% 
+DRR = readHMD('./Data/SWE_Deaths_1x1.txt') %>% 
   select(Year,Age,Deaths=Male) 
 
-NRR = readHMD('SWE_Exposures_1x1.txt') %>% 
+NRR = readHMD('./Data/SWE_Exposures_1x1.txt') %>% 
   select(Year,Age,Exposure=Male) 
 
 
 RR = full_join(DRR,NRR) %>% 
      mutate(Cohort = Year-Age,
             rate = Deaths/Exposure) %>% 
-     filter(Cohort > 1799, Age < 100)
+     filter(Cohort > 1849, Age < 100) %>% 
+     add_column(method='RR')
 
 nobs_df = RR %>% 
            group_by(Cohort) %>% 
@@ -54,7 +61,37 @@ tmp = RR %>%
        group_by(Cohort) %>% 
        summarize(e0 = calc_e0(rate))
 
-plot(tmp,pch=22, cex=.70,
+plot(tmp,pch=22, cex=.80,
      main='SWE Males: AP diagonal estimates of e0')
 
+# Lexis triangle estimates
 
+z = TR %>% 
+  group_by(Cohort) %>% 
+  summarize(e0 = calc_e0(rate))
+
+points(z,pch=2, cex=.80,col='red')
+lines(tmp,col='black')
+
+complete_cohort = nobs_df$Cohort[nobs_df$n == 100]
+  
+df = rbind(TR,RR) %>% 
+      filter(Cohort %in% complete_cohort) %>% 
+      group_by(method,Cohort) %>% 
+      summarize(e0 = calc_e0(rate))
+
+G = ggplot(data=df) +
+  aes(x=Cohort,y=e0,color=method, shape=method) +
+  geom_point() +
+  theme_bw() +
+  scale_shape_manual(values=c('square','triangle'))
+
+print(G)
+
+z = df %>%
+     ungroup() %>% 
+     filter(method=='RR') %>% 
+     arrange(Cohort) %>% 
+     mutate( e0_new = (e0 + lead(e0,1))/2)
+
+G + geom_line(data=z, aes(x=Cohort,y=e0_new),color='black')

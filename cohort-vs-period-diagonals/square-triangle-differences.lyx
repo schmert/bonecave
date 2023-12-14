@@ -87,14 +87,25 @@
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Lexis diagram for the 1960 birth cohort of women
+Lexis diagram(s) for completed cohort fertility (focal cohort = 
+\begin_inset Formula $c$
+\end_inset
+
+)
 \end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig-Lexis"
 
 \end_inset
 
@@ -114,11 +125,28 @@ Lexis diagram for the 1960 birth cohort of women
 \end_layout
 
 \begin_layout Standard
-Suppose that mortality is zero, and that there are 
-\begin_inset Formula $N_{1960}$
+Consider an age-period Lexis grid as in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig-Lexis"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
- women in the 1960 birth cohort.
+, divided into age-period-cohort triangles.
+ Suppose that we are interested in estimating the average completed fertility
+ of the 
+\begin_inset Formula $N_{c}$
+\end_inset
+
+ women born in year 
+\begin_inset Formula $c$
+\end_inset
+
+ when they reach exact age 40.
  Define 
 \begin_inset Formula $L_{xt}$
 \end_inset
@@ -137,41 +165,81 @@ ely, of the age-period square for age
 \end_inset
 
 .
- The total births to the 1960 cohort before exact age 40 would then be
-\begin_inset Formula 
-\begin{align*}
-B_{1960} & =\,\left(L_{0,1960}+L_{1,1961}+\cdots+L_{39,1999}\right)\\
- & \,+\left(U_{0,1961}+U_{1,1962}+\cdots+U_{39,2000}\right)\\
- & =\,L_{1960}^{\ast}+U_{1960}^{\ast}
-\end{align*}
-
+ If there were no mortality before the highest age of childbearing, then
+ the sequence of single-year birth rates for cohort 
+\begin_inset Formula $c$
 \end_inset
 
-where we divide the births by the category of Lexis triangle that they fall
- into.
- With no mortality, true cohort completed fertility per woman would then
- be 
+ before exact age 40 is
 \begin_inset Formula 
 \[
-F_{1960}=\frac{L_{1960}^{\ast}+U_{1960}^{\ast}}{N_{1960}}
+\left(\frac{L_{0,c}+U_{0,c+1}}{N_{c}},\frac{L_{1,c+1}+U_{1,c+2}}{N_{c}},\ldots,\frac{L_{39,c+39}+U_{39,c+40}}{N_{c}}\right)
 \]
 
 \end_inset
 
-If we used the orange age-period squares to approximate the fertility history
- there would be 
+and truc cohort completed fertility equals
 \begin_inset Formula 
 \begin{align*}
-B & =\,\left(L_{0,1960}+L_{1,1961}+\cdots+L_{39,1999}\right)\,+\left(U_{0,1960}+U_{1,1961}+\cdots+U_{39,1999}\right)\\
- & =\,L_{1960}^{\ast}+U_{1959}^{\ast}
+F_{c}\, & =\,\sum_{x=0}^{39}\frac{L_{x,c+x}+U_{x,c+x+1}}{N_{c}}\\
+ & =\,\frac{L_{c}^{\ast}+U_{c}^{\ast}}{N_{c}}
 \end{align*}
 
 \end_inset
 
-and estimated completed fertility would be lifetime events / cohort size:
+where we subdivide the births by category of Lexis triangle (lower or upper)
+ and use * to indicate summation over ages.
+\end_layout
+
+\begin_layout Standard
+If instead we sum the birth rates 
+\begin_inset Quotes eld
+\end_inset
+
+along the diagonal
+\begin_inset Quotes erd
+\end_inset
+
+ in age-period cells [(
+\begin_inset Formula $0,c),(1,c+1)\ldots(39,c+39)$
+\end_inset
+
+] then we replace the 
+\begin_inset Quotes eld
+\end_inset
+
+upper
+\begin_inset Quotes erd
+\end_inset
+
+ cells for cohort 
+\begin_inset Formula $c$
+\end_inset
+
+ with those from the previous cohort 
+\begin_inset Formula $c-1$
+\end_inset
+
+, and replace exposure with an average of cohort sizes 
+\begin_inset Formula $N_{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $N_{c-1}$
+\end_inset
+
+.
+ If we sum these age-period rates over ages we produce the 
+\emph on
+AP-diagonal 
+\emph default
+estimate for completed fertility: 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \[
-\hat{F}_{1960}=\frac{U_{1959}^{\ast}+L_{1960}^{\ast}}{\tfrac{1}{2}(N_{1959}+N_{1960})}
+\hat{F}_{c}=\frac{U_{c-1}^{\ast}+L_{c}^{\ast}}{\tfrac{1}{2}(N_{c-1}+N_{c})}
 \]
 
 \end_inset
@@ -188,7 +256,7 @@ In order to develop a simple expression for
 \begin_inset Quotes eld
 \end_inset
 
-AP bias
+diagonal bias
 \begin_inset Quotes erd
 \end_inset
 
@@ -233,15 +301,8 @@ Half of a cohort's lifetime births happen in lower Lexis triangles, half
 \end_layout
 
 \begin_layout Standard
-Under these assumptions the 
-\begin_inset Quotes eld
-\end_inset
-
-diagonal AP
-\begin_inset Quotes erd
-\end_inset
-
- estimator for completed fertility of the cohort born in year 
+Under these assumptions the AP-diagonal estimator for completed fertility
+ of the cohort born in year 
 \begin_inset Formula $c$
 \end_inset
 
@@ -271,156 +332,749 @@ If cohort sizes around
 
 \end_inset
 
-That is, the AP diagonal estimator is is approximately equal to a weighted
+That is, the AP-diagonal estimator is is approximately equal to a weighted
  average of the previous and current cohort's completed fertility.
- The approximate additive error from using the AP diagonal estimator is
- therefore 
+ Rexpressing the AP-diagonal estimator in terms of cross-cohort changes
+ in completed fertility yields
 \begin_inset Formula 
-\begin{align*}
-\hat{F}_{c}-F_{c}\, & =\,\left(\frac{1}{K+1}\right)\left(F_{c-1}-F_{c}\right)\,=\,-\left(\frac{\Delta}{K+1}\right)
-\end{align*}
+\begin{align}
+\hat{F}_{c} & =\,\left(\tfrac{1}{K+1}\right)\left(F_{c}-\Delta\right)+\left(\tfrac{K}{K+1}\right)F_{c}\label{eq:Fchat-bias}\\
+ & =\,\underbrace{F_{c}}_{\text{true cohort value}}+\underbrace{\left(-\tfrac{\Delta}{K+1}\right)}_{\text{AP diagonal bias}}\nonumber 
+\end{align}
 
 \end_inset
 
-and the approximate proportional error is
-\begin_inset Formula 
-\[
-\frac{\hat{F}_{c}-F_{c}}{F_{c}}\,=\,-\left(\frac{1}{K+1}\right)\left(\frac{\Delta}{F_{c}}\right)
-\]
+From Eq.
+ (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Fchat-bias"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
-From these relationships we learn that 
+) we see that 
 \end_layout
 
 \begin_layout Itemize
-bias from using the AP diagonal estimator is negative when completed fertility
- is rising with cohort birth year (
+regardless of cohort size differences, AP diagonal bias is negative when
+ completed fertility is rising with cohort birth year (
 \begin_inset Formula $\Delta>0),$
 \end_inset
 
-and negative wieh completed fertility is falling
+positive when completed fertility is falling (
+\begin_inset Formula $\Delta<0),$
+\end_inset
+
+and zero when completed fertility is unchanging (
+\begin_inset Formula $\Delta=0$
+\end_inset
+
+).
+ 
 \end_layout
 
 \begin_layout Itemize
-bias from using the AP diagonal estimator is smaller when cohort size is
- increasing more quickly between consecutive birth years (larger 
+AP diagonal bias is smaller in absolute value when cohort size is increasing
+ more quickly between consecutive birth years (larger 
 \begin_inset Formula $K$
 \end_inset
 
- implies additive and relative bias closer to zero)
+ implies bias closer to zero)
 \end_layout
 
 \begin_layout Subsection*
-averaging AP diagonals
+A better approximation: Averaging two AP diagonals
 \end_layout
 
 \begin_layout Standard
-If we try estimating 
-\begin_inset Formula $F_{1960}$
+Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig-Lexis"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
- by averaging 
-\begin_inset Formula $\hat{F}_{1960}$
+ shows that the AP-diagonal estimate 
+\begin_inset Formula $\hat{F}_{c}$
+\end_inset
+
+ discards the 
+\begin_inset Quotes eld
+\end_inset
+
+U
+\begin_inset Quotes erd
+\end_inset
+
+ births from cohort 
+\begin_inset Formula $c$
+\end_inset
+
+ and replaces them with the 
+\begin_inset Quotes eld
+\end_inset
+
+U
+\begin_inset Quotes erd
+\end_inset
+
+ births from the previous cohort 
+\begin_inset Formula $c-1$
+\end_inset
+
+.
+ The
+\begin_inset Formula $\hat{F}_{c}$
+\end_inset
+
+ estimator is thus pulled toward the past, resulting in temporal bias that
+ can be magnified (or reduced) by cohort size differences.
+ Intuitively, we might be able to reduce temporal bias by using information
+ from birth cohorts born just before 
+\emph on
+and just after 
+\emph default
+the cohort of interest.
+ This intuition is correct: we can produce a temporally more symmetric estimate
+ by combibing the biased AP diagonal estimators for cohorts 
+\begin_inset Formula $c$
 \end_inset
 
  and 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\hat{F}_{1961}$
+\begin_inset Formula $c+1$
 \end_inset
 
- we get 
-\family default
-\series bold
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-[assume that cohort size ratios stay constant]
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
+:
 \begin_inset Formula 
-\begin{align*}
-\tilde{F}_{1960} & =\,\tfrac{1}{2}\left[\left(\tfrac{1}{K+1}\right)F_{1959}+\left(\tfrac{K}{K+1}\right)F_{1960}\right]\\
- & \,\,+\tfrac{1}{2}\left[\left(\tfrac{1}{K+1}\right)F_{1960}+\left(\tfrac{K}{K+1}\right)F_{1961}\right]\\
- & =\,\tfrac{1}{2}F_{1960}+\tfrac{1}{2}\left[\left(\tfrac{1}{K+1}\right)F_{1959}+\left(\tfrac{K}{K+1}\right)F_{1961}\right]
-\end{align*}
+\[
+\hat{F}_{c}=F_{c}-\frac{\Delta}{K+1}\qquad\text{and\ensuremath{\qquad\hat{F}_{c+1}=F_{c+1}-\frac{\Delta}{K+1}}}
+\]
 
 \end_inset
 
 
-\family default
-\series default
-\shape default
-\size default
+\end_layout
+
+\begin_layout Standard
+Define the 
+\emph on
+AP2-diagonal
 \emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-If change in 
-\begin_inset Formula $F_{c}$
-\end_inset
-
- across cohorts is linear, 
-\begin_inset Formula $F_{c}-F_{c-1}=\Delta$
-\end_inset
-
-, then
+ estimator
 \begin_inset Formula 
-\begin{align*}
-\tilde{F}_{1960} & =\,\tfrac{1}{2}F_{1960}+\tfrac{1}{2}\left[\left(\tfrac{1}{K+1}\right)\left(F_{1960}-\Delta\right)+\left(\tfrac{K}{K+1}\right)\left(F_{1960}+\Delta\right)\right]\\
- & =\,F_{1960}+\tfrac{1}{2}\left(\tfrac{K-1}{K+1}\right)\Delta
-\end{align*}
+\[
+\tilde{F}_{c}=\,\tfrac{1}{2}\hat{F}_{c}+\tfrac{1}{2}\hat{F}_{c+1}
+\]
 
 \end_inset
 
- 
+and note that 
+\begin_inset Formula 
+\begin{align}
+\tilde{F}_{c} & =\,\tfrac{1}{2}\left(F_{c}-\frac{\Delta}{K+1}\right)+\tfrac{1}{2}\left(F_{c+1}-\frac{\Delta}{K+1}\right)\nonumber \\
+ & =\,\tfrac{1}{2}\left(F_{c}-\frac{\Delta}{K+1}\right)+\tfrac{1}{2}\left(F_{c}+\Delta-\frac{\Delta}{K+1}\right)\nonumber \\
+ & =\,\underbrace{F_{c}}_{\text{true cohort value}}+\,\underbrace{\left[-\left(\frac{K-1}{2}\right)\left(\frac{\Delta}{K+1}\right)\right]}_{\text{AP2 diagonal bias}}\label{eq:Fctilde-bias}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The AP2 diagonal bias for 
+\begin_inset Formula $\tilde{F}_{c}$
+\end_inset
+
+ in Eq.
+ (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Fctilde-bias"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) will almost always be much smaller than the AP diagonal bias for 
+\begin_inset Formula $\hat{F}_{c}$
+\end_inset
+
+ in Eq.
+ (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Fchat-bias"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Both bias terms contain 
+\begin_inset Formula $-\left(\tfrac{\Delta}{K+1}\right)$
+\end_inset
+
+, but for 
+\begin_inset Formula $\tilde{F}_{c}$
+\end_inset
+
+ that term is multiplied by a small fraction, rather than one.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:compare-bias"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows illustrative examples of biases for the two estimators, using a few
+ represtentative example values for 
+\begin_inset Formula $K$
+\end_inset
+
+ and 
+\begin_inset Formula $\Delta$
+\end_inset
+
+.
+ When cohort fertility is changing (
+\begin_inset Formula $\Delta\ne0$
+\end_inset
+
+) the 
+\begin_inset Formula $\tilde{F}_{c}$
+\end_inset
+
+ estimator has much lower bias than 
+\begin_inset Formula $\hat{F}_{c}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Comparative Bias of AP and AP2 estimates of Completed Cohort Fertility
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="11" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bias
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $K$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Delta$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\hat{F_{c}}$
+\end_inset
+
+(AP)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\tilde{F}_{c}$
+\end_inset
+
+ (AP2)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-.20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
++.1050
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
++.0053
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
++.20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-.1050
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-.0053
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-.20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
++.1000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
++.20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-.1000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-.20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
++.0952
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-.0048
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
++.20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-.0952
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
++.0048
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:compare-bias"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection*
-old derivation
+Comparisons with the Japanese Fertility Data from van Raalte et al.
+ 
 \end_layout
 
 \begin_layout Standard
-So the error from summing along the diagonal of the age-period squares is
- 
-\begin_inset Formula 
-\[
-\hat{F}_{1960}-F_{1960}\,=\,\frac{L_{1960}^{\ast}+U_{1959}^{\ast}}{\tfrac{1}{2}(N_{1959}+N_{1960})}\,-\,\frac{L_{1960}^{\ast}+U_{1960}^{\ast}}{N_{1960}}
-\]
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+JPN
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename JPN-CFR-levels.png
+	width 90text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 
@@ -428,58 +1082,40 @@ So the error from summing along the diagonal of the age-period squares is
 \end_layout
 
 \begin_layout Standard
-Defining 
-\begin_inset Formula 
-\[
-K=\frac{N_{1959}}{N_{1960}}
-\]
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
-\end_inset
+\begin_layout Plain Layout
+\begin_inset Caption Standard
 
-as the size of the 1959 cohort relative to the 1960 cohort, we can rewrite
- the error as
-\begin_inset Formula 
-\begin{align*}
-\hat{F}_{1960}-F_{1960}\, & =\,\frac{L_{1960}^{\ast}+U_{1959}^{\ast}}{\tfrac{1}{2}(K\cdot N_{1960}+N_{1960})}\,-\,\frac{L_{1960}^{\ast}+U_{1960}^{\ast}}{N_{1960}}\\
- & \approx\,\frac{\tfrac{1}{2}F_{1960}\cdot N_{1960}+\tfrac{1}{2}F_{1959}\cdot K\cdot N_{1960}}{\tfrac{1}{2}(K\cdot N_{1960}+N_{1960})}\,-\,F_{1960}\\
- & =\,\frac{F_{1960}+F_{1959}\cdot K}{K+1}\,-\,F_{1960}\\
- & =\,F_{1960}\left(\frac{1+\tfrac{F_{1959}}{F_{1960}}\cdot K}{K+1}\,-\,1\right)\\
- & =\,F_{1960}\left(\frac{1+\tfrac{F_{1959}}{F_{1960}}\cdot K}{K+1}\,-\,\frac{K+1}{K+1}\right)\\
- & =\,F_{1960}\left(\frac{K\cdot\left(\tfrac{F_{1959}}{F_{1960}}-1\right)}{K+1}\right)\\
- & =\,F_{1960}\left(\frac{K\cdot}{K+1}\right)\left(\tfrac{F_{1959}}{F_{1960}}-1\right)\\
- & =\,\left(\frac{K\cdot}{K+1}\right)\left(F_{1959}-F_{1960}\right)
-\end{align*}
-
-\end_inset
-
- 
-\begin_inset Formula 
-\begin{align*}
-\hat{F}_{1960}-F_{1960}\, & =\,\frac{L_{1960}^{\ast}+U_{1959}^{\ast}}{\tfrac{1}{2}(K\cdot N_{1960}+N_{1960})}\,-\,\frac{L_{1960}^{\ast}+U_{1960}^{\ast}}{N_{1960}}\\
- & =\,\frac{1}{N_{1960}}\left[\frac{L_{1960}^{\ast}+U_{1959}^{\ast}}{\tfrac{1}{2}(K+1)}\,-\,\left(L_{1960}^{\ast}+U_{1960}^{\ast}\right)\right]\\
- & =\,\frac{1}{N_{1960}}\left[\left(\frac{L_{1960}^{\ast}}{\tfrac{1}{2}(K+1)}\,-\,L_{1960}^{\ast}\right)+\left(\frac{U_{1959}^{\ast}}{\tfrac{1}{2}(K+1)}-U_{1960}^{\ast}\right)\right]\\
- & =\,\frac{1}{N_{1960}}\left[\left(\frac{L_{1960}^{\ast}}{\tfrac{1}{2}(K+1)}\,-\,L_{1960}^{\ast}\right)+\left(\frac{U_{1959}^{\ast}}{\tfrac{1}{2}(K+1)}-U_{1959}^{\ast}\right)+\left(U_{1959}^{\ast}-U_{1960}^{\ast}\right)\right]\\
- & =\,\frac{1}{N_{1960}}\left[\left(\frac{1}{\tfrac{1}{2}(K+1)}-1\right)\left(L_{1960}^{\ast}+U_{1959}^{\ast}\right)+\left(U_{1959}^{\ast}-U_{1960}^{\ast}\right)\right]\\
- & =\,\frac{1}{N_{1960}}\left[\underbrace{\left(\frac{1-K}{1+K}\right)\left(L_{1960}^{\ast}+U_{1959}^{\ast}\right)}_{\text{cohort size effect}}+\underbrace{\left(U_{1959}^{\ast}-U_{1960}^{\ast}\right)}_{\text{rate trend effect}}\right]
-\end{align*}
-
-\end_inset
-
-where the first term in square brackets is a cohort size effect, and the
- second is a rate-change effect.
+\begin_layout Plain Layout
+JPN % err
 \end_layout
 
-\begin_layout Standard
-If 
-\begin_inset Formula $K=1$
 \end_inset
 
- the error simplifies to 
-\begin_inset Formula $\hat{F}_{1960}-F_{1960}\,=\,\frac{U_{1959}^{\ast}-U_{1960}^{\ast}}{N_{1960}}$
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename JPN-CFR-errors.png
+	width 90text%
+
 \end_inset
 
- .
- 
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

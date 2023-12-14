@@ -3,7 +3,7 @@
     "path": "D:/Carl/Documents/GitHub/bonecave/cohort-vs-period-diagonals/cohort-measures-estimated-from-age-period-rectangles.R",
     "project_path": "cohort-vs-period-diagonals/cohort-measures-estimated-from-age-period-rectangles.R",
     "type": "r_source",
-    "hash": "1685889926",
+    "hash": "1132201295",
     "contents": "",
     "dirty": false,
     "created": 1702343242419.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "86,41",
-        "scrollLine": "74"
+        "cursorPosition": "107,0",
+        "scrollLine": "79"
     },
     "folds": "",
-    "lastKnownWriteTime": 1702473758,
+    "lastKnownWriteTime": 1702512719,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1702473758857,
+    "last_content_update": 1702512719850,
     "read_only": false,
     "read_only_alternatives": []
 }

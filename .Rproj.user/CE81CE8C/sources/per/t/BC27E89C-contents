@@ -22,7 +22,7 @@ TFR_triangle =
              group_by(Cohort) %>% 
              summarize(TFR=sum(rate), n=n()) %>% 
              filter(n==28) %>% 
-             add_column(method='Lexis Triangles')
+             add_column(method='True CFR')
 
 
 # Cohort TFR from Age-Period rectangles ----
@@ -42,7 +42,7 @@ TFR_rectangle =
   group_by(Cohort) %>% 
   summarize(TFR=sum(rate), n=n()) %>% 
   filter(n==28) %>% 
-  add_column(method='A-P Squares')
+  add_column(method='AP')
 
 # new procedure: average the lagged and leading "rectangle" 
 # measures for each cohort
@@ -50,7 +50,7 @@ TFR_rectangle =
 TFR_new = TFR_rectangle %>% 
   ungroup() %>% 
   mutate(TFR     = (TFR+ lead(TFR,1))/2,
-         method='Avg A-P Squares')
+         method='AP2')
 
 
 df = bind_rows(
@@ -62,7 +62,7 @@ df = bind_rows(
 G = ggplot(data=df) + 
   aes(x=Cohort,y=TFR, shape=method, color=method) + 
   geom_point(size=2, alpha=.70) + 
-  geom_line(data=filter(df,method=='Avg A-P Squares')) +
+  geom_line(data=filter(df,method=='AP2')) +
   theme_bw() +
   scale_shape_manual(values=c('square','cross','triangle')) +
   labs(title='JPN Cohort Fertility over ages 13-40',
@@ -71,28 +71,37 @@ G = ggplot(data=df) +
 
 print(G)
 
+ggsave(filename='JPN-CFR-levels.png',
+       height=8, width=8, units='in')
+
 # calculate errors
 
-df = df %>% 
-  mutate(method=case_match(method,
-                           'Lexis Triangles'~'Tri',
-                           'A-P Squares'~'Squ',
-                           'Avg A-P Squares'~'New'))
+# df = df %>% 
+#   mutate(method=case_match(method,
+#                            'Lexis Triangles'~'Tri',
+#                            'A-P Squares'~'Squ',
+#                            'Avg A-P Squares'~'New'))
 
 err_df = df %>% 
   group_by(Cohort) %>% 
-  summarize(e_old = TFR[method=='Squ'] - TFR[method=='Tri'],
-            e_new = TFR[method=='New'] - TFR[method=='Tri']) %>% 
+  summarize(e_old = 100*(TFR[method=='AP']/TFR[method=='True CFR']-1),
+            e_new = 100*(TFR[method=='AP2']/TFR[method=='True CFR']-1)) %>% 
   pivot_longer(cols=starts_with('e_'), 
                names_to = 'etype', values_to = 'error')
 
 
-ggplot(data=err_df) +
+G = ggplot(data=err_df) +
   aes(x=Cohort,y=error,color=etype) +
   geom_hline(yintercept = 0) +
   geom_point() +
   geom_line() +
-  theme_bw()
+  theme_bw() +
+  labs(y='Percent Error')
+
+print(G)
+
+ggsave(filename='JPN-CFR-errors.png',       
+       height=8, width=8, units='in')
 
 
   

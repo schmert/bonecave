@@ -1,7 +1,7 @@
 {
     "id": "BC27E89C",
-    "path": "D:/Carl/Documents/GitHub/bonecave/cohort-vs-period-diagonals/cohort-measures-estimated-from-age-period-rectangles.R",
-    "project_path": "cohort-vs-period-diagonals/cohort-measures-estimated-from-age-period-rectangles.R",
+    "path": "D:/Carl/Documents/GitHub/bonecave/cohort-vs-period-diagonals/JPN-fertility-AP-AP2.R",
+    "project_path": "cohort-vs-period-diagonals/JPN-fertility-AP-AP2.R",
     "type": "r_source",
     "hash": "1132201295",
     "contents": "",
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "107,0",
-        "scrollLine": "79"
+        "cursorPosition": "13,31",
+        "scrollLine": "0"
     },
     "folds": "",
     "lastKnownWriteTime": 1702512719,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1702512719850,
+    "last_content_update": 1702512719,
     "read_only": false,
     "read_only_alternatives": []
 }

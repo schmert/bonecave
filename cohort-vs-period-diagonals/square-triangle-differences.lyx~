@@ -260,6 +260,10 @@ diagonal bias
 \begin_inset Quotes erd
 \end_inset
 
+ 
+\begin_inset Formula $\hat{F}_{c}-F_{c}$
+\end_inset
+
 , assume that
 \end_layout
 
@@ -273,7 +277,7 @@ In a small neighborhood around our focal cohort
 \end_inset
 
 , cohort sizes change multiplicatively: 
-\begin_inset Formula $\tfrac{N_{c}}{N_{c-1}}=\tfrac{N_{c+1}}{N_{c}}=K$
+\begin_inset Formula $N_{c}=KN_{c-1},\,N_{c+1}=KN_{c}$
 \end_inset
 
  
@@ -284,7 +288,7 @@ In a small neighborhood around our focal cohort
 \begin_inset Formula $c$
 \end_inset
 
-, completed fertility changes additively: 
+, completed fertility changes linearly: 
 \begin_inset Formula $\left(F_{c}-F_{c-1}\right)=\left(F_{c+1}-F_{c}\right)=\Delta$
 \end_inset
 
@@ -1051,10 +1055,6 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1068,7 +1068,8 @@ JPN
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename JPN-CFR-levels.png
+	filename Plots/IRL-CFR-levels.png
+	width 90text%
 
 \end_inset
 
@@ -1091,10 +1092,6 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -1108,7 +1105,8 @@ JPN % err
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename JPN-CFR-errors.png
+	filename Plots/JPN-CFR-errors.png
+	width 90text%
 
 \end_inset
 

@@ -6,7 +6,7 @@
         },
         {
             "columnIndex": 2,
-            "ascending": true
+            "ascending": false
         }
     ],
     "path": "D:/Carl/Documents/GitHub/bonecave/cohort-vs-period-diagonals"

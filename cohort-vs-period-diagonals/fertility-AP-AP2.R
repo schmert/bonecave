@@ -11,17 +11,32 @@ rm(list=ls() )
 
 source('fix-HFDparse.R')  # this is necessary for some versions of HFDparse (?)
 
-countries = c('JPN','AUT','FRATNP','HUN','NLD','PRT','IRL')
+cases = tribble(
+  ~code,~country, ~first_year, ~abb, ~description,
+  'JPN'   ,'Japan'      , 1947, 'RR'   , 'rectangle data',
+  'AUT'   ,'Austria'    , 1951, 'TR'   , 'triangle data',
+  'FRATNP','France'     , 1946, 'TR'   , 'triangle data',
+  'HUN'   ,'Hungary'    , 1950, 'TR'   , 'triangle data',
+  'NLD'   ,'Netherlands', 1950, 'TR'   , 'triangle data',
+  'PRT'   ,'Portugal'   , 1940, 'RR/TR', 'mixed input data',
+  'IRL'   ,'Ireland'    , 1955, 'RR'   , 'rectangle data',
+  'DNK'   ,'Denmark'    , 1916, 'RR'   , 'rectangle data'
+  )
+  
+  
+for (i in 1:nrow(cases)) {
 
-for (sel_country in countries) {
-
+  this_code        = cases$code[i]
+  this_country     = cases$country[i]
+  this_abb         = cases$abb
+  this_description = cases$description[i]
   
   # Cohort TFR 13-40 from Lexis triangles ----
   
-  BTR = readHFD(paste0(sel_country,'birthsTR.txt'))  %>% 
+  BTR = readHFD(paste0('./Data/',this_code,'birthsTR.txt'))  %>% 
     rename(Births=Total)
   
-  NTR = readHFD(paste0(sel_country,'exposTR.txt'))
+  NTR = readHFD(paste0('./Data/',this_code,'exposTR.txt'))
   
   DTR = full_join(BTR,NTR) 
   
@@ -36,10 +51,10 @@ for (sel_country in countries) {
   
   # Cohort TFR from Age-Period rectangles ----
   
-  BRR = readHFD(paste0(sel_country,'birthsRR.txt')) %>% 
+  BRR = readHFD(paste0('./Data/',this_code,'birthsRR.txt')) %>% 
     rename(Births=Total)
   
-  NRR = readHFD(paste0(sel_country,'exposRR.txt'))
+  NRR = readHFD(paste0('./Data/',this_code,'exposRR.txt'))
   
   DRR = full_join(BRR,NRR) %>% 
        mutate(Cohort = Year-Age,
@@ -73,13 +88,13 @@ for (sel_country in countries) {
     geom_line(data=filter(df,method=='AP2')) +
     theme_bw() +
     scale_shape_manual(values=c('square','cross','triangle')) +
-    labs(title=paste0(sel_country,' Cohort Fertility over ages 13-40'),
+    labs(title=paste0(this_country,' Cohort Fertility over ages 13-40'),
          y='CFR40',
-         subtitle='Line = Avg of consecutive A-P squares')
+         subtitle=this_description)
   
   print(G)
   
-  ggsave(filename=paste0(sel_country,'-CFR-levels.png'),
+  ggsave(filename=paste0('./Plots/',this_code,'-CFR-levels.png'),
          height=8, width=8, units='in')
   
   # calculate errors
@@ -99,23 +114,31 @@ for (sel_country in countries) {
     geom_line() +
     theme_bw() +
     labs(y='Percent Error', 
-         title=sel_country)
+         title=this_country,
+         subtitle=this_description) +
+    scale_y_continuous(limits = c(-2,4.2))
   
   print(G)
   
-  ggsave(filename=paste0(sel_country,'-CFR-errors.png'),       
+  ggsave(filename=paste0('./Plots/',this_code,'-CFR-errors.png'),       
          height=8, width=8, units='in')
   
   
   tab = err_df %>% 
     group_by(etype) %>% 
-    summarize( MPE   = mean(error,na.rm=TRUE), 
+    summarize( country = this_country,
+               MPE   = mean(error,na.rm=TRUE), 
                MAPE  = mean(abs(error),na.rm=TRUE),
                MIN   = quantile(error,prob=0,na.rm=TRUE),
                Q25   = quantile(error,prob=.25,na.rm=TRUE),
                Q75   = quantile(error,prob=.75,na.rm=TRUE),
                MAX   = quantile(error,prob=1,na.rm=TRUE)
-               ) 
+               ) %>% 
+       mutate_at(c('MPE','MAPE'),round,3) %>% 
+       mutate_at(c('MIN','Q25','Q75','MAX'),round,2) 
+  
+  print(tab)
+
   
   z = err_df %>% 
        arrange(etype,error) %>% 
@@ -127,12 +150,14 @@ for (sel_country in countries) {
     geom_step() + 
     geom_vline(xintercept = 0) + 
     theme_bw() +
+    scale_x_continuous(limits = c(-2,4.2)) +
     labs(x='Percent Error', y='Prob', 
-         title=paste0(sel_country,' Cumulative Distribution of Errors'))
+         title=paste0(this_country,' Cumulative Distribution of Errors'),
+         subtitle=this_description)
 
   print(G)
 
-  ggsave(filename=paste0(sel_country,'-CFR-cumulative-error-distribution.png'),       
+  ggsave(filename=paste0('./Plots/',this_code,'-CFR-cumulative-error-distribution.png'),       
          height=8, width=8, units='in')
   
   G=  ggplot(data=err_df) +
@@ -140,12 +165,13 @@ for (sel_country in countries) {
     geom_density(trim=TRUE, linewidth=1) +
     geom_vline(xintercept = 0) +
     theme_bw() +
-    labs(title=sel_country) +
-    scale_x_continuous(limits = c(-2,4))
+    labs(title=this_country,
+         subtitle=this_description) +
+    scale_x_continuous(limits = c(-2,4.2))
 
   print(G)
 
-  ggsave(filename=paste0(sel_country,'-CFR-error-density.png'),       
+  ggsave(filename=paste0('./Plots/',this_code,'-CFR-error-density.png'),       
          height=8, width=8, units='in')
   
-} # for sel_country
+} # for i

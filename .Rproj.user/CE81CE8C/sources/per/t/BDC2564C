@@ -3,7 +3,7 @@
     "path": "D:/Carl/Documents/GitHub/bonecave/cohort-vs-period-diagonals/fertility-AP-AP2.R",
     "project_path": "cohort-vs-period-diagonals/fertility-AP-AP2.R",
     "type": "r_source",
-    "hash": "2122150788",
+    "hash": "2770025938",
     "contents": "",
     "dirty": false,
     "created": 1702561175603.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "9,14",
-        "scrollLine": "0"
+        "cursorPosition": "80,24",
+        "scrollLine": "63"
     },
     "folds": "",
-    "lastKnownWriteTime": 1702566303,
+    "lastKnownWriteTime": 1702572608,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1702566303744,
+    "last_content_update": 1702572608445,
     "read_only": false,
     "read_only_alternatives": []
 }

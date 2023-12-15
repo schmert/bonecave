@@ -83,26 +83,305 @@
 
 \begin_body
 
+\begin_layout Section*
+Calculating Cohort Quantities from Age-Period Data
+\end_layout
+
+\begin_layout Standard
+In their first example, @VR address the problem estimating completed cohort
+ fertility levels from a grid of age x period rates 
+\begin_inset Formula $\{f_{xt}\}$
+\end_inset
+
+.
+ In particular, they consider completed fertility by exact age 40 for Japanese
+ women, using single-year age and calendar year data from the HFD.
+ Using 
+\begin_inset Formula $\phi_{xc}$
+\end_inset
+
+ to denote the fertility rate of cohort 
+\begin_inset Formula $c$
+\end_inset
+
+ at integer age 
+\begin_inset Formula $x$
+\end_inset
+
+ (an age-cohort rate that applies to a parallelogram on the Lexis diagram),
+ the true value of completed fertility is 
+\begin_inset Formula 
+\begin{equation}
+\Phi_{c}=\sum_{x=12}^{39}\phi_{xc}\label{eq:Phi-defn}
+\end{equation}
+
+\end_inset
+
+@VR investigate the consequences of approximating 
+\begin_inset Formula $\Phi_{c}$
+\end_inset
+
+ by summing rates over the 
+\begin_inset Quotes eld
+\end_inset
+
+diagonal
+\begin_inset Quotes erd
+\end_inset
+
+ of an age-period grid.
+ For the cohort born in year 
+\begin_inset Formula $c$
+\end_inset
+
+ they calculate
+\begin_inset Formula 
+\begin{equation}
+F_{c}=\sum_{x=12}^{39}f_{x,c+x}\label{eq:Fc-defn}
+\end{equation}
+
+\end_inset
+
+and compare 
+\begin_inset Formula $F_{1935}\ldots F_{1982}$
+\end_inset
+
+ (which I will call the 
+\begin_inset Quotes eld
+\end_inset
+
+AP-diagonal
+\begin_inset Quotes erd
+\end_inset
+
+ estimators) to the Japanese cohort values published by the HFD.
+ @VR find that errors 
+\begin_inset Formula $F_{c}-\Phi_{c}$
+\end_inset
+
+ have predictable patterns that depend on the cross-cohort trends in 
+\begin_inset Formula $\Phi_{c},$
+\end_inset
+
+and that those errors can be magnified by size differences between adjacent
+ birth cohorts.
+ 
+\end_layout
+
+\begin_layout Standard
+Eq.
+ (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Fc-defn"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) looks sensible because it is a straightforward discretization of the integral
+ formula that one would use for cohorts on a Lexis rate surface 
+\begin_inset Formula $f(x,t)$
+\end_inset
+
+ with continuous times and ages.
+ However, it is not the best cohort approximation from a discrete age-period
+ grid.
+ To understand this, consider the example in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig-Lexis"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, which illustrates the relationship between age-period and cohort data.
+ Any given cohort passes through the single-year interval between exact
+ ages 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $x+1$
+\end_inset
+
+ over two calendar years.
+ As a result, two (not one) age-period cells contribute to births in each
+ age interval.
+ If 
+\begin_inset Formula $L$
+\end_inset
+
+ and 
+\begin_inset Formula $U$
+\end_inset
+
+ in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig-Lexis"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ represent numbers of births in the Lexis triangles, for example, then cohort
+ 
+\begin_inset Formula $c$
+\end_inset
+
+'s births at integer age 
+\begin_inset Formula $x$
+\end_inset
+
+ would be
+\begin_inset Formula 
+\begin{equation}
+B_{xc}=L_{x,c+x}+U_{x,c+x+1}
+\end{equation}
+
+\end_inset
+
+Much of the original HFD input data, including for Japan, comes in AP form.
+ For these cases the HFD methods protocol describes a multistep procedure
+ for allocating births from AP squares to Lexis triangles, which are in
+ turn aggregated into age-cohort parallelograms for calculations such as
+ completed cohort fertility.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The HFD procedure fits a spline function to cumulative period fertility
+ by age, uses the first derivative of that spline as an estimate of the
+ (continuous) fertility rate, and allocates the reported births in each
+ AP square to upper and lower Lexis triangles of each AP square depending
+ on the fitted rates within the age interval.
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+The HFD protocol, rather than diagonalization as in Eq.
+ (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Fc-defn"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), is arguably the state of the art for inferring cohort quantities from
+ AP data.
+ However, there is a much simpler approach that approximates the HFD protocol
+ well.
+ Namely, one can calculate two AP-diagonal sums 
+\begin_inset Formula $F$
+\end_inset
+
+ and take their simple average as an estimate of cohort 
+\begin_inset Formula $c$
+\end_inset
+
+'s completed fertility:
+\begin_inset Formula 
+\begin{equation}
+\bar{F}_{c}\,=\,\frac{1}{2}\left(F_{c}+F_{c+1}\right)\label{eq:F-tilde-defn}
+\end{equation}
+
+\end_inset
+
+This alternative, almost equally simple estimator does not have the bias
+ problems of the AP-diagonal (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Fc-defn"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) in @VR.
+ I first demonstrate by example, and then explain.
+ 
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Lexis diagram(s) for completed cohort fertility (focal cohort = 
-\begin_inset Formula $c$
+Fertility calculations by single-year cohort and age, 
+\emph on
+from age-period data
+\emph default
+.
+ For the cohort born in year 
+\begin_inset Formula $c=t-x$
 \end_inset
 
-)
+, calculating births at integer age 
+\begin_inset Formula $x$
+\end_inset
+
+ requires allocating the births observed in AP squares 
+\begin_inset Formula $(x,t$
+\end_inset
+
+) and 
+\begin_inset Formula $(x,t+1)$
+\end_inset
+
+ to Lexis triangles 
+\begin_inset Formula $L_{xt}$
+\end_inset
+
+ and 
+\begin_inset Formula $U_{x,t+1}$
+\end_inset
+
+.
+ Calculations for the cohort at age 
+\begin_inset Formula $x+1$
+\end_inset
+
+ require allocations from AP squares 
+\begin_inset Formula $(x+1,t+1)$
+\end_inset
+
+ and 
+\begin_inset Formula $(x+1,t+2)$
+\end_inset
+
+ to 
+\begin_inset Formula $L_{x+1,t+1}$
+\end_inset
+
+ and 
+\begin_inset Formula $U_{x+1,t+2}$
+\end_inset
+
+.
+ 
 \end_layout
 
 \end_inset
 
-
+ 
 \begin_inset CommandInset label
 LatexCommand label
 name "fig-Lexis"
@@ -111,7 +390,7 @@ name "fig-Lexis"
 
 
 \begin_inset Graphics
-	filename pasted1.png
+	filename Plots/6-Lexis-squares.pdf
 	width 90text%
 
 \end_inset
@@ -124,8 +403,61 @@ name "fig-Lexis"
 
 \end_layout
 
+\begin_layout Section*
+Comparing Alternative Calculations of Completed Fertility using HFD Data
+\end_layout
+
+\begin_layout Section*
+Analysis
+\end_layout
+
 \begin_layout Standard
-Consider an age-period Lexis grid as in Fig.
+In order to develop a simple analytical expressions, assume that
+\end_layout
+
+\begin_layout Enumerate
+Mortality is negligible below the highest age of childbearing 
+\end_layout
+
+\begin_layout Enumerate
+In a small neighborhood around our focal cohort 
+\begin_inset Formula $c$
+\end_inset
+
+, cohort sizes change multiplicatively: 
+\begin_inset Formula $N_{c}=KN_{c-1},\,N_{c+1}=KN_{c}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+In a small neighborhood around our focal cohort 
+\begin_inset Formula $c$
+\end_inset
+
+, completed fertility changes linearly: 
+\begin_inset Formula $\left(F_{c}-F_{c-1}\right)=\left(F_{c+1}-F_{c}\right)=\Delta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Half of a cohort's lifetime births happen in lower Lexis triangles, half
+ in upper triangles
+\end_layout
+
+\begin_layout Standard
+Under these assumptions 
+\end_layout
+
+\begin_layout Standard
+Figure 
+\end_layout
+
+\begin_layout Standard
+Consider an age-period (AP) Lexis grid as in Fig.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -136,7 +468,7 @@ noprefix "false"
 
 \end_inset
 
-, divided into age-period-cohort triangles.
+, divided into age-period-cohort (APC) triangles.
  Suppose that we are interested in estimating the average completed fertility
  of the 
 \begin_inset Formula $N_{c}$
@@ -249,59 +581,6 @@ estimate for completed fertility:
 
 \begin_layout Subsection*
 Simplifying Approximations
-\end_layout
-
-\begin_layout Standard
-In order to develop a simple expression for 
-\begin_inset Quotes eld
-\end_inset
-
-diagonal bias
-\begin_inset Quotes erd
-\end_inset
-
- 
-\begin_inset Formula $\hat{F}_{c}-F_{c}$
-\end_inset
-
-, assume that
-\end_layout
-
-\begin_layout Enumerate
-Mortality is negligible below the highest age of childbearing 
-\end_layout
-
-\begin_layout Enumerate
-In a small neighborhood around our focal cohort 
-\begin_inset Formula $c$
-\end_inset
-
-, cohort sizes change multiplicatively: 
-\begin_inset Formula $N_{c}=KN_{c-1},\,N_{c+1}=KN_{c}$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Enumerate
-In a small neighborhood around our focal cohort 
-\begin_inset Formula $c$
-\end_inset
-
-, completed fertility changes linearly: 
-\begin_inset Formula $\left(F_{c}-F_{c-1}\right)=\left(F_{c+1}-F_{c}\right)=\Delta$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Enumerate
-Half of a cohort's lifetime births happen in lower Lexis triangles, half
- in upper triangles: 
-\begin_inset Formula $L_{c}^{\ast}=U_{c}^{\ast}\approx\tfrac{1}{2}N_{c}F_{c}$
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1053,7 +1332,7 @@ Comparisons with the Japanese Fertility Data from van Raalte et al.
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -1090,7 +1369,7 @@ JPN
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard

@@ -89,18 +89,18 @@ Calculating Cohort Quantities from Age-Period Data
 
 \begin_layout Standard
 In their first example, @VR address the problem estimating completed cohort
- fertility levels from a grid of age x period rates 
+ fertility levels from a 1x1 grid of age x period rates 
 \begin_inset Formula $\{f_{xt}\}$
 \end_inset
 
 .
- In particular, they consider completed fertility by exact age 40 for Japanese
+ Specifically, they consider completed fertility by exact age 40 for Japanese
  women, using single-year age and calendar year data from the HFD.
  Using 
 \begin_inset Formula $\phi_{xc}$
 \end_inset
 
- to denote the fertility rate of cohort 
+ to denote the fertility rate of the cohort born in calendar year 
 \begin_inset Formula $c$
 \end_inset
 
@@ -155,16 +155,83 @@ AP-diagonal
 \end_inset
 
  estimators) to the Japanese cohort values published by the HFD.
- @VR find that errors 
-\begin_inset Formula $F_{c}-\Phi_{c}$
+ In this example they show that proportional errors 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left(\tfrac{F_{c}-\Phi_{c}}{\Phi_{c}}\right)$
 \end_inset
 
- have predictable patterns that depend on the cross-cohort trends in 
+ range from -2.1% to +4.1%, that 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+the errors have predictable patterns that depend on the cross-cohort trends
+ in 
 \begin_inset Formula $\Phi_{c},$
 \end_inset
 
-and that those errors can be magnified by size differences between adjacent
- birth cohorts.
+and that errors can be magnified by size differences between adjacent birth
+ cohorts.
+ 
+\end_layout
+
+\begin_layout Standard
+In this note I make two points about the cautionary example in the original
+ paper:
+\end_layout
+
+\begin_layout Itemize
+The raw HFD input data for Japan is in age-period format.
+ So target 
+\begin_inset Formula $\Phi_{c}$
+\end_inset
+
+ values were 
+\emph on
+also
+\emph default
+ estimated from a grid of Lexis squares and 
+\begin_inset Formula $\{f_{xt}\}$
+\end_inset
+
+ values, but with an algorithm different from AP-diagonalization (@citeprotocol).
+ In this context errors represent failure to match another algorithm, rather
+ than failure to match true cohort values.
+\end_layout
+
+\begin_layout Itemize
+There is a simple variant of AP-diagonalization that has a stronger demographic
+ rationale, less bias, and smaller errors when tested against true (rather
+ than estimated) 
+\begin_inset Formula $\Phi_{c}$
+\end_inset
+
+ values.
+\end_layout
+
+\begin_layout Standard
+As a consequence, estimating completed fertility from age-period data is
+ probably less dangerous than implied in @VR's paper.
  
 \end_layout
 
@@ -180,8 +247,9 @@ noprefix "false"
 
 \end_inset
 
-) looks sensible because it is a straightforward discretization of the integral
- formula that one would use for cohorts on a Lexis rate surface 
+) looks reaonable, because it is a straightforward discretization of the
+ integral formula that one would use for cohorts on a Lexis rate surface
+ 
 \begin_inset Formula $f(x,t)$
 \end_inset
 

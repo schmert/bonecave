@@ -26,7 +26,7 @@ cases = tribble(
   )
   
   
-for (i in 1:nrow(cases)) {
+i=3
 
   this_code        = cases$code[i]
   this_country     = cases$country[i]
@@ -96,7 +96,7 @@ for (i in 1:nrow(cases)) {
   
   print(G)
   
-  ggsave(filename=paste0('./Plots/',this_code,'-CFR-levels.png'),
+  ggsave(filename=paste0('./tmp-',this_code,'-CFR-levels.png'),
          height=8, width=8, units='in')
   
   # calculate errors
@@ -122,7 +122,7 @@ for (i in 1:nrow(cases)) {
   
   print(G)
   
-  ggsave(filename=paste0('./Plots/',this_code,'-CFR-errors.png'),       
+  ggsave(filename=paste0('./tmp-',this_code,'-CFR-errors.png'),       
          height=8, width=8, units='in')
   
   
@@ -159,7 +159,7 @@ for (i in 1:nrow(cases)) {
 
   print(G)
 
-  ggsave(filename=paste0('./Plots/',this_code,'-CFR-cumulative-error-distribution.png'),       
+  ggsave(filename=paste0('./tmp-',this_code,'-CFR-cumulative-error-distribution.png'),       
          height=8, width=8, units='in')
   
   G=  ggplot(data=err_df) +
@@ -173,7 +173,6 @@ for (i in 1:nrow(cases)) {
 
   print(G)
 
-  ggsave(filename=paste0('./Plots/',this_code,'-CFR-error-density.png'),       
+  ggsave(filename=paste0('./tmp-',this_code,'-CFR-error-density.png'),       
          height=8, width=8, units='in')
   
-} # for i

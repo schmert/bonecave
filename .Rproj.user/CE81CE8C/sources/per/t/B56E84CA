@@ -1,9 +1,9 @@
 {
     "id": "B56E84CA",
-    "path": "D:/Carl/Documents/GitHub/bonecave/US-cohort-mortality-from-HMD.R",
-    "project_path": "US-cohort-mortality-from-HMD.R",
+    "path": "D:/Carl/Documents/GitHub/bonecave/fraction-of-US-pop-by-birth-decade-HMD.R",
+    "project_path": "fraction-of-US-pop-by-birth-decade-HMD.R",
     "type": "r_source",
-    "hash": "1868315341",
+    "hash": "23090305",
     "contents": "",
     "dirty": false,
     "created": 1703091715198.0,
@@ -13,15 +13,15 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "10,30",
-        "scrollLine": "0"
+        "cursorPosition": "89,0",
+        "scrollLine": "80"
     },
     "folds": "",
-    "lastKnownWriteTime": 1703104625,
+    "lastKnownWriteTime": 1703892534,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1703104625648,
+    "last_content_update": 1703892534853,
     "read_only": false,
     "read_only_alternatives": []
 }

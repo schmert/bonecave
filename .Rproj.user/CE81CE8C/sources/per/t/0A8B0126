@@ -1,0 +1,27 @@
+{
+    "id": "0A8B0126",
+    "path": "D:/Carl/Documents/GitHub/bonecave/SWE-mortality-sex-ratio/mortality-at-ages-20-39.R",
+    "project_path": "SWE-mortality-sex-ratio/mortality-at-ages-20-39.R",
+    "type": "r_source",
+    "hash": "3612203940",
+    "contents": "",
+    "dirty": false,
+    "created": 1704381897854.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "27,17",
+        "scrollLine": "23"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1704383821,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1704383821062,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,13 +1,13 @@
 {
     "sortOrder": [
         {
-            "columnIndex": 4,
-            "ascending": false
+            "columnIndex": 2,
+            "ascending": true
         },
         {
-            "columnIndex": 2,
+            "columnIndex": 4,
             "ascending": true
         }
     ],
-    "path": "D:/Carl/Documents/GitHub/bonecave/cohort-vs-period-diagonals/Plots"
+    "path": "D:/Carl/Documents/GitHub/bonecave/SWE-mortality-sex-ratio"
 }

@@ -4,7 +4,9 @@
 # 
 # UN World Population Prospects 2024
 # Population of Brazil by age (0-49 or 50+)
-# including forecasts with 80% intervals
+#
+# including forecasts with intervals 
+# for TFR +/- 0.5 children
 ###############################################
 
 library(wpp2024)

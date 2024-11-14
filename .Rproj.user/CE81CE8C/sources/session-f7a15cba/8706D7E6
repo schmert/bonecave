@@ -1,9 +1,9 @@
 {
     "id": "8706D7E6",
-    "path": "D:/Carl/Documents/GitHub/bonecave/mean-and-sd-of-HFD-fertility-schedules.R",
-    "project_path": "mean-and-sd-of-HFD-fertility-schedules.R",
+    "path": "D:/Carl/Documents/GitHub/bonecave/HFD-childlessness-examples.R",
+    "project_path": "HFD-childlessness-examples.R",
     "type": "r_source",
-    "hash": "2386897406",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1730648089934.0,
@@ -13,15 +13,15 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "47,24",
-        "scrollLine": "41"
+        "cursorPosition": "54,22",
+        "scrollLine": "48"
     },
     "folds": "",
-    "lastKnownWriteTime": 1730650692,
+    "lastKnownWriteTime": 1731626481,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1730650692625,
+    "last_content_update": 1731626481301,
     "read_only": false,
     "read_only_alternatives": []
 }

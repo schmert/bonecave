@@ -1,6 +1,3 @@
-#......................................................
-# means and std deviations of ASFR curves from HFD
-#......................................................
 
 library(tidyverse)
 library(HMDHFDplus)

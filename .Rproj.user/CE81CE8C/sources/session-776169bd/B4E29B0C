@@ -1,27 +1,26 @@
 {
-    "id": "8706D7E6",
-    "path": "D:/Carl/Documents/GitHub/bonecave/HFD-childlessness-examples-ver-2.R",
-    "project_path": "HFD-childlessness-examples-ver-2.R",
+    "id": "B4E29B0C",
+    "path": "D:/Carl/Documents/GitHub/bonecave/US-election-2024/us-popular-vote-by-state-2024.R",
+    "project_path": "US-election-2024/us-popular-vote-by-state-2024.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1730648089934.0,
+    "created": 1732278671170.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
-        "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "60,0",
-        "scrollLine": "32"
+        "cursorPosition": "18,32",
+        "scrollLine": "8"
     },
     "folds": "",
-    "lastKnownWriteTime": 1731701769,
+    "lastKnownWriteTime": 1732282303,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1731701769230,
+    "last_content_update": 1732282303135,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -73,7 +73,12 @@ for (i in ix) {
 
 G2 = ggplotify::as.ggplot(g)
 
+# landscape version
 
 ggsave(plot=G2, file=here('US-election-2024','2024-vote.png'),
        height=7,width=9,units='in', dpi=300)
 
+# square version
+
+ggsave(plot=G2, file=here('US-election-2024','2024-vote-square.png'),
+       height=7,width=7,units='in', dpi=300)

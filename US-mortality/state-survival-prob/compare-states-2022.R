@@ -35,11 +35,11 @@ if (already_processed) {
    
    tmp = read_csv(this_filename) %>% 
           filter(Year == 2022,
-                 Age %in% c(0:40,75:100)) %>% 
+                 Age %in% c(5:40,75:100)) %>% 
           mutate( Age = as.numeric(Age),
-                  Q0  = 1 - lx/lx[Age==0],
+                  Q5  = 1 - lx/lx[Age==5],
                   Q75 = if_else(Age >= 75, 1 - lx/lx[Age==75],NA)) %>% 
-          select(state=PopName,Age,Q0, Q75)
+          select(state=PopName,Age,Q5, Q75)
    
    my_data = bind_rows(my_data, tmp)
    
@@ -50,11 +50,11 @@ if (already_processed) {
   
   tmp = read_csv(this_filename) %>% 
     filter(Year == 2022,
-           Age %in% c(0:40,75:100)) %>% 
+           Age %in% c(5:40,75:100)) %>% 
     mutate( Age = as.numeric(Age),
-            Q0  = 1 - lx/lx[Age==0],
+            Q5  = 1 - lx/lx[Age==5],
             Q75 = if_else(Age >= 75, 1 - lx/lx[Age==75],NA)) %>% 
-    select(state=PopName,Age,Q0, Q75)
+    select(state=PopName,Age,Q5, Q75)
   
   my_data = bind_rows(my_data, tmp)
   
@@ -63,4 +63,27 @@ if (already_processed) {
 } 
 
 #...............................................
+
+# non-survival 0 to 40
+
+sel_states = c('MA','HI','NM','WV','MS','USA')
+
+tmp = my_data %>% 
+       filter(Age <= 40) %>% 
+       filter(state %in% sel_states)
+       
+
+G = ggplot(data=tmp) +
+  aes(x=Age,y=Q5, color=state, group=state) +
+  geom_line(lwd=1) +
+  theme_bw() +
+  guides(color='none') +
+  geom_text( data = . %>% filter(Age==40),
+             aes(label=state),
+             nudge_x = 2, size=3)
+
+G +
+  geom_line(data= . %>% filter(state=='USA'),
+            color='black',lwd=1.5)
+
 

@@ -78,12 +78,13 @@ G = ggplot(data=tmp) +
   geom_line(lwd=1) +
   theme_bw() +
   guides(color='none') +
-  geom_text( data = . %>% filter(Age==40),
-             aes(label=state),
-             nudge_x = 2, size=3)
+  scale_color_viridis_d(option='turbo')
 
 G +
   geom_line(data= . %>% filter(state=='USA'),
-            color='black',lwd=1.5)
+            color='black',lwd=1.5) +
+  geom_text( data = . %>% filter(Age==40),
+             aes(label=state),
+             nudge_x = 0.3, size=3, hjust=0)
 
 

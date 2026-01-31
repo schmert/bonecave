@@ -64,12 +64,13 @@ if (already_processed) {
 
 #...............................................
 
-# non-survival 0 to 40
+# non-survival 
 
+sel_ages   = 5:40
 sel_states = c('MA','HI','NM','WV','MS','USA')
 
 tmp = my_data %>% 
-       filter(Age <= 40) %>% 
+       filter(Age %in% sel_ages) %>% 
        filter(state %in% sel_states)
        
 
@@ -78,13 +79,22 @@ G = ggplot(data=tmp) +
   geom_line(lwd=1) +
   theme_bw() +
   guides(color='none') +
-  scale_color_viridis_d(option='turbo')
+  scale_color_viridis_d(option='plasma')
 
-G +
+G = G +
   geom_line(data= . %>% filter(state=='USA'),
-            color='black',lwd=1.5) +
-  geom_text( data = . %>% filter(Age==40),
+            color='black',lwd=1) +
+  geom_text( data = . %>% filter(Age==max(sel_ages)),
              aes(label=state),
-             nudge_x = 0.3, size=3, hjust=0)
+             nudge_x = 0.3, size=3, hjust=0) +
+  labs(y='Prob. of Death',
+       title=paste0('Probability that a ',min(sel_ages),
+                   '-yr-old dies \n before reaching various ages'),
+       subtitle='at 2022 mortality rates',
+       caption=paste0('US Mortality Database',
+                      '\nhttps://doi.org/10.7910/DVN/19WYUX',
+                      '\n@cschmert'))
+       
+G
 
-
+ggsave(plot=G,filename='Q5.pdf', height=6, width=6)

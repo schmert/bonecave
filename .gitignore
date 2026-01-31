@@ -15,3 +15,4 @@ USA-deaths-from-HCD/USA_m_interm_idr.csv
 das-gupta-decomposition/prep-dg-data.R
 sex-ratio-mortality/mortality-diff.R
 sex-ratio-mortality/USA-sex-diff-mortality.gif
+US-mortality/state-survival-prob/intl-data.R

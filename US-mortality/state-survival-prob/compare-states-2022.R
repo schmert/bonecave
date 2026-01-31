@@ -11,14 +11,12 @@
 
 library('tidyverse')
 
-already_processed = file.exists('Qdata.csv')
+already_processed = file.exists('US-2022.csv')
 
 if (already_processed) {
-  my_data = read_csv('Qdata.csv')
+  my_data = read_csv('US-2022.csv')
 } else {
 
-  USMDB = 'USStateLifetables2022.zip'
-  
   state_abb = c("AL", "AK", "AZ", "AR", "CA", "CO", "CT","DC", 
                 "DE", "FL", "GA", 
                 "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", 
@@ -29,72 +27,91 @@ if (already_processed) {
   my_data = tibble()
   
   for (this_abb in state_abb) {
+    
    this_filename = paste0('./States/',this_abb,
                           '/',this_abb,"_",
                           'bltper_1x1.csv')
    
-   tmp = read_csv(this_filename) %>% 
-          filter(Year == 2022,
-                 Age %in% c(5:40,75:100)) %>% 
-          mutate( Age = as.numeric(Age),
-                  Q5  = 1 - lx/lx[Age==5],
-                  Q75 = if_else(Age >= 75, 1 - lx/lx[Age==75],NA)) %>% 
-          select(state=PopName,Age,Q5, Q75)
+   tmp = read_csv(this_filename, show_col_types = FALSE) %>%
+          mutate( Age = as.numeric(Age)) %>% 
+          filter(Year == 2022, Age <= 100) %>% 
+          select(state=PopName,Age,lx) 
    
-   my_data = bind_rows(my_data, tmp)
+    my_data = bind_rows(my_data, tmp)
    
   }
   
   # add the equivalent calculations for the entire USA in 2022
   this_filename = './Nationals/USA/USA_bltper_1x1.csv'
-  
-  tmp = read_csv(this_filename) %>% 
-    filter(Year == 2022,
-           Age %in% c(5:40,75:100)) %>% 
-    mutate( Age = as.numeric(Age),
-            Q5  = 1 - lx/lx[Age==5],
-            Q75 = if_else(Age >= 75, 1 - lx/lx[Age==75],NA)) %>% 
-    select(state=PopName,Age,Q5, Q75)
+
+  tmp = read_csv(this_filename, show_col_types = FALSE) %>%
+    mutate( Age = as.numeric(Age)) %>% 
+    filter(Year == 2022, Age <= 100) %>% 
+    select(state=PopName,Age,lx)
   
   my_data = bind_rows(my_data, tmp)
   
-  write_csv(my_data, file='Qdata.csv')
+  write_csv(my_data, file='US-2022.csv')
 
 } 
 
 #...............................................
 
-# non-survival 
+# non-survival plot with one particular state
+# highlighted
 
-sel_ages   = 5:40
-sel_states = c('MA','HI','NM','WV','MS','USA')
+plot_state = function(sel_state='MA', 
+                      sel_ages=5:40,
+                      this_color = 'red') {
 
-tmp = my_data %>% 
-       filter(Age %in% sel_ages) %>% 
-       filter(state %in% sel_states)
-       
+  L = min(sel_ages)
+  H = max(sel_ages)
+  
+  fname = paste0('Q',L,'-',sel_state,'.pdf')
+  
+  tmp = my_data %>% 
+    filter(Age %in% sel_ages) %>% 
+    mutate(focus = (state == sel_state),
+           USA   = (state == 'USA')) %>% 
+    mutate(Q = if_else(Age >= L, 1-lx/lx[Age==L], NA),
+           .by=state) 
+  
+  
+  G = ggplot(data=tmp) +
+    aes(x=Age,y=Q,group=state) +
+    geom_line(lwd=0.2, color='lightgrey') +
+    geom_line(data= . %>% filter(focus),
+              lwd=1.2, color=this_color) +
+    geom_line(data= . %>% filter(USA),
+              color='black',lwd=0.8) +
+    geom_text( data = . %>% filter(focus, Age==H),
+               aes(label=state),
+               nudge_x = 0.3, size=3, hjust=0,
+               color=this_color) +
+    geom_text( data = . %>% filter(USA, Age==H),
+               aes(label='US'),
+               nudge_x = 0.3, size=3, hjust=0,
+               color='black') +
+    theme_bw() +
+    labs(y='Prob. of Death',
+         title=paste0('State-by-State Probability that a ',L,
+                      '-yr-old dies \n before reaching various ages'),
+         subtitle='at 2022 mortality rates',
+         caption=paste0('US Mortality Database',
+                        '\nhttps://doi.org/10.7910/DVN/19WYUX',
+                        '\n@cschmert'))
+  
+  print(G)
+  
+  ggsave(plot=G,filename=fname, height=6, width=6)
+  
+} # plot_state
 
-G = ggplot(data=tmp) +
-  aes(x=Age,y=Q5, color=state, group=state) +
-  geom_line(lwd=1) +
-  theme_bw() +
-  guides(color='none') +
-  scale_color_viridis_d(option='plasma')
+#.............................
 
-G = G +
-  geom_line(data= . %>% filter(state=='USA'),
-            color='black',lwd=1) +
-  geom_text( data = . %>% filter(Age==max(sel_ages)),
-             aes(label=state),
-             nudge_x = 0.3, size=3, hjust=0) +
-  labs(y='Prob. of Death',
-       title=paste0('Probability that a ',min(sel_ages),
-                   '-yr-old dies \n before reaching various ages'),
-       subtitle='at 2022 mortality rates',
-       caption=paste0('US Mortality Database',
-                      '\nhttps://doi.org/10.7910/DVN/19WYUX',
-                      '\n@cschmert'))
-       
-G
+plot_state('MA', 5:40, 'red')
+plot_state('WV', 5:40, 'blue')
 
-ggsave(plot=G,filename='Q5.pdf', height=6, width=6)
+plot_state('FL', 50:90, 'orangered')
+
+

@@ -1,22 +1,32 @@
 # Carl Schmertmann
 # 31 Jan 2026
-#.....................................................
-# Original state-level files from USStateLifetables2022.zip 
-# at https://doi.org/10.7910/DVN/19WYUX 
-# 
-# Original international files from Human Mortality
-# Database www.mortality.org
-#
-# This program must be in the working directory,
-# which contains the /Nations and /States subdirectories
-# extracted from the USMDB .zip file,
-# and the intl-2022.csv file from the HMD
-# ....................................................
 
 library('tidyverse')
 library('scales')
+library('showtext')
 
-# read or create mortality dataframe ----
+
+this_font = 'Nunito'
+
+font_add_google(name=this_font)
+showtext_auto() 
+
+theme_carl <- function () { 
+  theme_bw(base_size=16, base_family=this_font) %+replace% 
+    theme( plot.title       = element_text(size=20,hjust=0),
+           plot.subtitle    = element_text(size=12,hjust=0,color=grey(.20)),
+           plot.caption     = element_text(
+                                  size=10, hjust=1, 
+                                  color='darkgrey'),
+           panel.grid       = element_line(color='lightgrey', 
+                                  size=0.2),
+           panel.grid.minor = element_blank(),
+           panel.border     = element_blank(),
+           axis.text        = element_text(size=12),
+           axis.ticks       = element_blank()
+    )
+}
+
 
 state_abb = c("AL", "AK", "AZ", "AR", "CA", "CO", "CT","DC", 
               "DE", "FL", "GA", 
@@ -25,50 +35,10 @@ state_abb = c("AL", "AK", "AZ", "AR", "CA", "CO", "CT","DC",
               "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", 
               "UT", "VT", "VA", "WA", "WV", "WI", "WY")
 
-already_processed = file.exists('mortality-2022.csv')
+# read mortality dataframe ----
 
-if (already_processed) {
-  data = read_csv('mortality-2022.csv')
-} else {
-
-  
-  data = tibble()
-  
-  for (this_abb in state_abb) {
-    
-   this_filename = paste0('./States/',this_abb,
-                          '/',this_abb,"_",
-                          'bltper_1x1.csv')
-   
-   tmp = read_csv(this_filename, show_col_types = FALSE) %>%
-          mutate( Age = as.numeric(Age)) %>% 
-          filter(Year == 2022, Age <= 100) %>% 
-          select(pop=PopName,age=Age,lx) 
-   
-    data = bind_rows(data, tmp)
-   
-  }
-  
-  # add the equivalent calculations for the entire USA in 2022
-  this_filename = './Nationals/USA/USA_bltper_1x1.csv'
-
-  tmp = read_csv(this_filename, show_col_types = FALSE) %>%
-    mutate( Age = as.numeric(Age)) %>% 
-    filter(Year == 2022, Age <= 100) %>% 
-    select(pop=PopName,age=Age,lx)
-  
-  data = bind_rows(data, tmp)
-  
-  # add the international HMD data (downloaded separately)
-  
-  tmp = read_csv('intl-2022.csv', skip=4)
-  
-  data = bind_rows(data, tmp)
-  
-  write_csv(data, file='mortality-2022.csv')
-
-  
-} 
+  data = read_csv('mortality-2022.csv', 
+                  show_col_types = FALSE)
 
 # create plotting function ---- 
 
@@ -80,8 +50,8 @@ if (already_processed) {
 plot_state = function(this_pop   = 'MA', 
                       sel_ages   = 5:40,
                       ref_pop    = c('USA'),
-                      this_color = 'red',
-                      add_title  = FALSE) {
+                      this_color = grey(.10),
+                      add_title  = TRUE) {
 
   L = min(sel_ages)
   H = max(sel_ages)
@@ -100,21 +70,22 @@ plot_state = function(this_pop   = 'MA',
   
   G = ggplot(data=tmp) +
     aes(x=age,y=Q,group=pop) +
-    geom_line(lwd=0.3, color='lightgrey') +
-    theme_bw() +
+    geom_line(data = . %>% filter(!ref),
+              lwd=0.3, color='lightgrey') +
     scale_y_continuous(labels = scales::percent) +
-    scale_x_continuous(limits=c(L,H+2)) +
+    scale_x_continuous(limits=c(L,H+3)) +
     labs(x='Age',
-         y='Probability of Death',
+         y='',
          caption=paste0('US Mortality Database',
                         '\nhttps://doi.org/10.7910/DVN/19WYUX',
-                        '\n@cschmert'))
+                        '\n@cschmert')) +
+    theme_carl()
 
   if (add_title) {
     G = G +
       labs(title=paste0('Probability that a ',L,
-                 '-yr-old dies before a given age'),
-          subtitle='(each grey line is a different state)')
+                 '-yr-old dies\nbefore a given age'),
+          subtitle='[Each grey line is a different US state]')
   }
   
   print(G)
@@ -133,7 +104,7 @@ plot_state = function(this_pop   = 'MA',
 
   # add additional black lines for the referenence pop(s)
   
-  hues = c('black',gray(.20),'violet','orange')[seq(ref_pop)]
+  hues = c('dodgerblue','orangered','violet','black')[seq(ref_pop)]
   
   G = G + 
     geom_line(data= . %>% filter(ref),
@@ -146,14 +117,14 @@ plot_state = function(this_pop   = 'MA',
   
   print(G)
   
-  ggsave(plot=G,filename=fname, height=6, width=6)
+  ggsave(plot=G,filename=fname, height=6, width=5)
   
 } # plot_state
 
 # create and arrange comparative plots ----
 
 for (this_state in c('MA','MS','WV','NM')) {
-  plot_state(this_state, 5:40, ref_pop = c('USA','France'), 'red')
-  plot_state(this_state, 75:95, ref_pop = c('USA','France'), 'red')
+  plot_state(this_state,  5:50, ref_pop = c('USA','France','Spain','UK'))
+  plot_state(this_state, 75:95, ref_pop = c('USA','France','Spain','UK'))
 }
 

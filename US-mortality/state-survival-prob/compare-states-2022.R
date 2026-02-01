@@ -18,7 +18,7 @@ theme_carl <- function () {
                                            lineheight=0.3),
            plot.subtitle    = element_text(size=12,hjust=0,color=grey(.20)),
            plot.caption     = element_text(
-                                  size=22, hjust=1, 
+                                  size=25, hjust=1, 
                                   color=grey(.20),
                                   lineheight = 0.3),
            panel.grid       = element_line(color='grey', 
@@ -52,7 +52,7 @@ state_info = read_csv('US-state-info.csv',
   sel_pop    = c('MA','NM') 
   sel_ages   = 5:50
   ref_pop    = c('USA','France','Spain','UK')
-  sel_color  = 'orangered'
+  sel_color  = 'tomato'
   add_title  = TRUE
 
   L = min(sel_ages)
@@ -86,8 +86,10 @@ txt_y = tmp %>%
               lwd=0.3, color=grey(.50)) +
     geom_text(x=txt_x, y=txt_y,
               label=paste0('Each dark grey line represents',
-                           ' a US state'),
-              color=grey(.50), size=12,hjust=0) +
+                           ' a US state','\n',
+                           'All calculations use 2022 period mortality rates'),
+              color=grey(.50), size=12,hjust=0,
+              lineheight=0.3) +
     scale_y_continuous(labels = scales::percent) +
     scale_x_continuous(limits=c(L,H+4.5)) +
     labs(x='Age',
@@ -118,26 +120,25 @@ txt_y = tmp %>%
               lwd=0.8, color=sel_color) +
     geom_text( data =mini %>% filter(age==H),
                aes(label=name),fontface='bold',
-               nudge_x = 0.3, size=8, hjust=0,
+               nudge_x = 0.45, size=8, hjust=0,
                color=sel_color) 
   }
   
   
-
-
 # add additional lines for national pop(s)
   
-  hues = c('dodgerblue','orangered','violet','black')[seq(ref_pop)]
+  hues = c('dodgerblue','darkgreen','violet','#dc143c')[seq(ref_pop)]
   
   G = G + 
     geom_line(data= . %>% filter(ref),
               lwd=1.2, aes(group=pop,color=pop) ) +
     geom_text( data = . %>% filter(ref, age==H),
                aes(label=pop,color=pop),
-               nudge_x = 0.3, size=3, hjust=0) +
+               nudge_x = 0.45, size=10, hjust=0,
+               fontface='bold') +
     scale_color_manual(values=hues) +
     guides(color='none')
   
-  ggsave(filename = 'x.png', 
+  ggsave(filename = 'compare-states-5-50.png', 
          height=6, width=7, units='in',dpi=300)
   

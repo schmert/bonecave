@@ -16,7 +16,7 @@ theme_carl <- function () {
   theme_bw(base_size=30, base_family=this_font) %+replace% 
     theme( plot.title       = element_text(size=60,hjust=0,
                                            lineheight=0.3),
-           plot.subtitle    = element_text(size=12,hjust=0,color=grey(.20)),
+           plot.subtitle    = element_text(size=35,hjust=0,color=grey(.20)),
            plot.caption     = element_text(
                                   size=25, hjust=1, 
                                   color=grey(.20),
@@ -26,7 +26,9 @@ theme_carl <- function () {
            panel.grid.minor = element_blank(),
            panel.border     = element_blank(),
            axis.text        = element_text(size=36),
-           axis.ticks       = element_blank()
+           axis.title       = element_text(size=40),
+           axis.ticks       = element_blank(),
+           plot.background  = element_rect(fill='white') 
     )
 }
 
@@ -49,10 +51,10 @@ state_info = read_csv('US-state-info.csv',
 
 
 # plot parameters 
-  sel_pop    = c('MA','NM') 
+  sel_pop    = c('MA','NM','AL','CA','OH','TX')
   sel_ages   = 5:50
   ref_pop    = c('USA','France','Spain','UK')
-  sel_color  = 'tomato'
+  sel_color  = 'red' #'tomato'
   add_title  = TRUE
 
   L = min(sel_ages)
@@ -72,7 +74,7 @@ state_info = read_csv('US-state-info.csv',
 # calculate coords at which to add text
 # about state lines
   
-txt_x = quantile(sel_ages,.10)
+txt_x = quantile(sel_ages,.25)
 txt_y = tmp %>% 
          filter(age==H) %>% 
          pull(Q) %>% 
@@ -83,18 +85,17 @@ txt_y = tmp %>%
   G = ggplot(data=tmp) +
     aes(x=age,y=Q,group=pop) +
     geom_line(data = . %>% filter(!ref),
-              lwd=0.3, color=grey(.50)) +
+              lwd=0.2, color='#ffadad') +
     geom_text(x=txt_x, y=txt_y,
-              label=paste0('Each dark grey line represents',
-                           ' a US state','\n',
-                           'All calculations use 2022 period mortality rates'),
-              color=grey(.50), size=12,hjust=0,
-              lineheight=0.3) +
+              label=paste0('Each red line represents',
+                           ' a US state'),
+              color='red', size=12,hjust=0,
+              lineheight=0.3, fontface='bold') +
     scale_y_continuous(labels = scales::percent) +
-    scale_x_continuous(limits=c(L,H+4.5)) +
+    scale_x_continuous(limits=c(L,H+5)) +
     labs(x='Age',
          y='',
-         caption=paste0('US Mortality Database',
+         caption=paste0('2022 rates from US Mortality Database',
                         '\nhttps://doi.org/10.7910/DVN/19WYUX',
                         '\n@cschmert')) +
     theme_carl()
@@ -102,7 +103,7 @@ txt_y = tmp %>%
   
   if (add_title) {
     G = G +
-      labs(title=paste0('Probability that a ',L,
+      labs(title=paste0('Chance that a ',L,
                  '-yr-old dies\nbefore reaching a given age'))
   }
   
@@ -117,7 +118,7 @@ txt_y = tmp %>%
 
   G = G + 
     geom_line(data= mini,
-              lwd=0.8, color=sel_color) +
+              lwd=0.35, color=sel_color) +
     geom_text( data =mini %>% filter(age==H),
                aes(label=name),fontface='bold',
                nudge_x = 0.45, size=8, hjust=0,

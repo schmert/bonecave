@@ -1,79 +1,95 @@
 # Carl Schmertmann
-# 31 Jan 2026
+# 01 Feb 2026
+
+# housekeeping and data setup ----
 
 library('tidyverse')
 library('scales')
 library('showtext')
 
-
-this_font = 'Nunito'
+this_font = 'Rubik' #'Nunito'
 
 font_add_google(name=this_font)
 showtext_auto() 
 
 theme_carl <- function () { 
-  theme_bw(base_size=16, base_family=this_font) %+replace% 
-    theme( plot.title       = element_text(size=20,hjust=0),
+  theme_bw(base_size=30, base_family=this_font) %+replace% 
+    theme( plot.title       = element_text(size=60,hjust=0,
+                                           lineheight=0.3),
            plot.subtitle    = element_text(size=12,hjust=0,color=grey(.20)),
            plot.caption     = element_text(
-                                  size=10, hjust=1, 
-                                  color='darkgrey'),
-           panel.grid       = element_line(color='lightgrey', 
-                                  size=0.2),
+                                  size=22, hjust=1, 
+                                  color=grey(.20),
+                                  lineheight = 0.3),
+           panel.grid       = element_line(color='grey', 
+                                  size=0.1),
            panel.grid.minor = element_blank(),
            panel.border     = element_blank(),
-           axis.text        = element_text(size=12),
+           axis.text        = element_text(size=36),
            axis.ticks       = element_blank()
     )
 }
 
+state_info = read_csv('US-state-info.csv',
+                      show_col_types = FALSE) %>% 
+               filter(abb != 'PR')
 
-state_abb = c("AL", "AK", "AZ", "AR", "CA", "CO", "CT","DC", 
-              "DE", "FL", "GA", 
-              "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", 
-              "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", 
-              "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", 
-              "UT", "VT", "VA", "WA", "WV", "WI", "WY")
 
 # read mortality dataframe ----
 
   data = read_csv('mortality-2022.csv', 
                   show_col_types = FALSE)
 
-# create plotting function ---- 
-
 #...............................................
 
-# non-survival plot with one particular state
+# construct a plot ---- 
+
+# non-survival plot with selected state(s)
 # highlighted
 
-plot_state = function(this_pop   = 'MA', 
-                      sel_ages   = 5:40,
-                      ref_pop    = c('USA'),
-                      this_color = grey(.10),
-                      add_title  = TRUE) {
+
+# plot parameters 
+  sel_pop    = c('MA','NM') 
+  sel_ages   = 5:50
+  ref_pop    = c('USA','France','Spain','UK')
+  sel_color  = 'orangered'
+  add_title  = TRUE
 
   L = min(sel_ages)
   H = max(sel_ages)
   
-  fname = paste0('Q',L,'-',this_pop,'.pdf')
+  fname = paste0('Q',L,'-',paste(sel_pop,collapse='-'),'.pdf')
   
+# survival calculations for selected age range   
   tmp = data %>% 
     filter(age %in% sel_ages,
-           pop %in% c(state_abb, ref_pop)) %>% 
-    mutate(focus = (pop == this_pop),
+           pop %in% c(state_info$abb, ref_pop)) %>% 
+    mutate(focus = (pop %in% sel_pop),
            ref   = (pop %in% ref_pop)) %>% 
     mutate(Q = if_else(age >= L, 1-lx/lx[age==L], NA),
            .by=pop) 
+
+# calculate coords at which to add text
+# about state lines
   
+txt_x = quantile(sel_ages,.10)
+txt_y = tmp %>% 
+         filter(age==H) %>% 
+         pull(Q) %>% 
+         quantile(.80)
+    
 # base plot of all US states as grey lines
   
   G = ggplot(data=tmp) +
     aes(x=age,y=Q,group=pop) +
     geom_line(data = . %>% filter(!ref),
-              lwd=0.3, color='lightgrey') +
+              lwd=0.3, color=grey(.50)) +
+    geom_text(x=txt_x, y=txt_y,
+              label=paste0('Each dark grey line represents',
+                           ' a US state'),
+              color=grey(.50), size=12,hjust=0) +
     scale_y_continuous(labels = scales::percent) +
-    scale_x_continuous(limits=c(L,H+3)) +
+    scale_x_continuous(limits=c(L,H+4.5)) +
     labs(x='Age',
          y='',
          caption=paste0('US Mortality Database',
@@ -81,28 +97,35 @@ plot_state = function(this_pop   = 'MA',
                         '\n@cschmert')) +
     theme_carl()
 
+  
   if (add_title) {
     G = G +
       labs(title=paste0('Probability that a ',L,
-                 '-yr-old dies\nbefore a given age'),
-          subtitle='[Each grey line is a different US state]')
+                 '-yr-old dies\nbefore reaching a given age'))
   }
   
-  print(G)
   
-# add a colored line for the focal state  
-    
-  G = G + 
-    geom_line(data= . %>% filter(focus),
-              lwd=1.2, color=this_color) +
-    geom_text( data = . %>% filter(focus, age==H),
-               aes(label=pop),
-               nudge_x = 0.3, size=4, hjust=0,
-               color=this_color) 
-  
-  print(G)
+# add a colored line for the selected state  
 
-  # add additional black lines for the referenence pop(s)
+  for (this_state in sel_pop) {    
+
+  mini = tmp %>%
+          left_join(state_info, by=c('pop'='abb')) %>% 
+          filter(pop == this_state)  
+
+  G = G + 
+    geom_line(data= mini,
+              lwd=0.8, color=sel_color) +
+    geom_text( data =mini %>% filter(age==H),
+               aes(label=name),fontface='bold',
+               nudge_x = 0.3, size=8, hjust=0,
+               color=sel_color) 
+  }
+  
+  
+
+
+# add additional lines for national pop(s)
   
   hues = c('dodgerblue','orangered','violet','black')[seq(ref_pop)]
   
@@ -115,16 +138,6 @@ plot_state = function(this_pop   = 'MA',
     scale_color_manual(values=hues) +
     guides(color='none')
   
-  print(G)
+  ggsave(filename = 'x.png', 
+         height=6, width=7, units='in',dpi=300)
   
-  ggsave(plot=G,filename=fname, height=6, width=5)
-  
-} # plot_state
-
-# create and arrange comparative plots ----
-
-for (this_state in c('MA','MS','WV','NM')) {
-  plot_state(this_state,  5:50, ref_pop = c('USA','France','Spain','UK'))
-  plot_state(this_state, 75:95, ref_pop = c('USA','France','Spain','UK'))
-}
-

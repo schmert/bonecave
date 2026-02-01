@@ -44,30 +44,23 @@ state_info = read_csv('US-state-info.csv',
 
 #...............................................
 
-# construct a plot ---- 
+# construct a baseplot of non-survival  ---- 
 
-# non-survival plot with selected state(s)
-# highlighted
-
+# for a selected age range
 
 # plot parameters 
-  sel_pop    = c('MA','NM','AL','CA','OH','TX')
   sel_ages   = 5:50
   ref_pop    = c('USA','France','Spain','UK')
   sel_color  = 'red' #'tomato'
-  add_title  = TRUE
 
   L = min(sel_ages)
   H = max(sel_ages)
-  
-  fname = paste0('Q',L,'-',paste(sel_pop,collapse='-'),'.pdf')
   
 # survival calculations for selected age range   
   tmp = data %>% 
     filter(age %in% sel_ages,
            pop %in% c(state_info$abb, ref_pop)) %>% 
-    mutate(focus = (pop %in% sel_pop),
-           ref   = (pop %in% ref_pop)) %>% 
+    mutate(ref   = (pop %in% ref_pop)) %>% 
     mutate(Q = if_else(age >= L, 1-lx/lx[age==L], NA),
            .by=pop) 
 
@@ -82,7 +75,7 @@ txt_y = tmp %>%
     
 # base plot of all US states as grey lines
   
-  G = ggplot(data=tmp) +
+  baseplot = ggplot(data=tmp) +
     aes(x=age,y=Q,group=pop) +
     geom_line(data = . %>% filter(!ref),
               lwd=0.2, color='#ffadad') +
@@ -98,39 +91,15 @@ txt_y = tmp %>%
          caption=paste0('2022 rates from US Mortality Database',
                         '\nhttps://doi.org/10.7910/DVN/19WYUX',
                         '\n@cschmert')) +
-    theme_carl()
-
-  
-  if (add_title) {
-    G = G +
-      labs(title=paste0('Chance that a ',L,
+    theme_carl() +
+    labs(title=paste0('Chance that a ',L,
                  '-yr-old dies\nbefore reaching a given age'))
-  }
-  
-  
-# add a colored line for the selected state  
 
-  for (this_state in sel_pop) {    
-
-  mini = tmp %>%
-          left_join(state_info, by=c('pop'='abb')) %>% 
-          filter(pop == this_state)  
-
-  G = G + 
-    geom_line(data= mini,
-              lwd=0.35, color=sel_color) +
-    geom_text( data =mini %>% filter(age==H),
-               aes(label=name),fontface='bold',
-               nudge_x = 0.45, size=8, hjust=0,
-               color=sel_color) 
-  }
-  
-  
-# add additional lines for national pop(s)
+  # add additional lines for international comparison
   
   hues = c('dodgerblue','darkgreen','violet','#dc143c')[seq(ref_pop)]
   
-  G = G + 
+  baseplot = baseplot + 
     geom_line(data= . %>% filter(ref),
               lwd=1.2, aes(group=pop,color=pop) ) +
     geom_text( data = . %>% filter(ref, age==H),
@@ -139,7 +108,56 @@ txt_y = tmp %>%
                fontface='bold') +
     scale_color_manual(values=hues) +
     guides(color='none')
+
+    
+# create a .png plot with selected states highlighted  
+
+    sel_pop    = c('MA','NM','AL','CA','OH','TX')
   
-  ggsave(filename = 'compare-states-5-50.png', 
+    G2 = baseplot 
+    
+for (this_state in sel_pop) {    
+
+  mini = tmp %>%
+          left_join(state_info, by=c('pop'='abb')) %>% 
+          filter(pop == this_state)  
+
+  G2 = G2 + 
+    geom_line(data= mini,
+              lwd=0.35, color=sel_color) +
+    geom_text( data =mini %>% filter(age==H),
+               aes(label=name),fontface='bold',
+               nudge_x = 0.45, size=8, hjust=0,
+               color=sel_color) 
+  }
+  
+  ggsave(plot=G2, filename = 'compare-states-5-50.png', 
          height=6, width=7, units='in',dpi=300)
+  
+# create a .pdf file with 51 plots, each highlighting
+# a different state
+
+  
+  for (this_state in state_info$abb) {    
+    
+    print(this_state)
+    
+    mini = tmp %>%
+      left_join(state_info, by=c('pop'='abb')) %>% 
+      filter(pop == this_state)  
+    
+     G = baseplot + 
+      geom_line(data= mini,
+                lwd=0.40, color=sel_color) +
+      geom_text( data =mini %>% filter(age==H),
+                 aes(label=name),fontface='bold',
+                 nudge_x = 0.45, size=8, hjust=0,
+                 color=sel_color) 
+     
+     ggsave(plot=G, 
+            filename = paste0('./single-state-plots/',
+                   this_state,'-5-50.png'), 
+            height=6, width=7, units='in',dpi=300)
+     
+  }
   

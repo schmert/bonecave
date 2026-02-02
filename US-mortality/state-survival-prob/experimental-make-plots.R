@@ -23,7 +23,6 @@ theme_carl <- function () {
                                   lineheight = 0.3),
            panel.grid       = element_line(color='grey', 
                                   size=0.1),
-           panel.grid.minor.x = element_blank(),
            panel.border     = element_blank(),
            axis.text        = element_text(size=36),
            axis.title       = element_text(size=40),
@@ -85,10 +84,11 @@ txt_y = tmp %>%
               color='red', size=12,hjust=0,
               lineheight=0.3, fontface='bold') +
     scale_y_continuous(labels = scales::percent) +
-    scale_x_continuous(limits=c(L,H+5)) +
+    scale_x_continuous(limits=c(L,H+4.5),
+                       breaks=seq(L+5,H,10)) +
     labs(x='Age',
          y='',
-         caption=paste0('2022 rates from US Mortality Database',
+         caption=paste0('2022 mortality rates\nUS Mortality Database',
                         '\nhttps://doi.org/10.7910/DVN/19WYUX',
                         '\n@cschmert')) +
     theme_carl() +
@@ -99,15 +99,26 @@ txt_y = tmp %>%
   
   hues = c('dodgerblue','darkgreen','violet','#dc143c')[seq(ref_pop)]
   
+  info = tribble(
+    ~pop, ~hue, ~ynudge,
+    'USA',    '#dc143c',     0,  
+    'France', 'dodgerblue',  0,
+    'Spain',  'darkgreen',   0,
+    'UK',     'violet',    .005
+  )
+  
+  intl = tmp %>% 
+          filter(pop %in% info$pop) %>% 
+          left_join(info, by='pop')
+  
   baseplot = baseplot + 
-    geom_line(data= . %>% filter(ref),
-              lwd=1.2, aes(group=pop,color=pop) ) +
-    geom_text( data = . %>% filter(ref, age==H) %>% mutate(UK=(pop=='UK')),
-               aes(label=pop,color=pop),
+    geom_line(data= intl,
+              lwd=1.2, aes(group=pop, color=.data[['hue']])) +
+    geom_text( data = intl %>% filter(age==H) ,
+               aes(label=pop,color=pop, nudge_y=.data[['ynudge']]),
                nudge_x = 0.45, 
-               nudge_y = UK*.005,size=10, hjust=0,
+               size=10, hjust=0,
                fontface='bold') +
-    scale_color_manual(values=hues) +
     guides(color='none')
 
     

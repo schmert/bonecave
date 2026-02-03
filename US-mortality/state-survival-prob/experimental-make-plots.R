@@ -21,7 +21,7 @@ theme_carl <- function () {
                                   size=25, hjust=1, 
                                   color=grey(.20),
                                   lineheight = 0.3),
-           panel.grid       = element_line(color='grey', 
+           panel.grid       = element_line(color=grey(.60), 
                                   size=0.1),
            panel.border     = element_blank(),
            axis.text        = element_text(size=36),
@@ -83,12 +83,14 @@ txt_y = tmp %>%
                            ' a US state'),
               color='red', size=12,hjust=0,
               lineheight=0.3, fontface='bold') +
-    scale_y_continuous(labels = scales::percent) +
+    scale_y_continuous(labels = scales::percent,
+                       breaks=seq(0,.25,.05),
+                       minor_breaks = NULL) +
     scale_x_continuous(limits=c(L,H+4.5),
                        breaks=seq(L+5,H,10)) +
     labs(x='Age',
          y='',
-         caption=paste0('2022 mortality rates\nUS Mortality Database',
+         caption=paste0('2022 mortality rates, both sexes combined\nUS Mortality Database',
                         '\nhttps://doi.org/10.7910/DVN/19WYUX',
                         '\n@cschmert')) +
     theme_carl() +
@@ -102,9 +104,9 @@ txt_y = tmp %>%
   info = tribble(
     ~pop, ~hue, ~ynudge,
     'USA',    '#dc143c',     0,  
-    'France', 'dodgerblue',  0,
+    'France', 'royalblue',   0,
     'Spain',  'darkgreen',   0,
-    'UK',     'violet',    .005
+    'UK',     'violet',     .005
   )
   
   intl = tmp %>% 
@@ -113,12 +115,15 @@ txt_y = tmp %>%
   
   baseplot = baseplot + 
     geom_line(data= intl,
-              lwd=1.2, aes(group=pop, color=.data[['hue']])) +
+              lwd=1.2, aes(group=pop, 
+                           color=.data[['hue']])) +
     geom_text( data = intl %>% filter(age==H) ,
-               aes(label=pop,color=pop, nudge_y=.data[['ynudge']]),
-               nudge_x = 0.45, 
+               aes(label=pop,color=.data[['hue']]),
+               nudge_x = 0.45,
+               nudge_y = info$ynudge,
                size=10, hjust=0,
                fontface='bold') +
+    scale_color_manual(values=info$hue) +
     guides(color='none')
 
     

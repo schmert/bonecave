@@ -7,7 +7,7 @@ library('tidyverse')
 library('scales')
 library('showtext')
 
-this_font = 'Rubik' #'Nunito'
+this_font = 'Rubik' 
 
 font_add_google(name=this_font)
 showtext_auto() 
@@ -49,7 +49,7 @@ state_info = read_csv('US-state-info.csv',
 
 # plot parameters 
   sel_ages   = 20:65 #5:50
-  ref_pop    = c('USA','France','Spain','UK')
+  ref_pop    = c('USA','France','Spain','UK','Sweden')
   sel_color  = 'red' #'tomato'
 
   L = min(sel_ages)
@@ -106,7 +106,8 @@ txt_y = tmp %>%
     'USA',    '#dc143c',     0,  
     'France', 'royalblue',   0,
     'Spain',  'darkgreen',   0,
-    'UK',     'violet',     .005
+    'UK',     'violet',     .04,
+    'Sweden', 'orange',      0
   )
   
   intl = tmp %>% 
@@ -123,7 +124,7 @@ txt_y = tmp %>%
                nudge_y = info$ynudge,
                size=10, hjust=0,
                fontface='bold') +
-    scale_color_manual(values=info$hue) +
+#    scale_color_manual(values=info$hue) +
     guides(color='none')
 
     

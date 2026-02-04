@@ -1,5 +1,5 @@
 # Carl Schmertmann
-# 01 Feb 2026
+# 03 Feb 2026
 
 # housekeeping and data setup ----
 
@@ -49,7 +49,8 @@ state_info = read_csv('US-state-info.csv',
 
 # plot parameters 
   sel_ages   = 20:65 #5:50
-  ref_pop    = c('USA','France','Spain','UK','Sweden')
+  ref_pop    = c('USA','France','Spain','UK','Sweden',
+                 'Italy','Japan')
   sel_color  = 'red' #'tomato'
 
   L = min(sel_ages)
@@ -90,8 +91,9 @@ txt_y = tmp %>%
                        breaks=seq(L+5,H,10)) +
     labs(x='Age',
          y='',
-         caption=paste0('2022 mortality rates, both sexes combined\nUS Mortality Database',
-                        '\nhttps://doi.org/10.7910/DVN/19WYUX',
+         caption=paste0('2022 mortality rates, both sexes combined\n',
+         'US Mortality Database & Human Mortality Database',
+                        '\nhttps://doi.org/10.7910/DVN/19WYUX & mortality.org',
                         '\n@cschmert')) +
     theme_carl() +
     labs(title=paste0('Chance that a ',L,
@@ -99,32 +101,30 @@ txt_y = tmp %>%
 
   # add additional lines for international comparison
   
-  hues = c('dodgerblue','darkgreen','violet','#dc143c')[seq(ref_pop)]
-  
   info = tribble(
-    ~pop, ~hue, ~ynudge,
-    'USA',    '#dc143c',     0,  
-    'France', 'royalblue',   0,
-    'Spain',  'darkgreen',   0,
-    'UK',     'violet',     .04,
-    'Sweden', 'orange',      0
-  )
+    ~pop,     ~hue,       ~ynudge,
+    'USA',    '#dc143c',      0,
+    'France', 'dodgerblue',   0,
+    'Spain',  'royalblue',    0,
+    'Sweden', 'darkblue',     0
+  ) %>% mutate(pop = factor(pop, levels=pop))
   
   intl = tmp %>% 
           filter(pop %in% info$pop) %>% 
-          left_join(info, by='pop')
+          mutate(pop = factor(pop, levels=info$pop)) %>% 
+          left_join(info, by='pop')  
   
   baseplot = baseplot + 
     geom_line(data= intl,
               lwd=1.2, aes(group=pop, 
-                           color=.data[['hue']])) +
+                           color=pop) ) +
     geom_text( data = intl %>% filter(age==H) ,
-               aes(label=pop,color=.data[['hue']]),
+               aes(label=pop,color=pop),
                nudge_x = 0.45,
                nudge_y = info$ynudge,
                size=10, hjust=0,
                fontface='bold') +
-#    scale_color_manual(values=info$hue) +
+    scale_color_manual(values=info$hue) +
     guides(color='none')
 
     
@@ -149,7 +149,8 @@ for (this_state in sel_pop) {
                nudge_x = 0.45, size=8, hjust=0,
                color=sel_color) 
   }
-  
+
+
   ggsave(plot=G2, filename = 'compare-states-20-65.png', 
          height=6, width=7, units='in',dpi=300)
 

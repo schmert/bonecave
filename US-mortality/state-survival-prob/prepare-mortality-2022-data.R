@@ -1,5 +1,5 @@
 # Carl Schmertmann
-# 31 Jan 2026
+# 04 Feb 2026
 #.....................................................
 # Original state-level files from USStateLifetables2022.zip 
 # at https://doi.org/10.7910/DVN/19WYUX 
@@ -60,7 +60,7 @@ state_abb = c("AL", "AK", "AZ", "AR", "CA", "CO", "CT","DC",
   
 # add the international HMD data (downloaded separately) ----
   
-  tmp = read_csv('intl-2022.csv', skip=4)
+  tmp = read_csv('intl-2022.csv', skip=5)
   
   data = bind_rows(data, tmp)
   

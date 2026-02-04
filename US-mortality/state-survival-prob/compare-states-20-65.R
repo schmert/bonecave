@@ -48,19 +48,16 @@ state_info = read_csv('US-state-info.csv',
 # for a selected age range
 
 # plot parameters 
-  sel_ages   = 20:65 #5:50
-  ref_pop    = c('USA','France','Spain','UK','Sweden',
-                 'Italy','Japan')
-  sel_color  = 'red' #'tomato'
+  sel_ages        = 20:65 
+  state_color     = '#ffadad'
+  sel_state_color = 'red' 
 
   L = min(sel_ages)
   H = max(sel_ages)
   
 # survival calculations for selected age range   
   tmp = data %>% 
-    filter(age %in% sel_ages,
-           pop %in% c(state_info$abb, ref_pop)) %>% 
-    mutate(ref   = (pop %in% ref_pop)) %>% 
+    filter(age %in% sel_ages) %>% 
     mutate(Q = if_else(age >= L, 1-lx/lx[age==L], NA),
            .by=pop) 
 
@@ -73,12 +70,12 @@ txt_y = tmp %>%
          pull(Q) %>% 
          quantile(.80)
     
-# base plot of all US states as grey lines
-  
-  baseplot = ggplot(data=tmp) +
+# base plot - each US state is a separate line
+  states = tmp %>% filter(pop %in% state_info$abb)  
+
+  baseplot = ggplot(data=states) +
     aes(x=age,y=Q,group=pop) +
-    geom_line(data = . %>% filter(!ref),
-              lwd=0.2, color='#ffadad') +
+    geom_line(lwd=0.2, color=state_color) +
     geom_text(x=txt_x, y=txt_y,
               label=paste0('Each red line represents',
                            ' a US state'),
@@ -94,7 +91,7 @@ txt_y = tmp %>%
          caption=paste0('2022 mortality rates, both sexes combined\n',
          'US Mortality Database & Human Mortality Database',
                         '\nhttps://doi.org/10.7910/DVN/19WYUX & mortality.org',
-                        '\n@cschmert')) +
+                        '\nCarl Schmertmann: @cschmert')) +
     theme_carl() +
     labs(title=paste0('Chance that a ',L,
                  '-yr-old dies\nbefore reaching a given age'))
@@ -130,7 +127,6 @@ txt_y = tmp %>%
     
 # create a .png plot with selected states highlighted  
 
-    #sel_pop    = c('MA','NM','AL','CA','OH','TX')
     sel_pop    = c('UT','KY','CA','OH','WV','MS')
     
     G2 = baseplot 
@@ -143,45 +139,14 @@ for (this_state in sel_pop) {
 
   G2 = G2 + 
     geom_line(data= mini,
-              lwd=0.35, color=sel_color) +
+              lwd=0.35, color=sel_state_color) +
     geom_text( data =mini %>% filter(age==H),
                aes(label=name),fontface='bold',
                nudge_x = 0.45, size=8, hjust=0,
-               color=sel_color) 
+               color=sel_state_color) 
   }
 
 
   ggsave(plot=G2, filename = 'compare-states-20-65.png', 
          height=6, width=7, units='in',dpi=300)
 
-  
-if (FALSE) {    
-# create a .pdf file with 51 plots, each highlighting
-# a different state
-
-  
-  for (this_state in state_info$abb) {    
-    
-    print(this_state)
-    
-    mini = tmp %>%
-      left_join(state_info, by=c('pop'='abb')) %>% 
-      filter(pop == this_state)  
-    
-     G = baseplot + 
-      geom_line(data= mini,
-                lwd=0.40, color=sel_color) +
-      geom_text( data =mini %>% filter(age==H),
-                 aes(label=name),fontface='bold',
-                 nudge_x = 0.45, size=8, hjust=0,
-                 color=sel_color) 
-     
-     ggsave(plot=G, 
-            filename = paste0('./single-state-plots/',
-                   this_state,'-5-50.png'), 
-            height=6, width=7, units='in',dpi=300)
-     
-  }
-  } # if FALSE
-  
-  

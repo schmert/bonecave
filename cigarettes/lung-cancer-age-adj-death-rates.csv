@@ -1,0 +1,83 @@
+Death Rate Report by State,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+"Lung & Bronchus, 2018-2022",,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+"All Races (includes Hispanic), Both Sexes, All Ages",,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+Sorted by Rate,,,,,,,,,,,,,,
+https://statecancerprofiles.cancer.gov/deathrates/graph.php?stateFIPS=00&areatype=state&cancer=047&race=00&sex=0&age=001&year=0&graph=2&sortVariableName=rate&displayCI=true&type=death&output=5&sortOrder=asc&displayMap=#results,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+State,FIPS,fips,Met Healthy People Objective of 25.1?,"Age-Adjusted Death Rate([rate note]) - deaths per 100,000",Lower CI (Rate),Upper CI (Rate),CI*Rank([rank note]),Lower CI (CI*Rank),Upper CI (CI*Rank),Average Annual Count,Recent Trend,Recent 5-Year Trend ([trend note]) in Death Rates,Lower 95% Confidence Interval,Upper 95% Confidence Interval
+United States,0,00,No,32.4,32.3,32.5,N/A , N/A , N/A,136831,falling,-4.3,-4.4,-4.1
+Kentucky,21000,21,No,50.9,50,51.7,1,1,2,2986,falling,-4.5,-5.4,-3.9
+West Virginia,54000,54,No,49.1,47.9,50.4,2,1,3,1342,falling,-2.5,-4.9,-1
+Mississippi,28000,28,No,47.5,46.5,48.5,3,2,4,1788,falling,-3.1,-4,-2.6
+Arkansas,5000,05,No,45.6,44.7,46.6,4,3,6,1825,falling,-3.6,-4.4,-3.1
+Oklahoma,40000,40,No,45.3,44.4,46.1,5,4,6,2216,falling,-2.9,-3.8,-2.2
+Tennessee,47000,47,No,44.1,43.4,44.7,6,5,6,3947,falling,-4,-4.8,-3.5
+Missouri,29000,29,No,42.3,41.7,42.9,7,7,8,3472,falling,-3.8,-4.6,-3.3
+Indiana,18000,18,No,42.1,41.5,42.8,8,7,8,3595,falling,-3.6,-4.7,-2.7
+Alabama,1000,01,No,40.5,39.8,41.2,9,9,12,2726,falling,-4.3,-5.3,-3.7
+Louisiana,22000,22,No,40.5,39.8,41.3,10,9,12,2344,falling,-4.3,-5.3,-3.7
+Maine,23000,23,No,40.1,38.9,41.3,11,9,13,874,falling,-4.2,-6,-3.1
+Ohio,39000,39,No,39.8,39.4,40.3,12,9,12,6333,falling,-4.2,-5,-3.5
+Michigan,26000,26,No,38.3,37.8,38.8,13,12,15,5255,falling,-3.5,-4.3,-3.2
+North Carolina,37000,37,No,37.7,37.2,38.1,14,13,16,5062,falling,-4.2,-5.1,-3.6
+South Carolina,45000,45,No,37.5,36.8,38.1,15,13,16,2645,falling,-3.8,-4.6,-3.5
+Kansas,20000,20,No,36.4,35.5,37.3,16,14,18,1342,falling,-2.8,-3.3,-2.5
+Delaware,10000,10,No,35.5,34.1,36.9,17,15,23,515,falling,-4.3,-5.3,-3.6
+Iowa,19000,19,No,35,34.2,35.8,18,16,22,1499,falling,-4.5,-6.1,-3.6
+Illinois,17000,17,No,34.4,34,34.9,19,17,23,5544,falling,-4.4,-5,-4.1
+Pennsylvania,42000,42,No,34.3,33.9,34.7,20,17,23,6403,falling,-4.2,-4.7,-3.9
+Georgia,13000,13,No,34.2,33.8,34.7,21,17,23,4162,falling,-4.7,-5.5,-4.2
+South Dakota,46000,46,No,34,32.5,35.6,22,16,29,395,falling,-3.3,-5.5,-1.4
+Virginia,51000,51,No,33.2,32.7,33.7,23,22,27,3567,falling,-3.9,-4.6,-3.6
+Rhode Island,44000,44,No,33,31.7,34.4,24,18,32,500,falling,-5.6,-7.6,-4.4
+New Hampshire,33000,33,No,33,31.9,34.2,25,19,31,659,falling,-4.3,-5.6,-3.4
+Wisconsin,55000,55,No,32.5,31.9,33.1,26,23,30,2592,falling,-4,-4.5,-3.5
+Vermont,50000,50,No,32.2,30.5,33.8,27,19,36,313,falling,-4.2,-6.1,-3.1
+Florida,12000,12,No,31.8,31.5,32.1,28,26,32,10845,falling,-4.3,-4.7,-4.1
+Alaska,2900,02,No,31.8,29.9,33.8,29,19,38,228,falling,-5,-7,-3.9
+Nebraska,31000,31,No,31.7,30.7,32.8,30,24,34,773,falling,-4.1,-5.9,-3
+Oregon,41000,41,No,31.2,30.6,31.9,31,27,34,1789,falling,-4.4,-5.4,-4
+Nevada,32000,32,No,31.2,30.4,32,32,26,35,1177,falling,-6,-7.5,-4.9
+Massachusetts,25000,25,No,30.6,30.1,31.2,33,30,36,2832,falling,-4.4,-5.1,-4.1
+North Dakota,38000,38,No,30.5,28.9,32.2,34,25,40,287,falling,-3.8,-6.3,-2.6
+Maryland,24000,24,No,29.9,29.4,30.5,35,32,38,2314,falling,-5.4,-7.1,-4.4
+Washington,53000,53,No,29.8,29.3,30.3,36,33,39,2765,falling,-4.3,-4.8,-4
+Minnesota,27000,27,No,29.7,29.1,30.2,37,33,39,2154,falling,-4.1,-5,-3.6
+Texas,48000,48,No,29.1,28.8,29.4,38,36,40,8583,falling,-4.2,-4.7,-3.6
+Wyoming,56000,56,No,28.4,26.7,30.2,39,32,46,214,falling,-3.1,-3.8,-2.6
+Connecticut,9000,09,No,28.3,27.6,29,40,38,42,1391,falling,-3.9,-5.3,-3.2
+Montana,30000,30,No,28.2,27,29.4,41,35,44,439,falling,-5.4,-9.2,-3.5
+New York,36000,36,No,26.9,26.6,27.1,42,41,45,7113,falling,-5.1,-5.3,-5
+New Jersey,34000,34,No,26.8,26.3,27.2,43,41,46,3207,falling,-5.3,-5.9,-4.9
+District of Columbia,11001,11,No,26.6,24.9,28.5,44,38,47,178,falling,-4.6,-6.6,-3.7
+Arizona,4000,04,No,26.3,25.9,26.8,45,42,46,2567,falling,-4.9,-6.3,-4.2
+Idaho,16000,16,No,26.1,25.1,27.1,46,41,46,588,falling,-5.3,-7.6,-4
+Hawaii,15000,15,Yes,23.9,23,24.9,47,46,48,506,falling,-3.3,-4.2,-1.8
+California,6000,06,Yes,23.2,23,23.4,48,47,48,10501,falling,-4.2,-4.7,-3.8
+Colorado,8000,08,Yes,22.3,21.7,22.8,49,49,50,1422,falling,-4.3,-4.8,-3.9
+New Mexico,35000,35,Yes,21.4,20.7,22.2,50,49,50,613,falling,-5.2,-6.3,-4.3
+Utah,49000,49,Yes,15.6,14.9,16.2,51,51,51,447,falling,-2.8,-3.5,-2.3
+Puerto Rico,72001,72,Yes,10.4,10,10.8,N/A , N/A , N/A,549,stable,0.9,-4.8,7
+,,,,,,,,,,,,,,
+Created by statecancerprofiles.cancer.gov on 02/16/2026 5:51 pm.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+State Cancer Registries may provide more current or more local data.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+Trend,,,,,,,,,,,,,,
+   Rising when 95% confidence interval of average annual percent change is above 0.,,,,,,,,,,,,,,
+   Stable when 95% confidence interval of average annual percent change includes 0.,,,,,,,,,,,,,,
+   Falling when 95% confidence interval of average annual percent change is below 0.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+"[rate note]Death data provided by the National Vital Statistics System public use data file.  Death rates calculated by the National Cancer Institute using SEER*Stat.  Death rates are age-adjusted  to the 2000 US standard population [http://www.seer.cancer.gov/stdpopulations/stdpop.19ages.html] (19 age groups: <1, 1-4, 5-9, ... , 80-84, 85+).The Healthy People 2030 goals are based on rates adjusted using different methods but the differences should be minimal. Population counts for denominators are based on Census populations as modified by NCI. ",,,,,,,,,,,,,,
+The US Population Data File [https://seer.cancer.gov/popdata/] is used with mortality data. ,,,,,,,,,,,,,,
+"[trend note]The Average Annual Percent Change (AAPC) is based on the APCs calculated by Joinpoint. Due to data availability issues, the time period used in the calculation of the joinpoint regression model may differ for selected counties.",,,,,,,,,,,,,,
+"(8) Due to data availability issues, the time period used in the calculation of the joinpoint regression model may differ [ statecancerprofiles.cancer.gov/historicaltrend/differences.html ] for selected counties. 
+",,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+"Please note that the data comes from different sources. Due to different years ( /historicaltrend/differences.html ) of data availability, most of the trends are AAPCs based on APCs but some are APCs calculated in SEER*Stat. ( https://seer.cancer.gov/seerstat/ ) Please refer to the source for each graph for additional information. ",,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+Data for United States does not include Puerto Rico.,,,,,,,,,,,,,,

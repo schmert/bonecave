@@ -16,3 +16,5 @@ das-gupta-decomposition/prep-dg-data.R
 sex-ratio-mortality/mortality-diff.R
 sex-ratio-mortality/USA-sex-diff-mortality.gif
 US-mortality/state-survival-prob/intl-data.R
+.Rproj.user
+US-deaths/USStateLifetables2022.zip

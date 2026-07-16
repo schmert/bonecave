@@ -2,20 +2,21 @@ library('here')
 library('tidyverse')
 library('geofacet')
 
-zipfile = 'USStateLifetables2022.zip'
+this_sex = 'm'
+this_sexname = c('m'='Male','f'='Female','b' = 'Both Sexes')[this_sex]
 
+this_age = 0
+this_year = 2022
 
 abbs = sort( c(state.abb, 'DC'))
 
 df = tibble()
 
 for (this_abb in abbs) {
-  this_file  = paste0(this_abb,'_mltper_5x1.csv')
-  this_fpath = paste0('States/',this_abb,'/',this_file)
+  this_file  = paste0('US-state-',this_sex,'ltper_5x1.csv')
   
-  unzip(zipfile, files=this_fpath, junkpaths = TRUE)
   this_data = read_csv(this_file, show_col_types = FALSE) |> 
-               filter(Year==2022, Age=='40-44') |> 
+               filter(Year==this_year, Age==this_age) |> 
                select(Year,PopName,Age,ex) |> 
                mutate(life_exp = factor(trunc(ex)))
   df = bind_rows(df, this_data)
@@ -51,7 +52,8 @@ exlabs = paste(exvals,exvals+1, sep='-')
           axis.title = element_blank(),
           plot.title = element_text(hjust=0.5)) +
     scale_fill_viridis_d(direction = -1, option='D') +
-    labs(title='Remaining Male Life Expectancy\nat Age 65',
+    labs(title=paste('Remaining',this_sexname,
+                     'Life Expectancy\nat Age',this_age),
          fill='Years')
   
   print(G)

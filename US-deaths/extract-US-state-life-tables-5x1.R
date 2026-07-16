@@ -42,7 +42,7 @@ for (sex in c('b','m','f')) {
     df = bind_rows(df, this_data)
     
     file.remove(this_file)
-    print(this_abb)
+    
   }
   
   outfile = paste0('US-state-',sex,'ltper_5x1.csv')
